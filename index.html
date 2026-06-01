@@ -12,16 +12,12 @@
     --azul-escuro: #0D1B2A;
     --azul-medio: #1A2E42;
     --azul-claro: #243B55;
-    --cinza-escuro: #1C1C1C;
     --branco: #FFFFFF;
-    --branco-suave: #F0F0F0;
     --cinza-texto: #B0B8C1;
     --cinza-borda: #2E3D4E;
     --amarelo-alerta: #F5A623;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     font-family: 'Barlow', sans-serif;
     background: var(--azul-escuro);
@@ -40,685 +36,195 @@
     z-index: 100;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   }
-  .header-top {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 10px;
-  }
+  .header-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
   .logo-box {
     background: var(--vermelho);
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    flex-shrink: 0;
+    width: 52px; height: 52px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 6px; flex-shrink: 0;
     box-shadow: 0 2px 10px rgba(204,20,20,0.4);
   }
-  .logo-box span {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    color: #fff;
-    letter-spacing: 1px;
+  .logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; letter-spacing: 1px; }
+  .header-title h1 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: #fff; line-height: 1; }
+  .header-title p { font-size: 10px; color: var(--vermelho); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+  .numero-orcamento {
+    display: inline-flex; align-items: center;
+    background: rgba(204,20,20,0.15); border: 1px solid rgba(204,20,20,0.3);
+    border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700;
+    color: var(--vermelho); letter-spacing: 1px; margin-top: 6px;
   }
-  .header-title h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    color: #fff;
-    line-height: 1;
-  }
-  .header-title p {
-    font-size: 10px;
-    color: var(--vermelho);
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-  .header-actions {
-    display: flex;
-    gap: 8px;
-  }
+  .header-actions { display: flex; gap: 8px; }
   .btn-action {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    font-family: 'Barlow', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex: 1;
-    justify-content: center;
+    display: flex; align-items: center; gap: 6px; padding: 10px 16px;
+    border: none; border-radius: 6px; font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s; flex: 1; justify-content: center;
   }
-  .btn-pdf {
-    background: var(--vermelho);
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(204,20,20,0.35);
-  }
+  .btn-pdf { background: var(--vermelho); color: #fff; box-shadow: 0 2px 8px rgba(204,20,20,0.35); }
   .btn-pdf:active { background: var(--vermelho-escuro); transform: scale(0.97); }
-  .btn-limpar {
-    background: var(--azul-claro);
-    color: var(--cinza-texto);
-    border: 1px solid var(--cinza-borda);
-  }
+  .btn-limpar { background: var(--azul-claro); color: var(--cinza-texto); border: 1px solid var(--cinza-borda); }
   .btn-limpar:active { background: var(--azul-medio); transform: scale(0.97); }
+  .autosave-tag { font-size: 9px; color: #5a8a5a; text-align: center; margin-top: 8px; letter-spacing: 1px; }
 
   /* ── TABS ── */
   .tabs {
-    display: flex;
-    background: var(--azul-medio);
+    display: flex; background: var(--azul-medio);
     border-bottom: 1px solid var(--cinza-borda);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    position: sticky; top: 96px; z-index: 90;
   }
   .tabs::-webkit-scrollbar { display: none; }
   .tab {
-    padding: 10px 18px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--cinza-texto);
-    cursor: pointer;
-    white-space: nowrap;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s;
-    font-family: 'Barlow Condensed', sans-serif;
+    padding: 10px 18px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--cinza-texto); cursor: pointer; white-space: nowrap;
+    border-bottom: 3px solid transparent; transition: all 0.2s; font-family: 'Barlow Condensed', sans-serif;
   }
-  .tab.active {
-    color: var(--vermelho);
-    border-bottom-color: var(--vermelho);
-    background: rgba(204,20,20,0.06);
-  }
+  .tab.active { color: var(--vermelho); border-bottom-color: var(--vermelho); background: rgba(204,20,20,0.06); }
 
   /* ── SECTIONS ── */
   .section { display: none; padding: 16px; }
   .section.active { display: block; }
 
   /* ── CARDS / FIELDS ── */
-  .card {
-    background: var(--azul-medio);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 14px;
-  }
+  .card { background: var(--azul-medio); border: 1px solid var(--cinza-borda); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
   .card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--vermelho);
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--cinza-borda);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--vermelho);
+    margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--cinza-borda);
+    display: flex; align-items: center; gap: 8px;
   }
   .card-title svg { flex-shrink: 0; }
-
   .field-group { margin-bottom: 12px; }
-  .field-group label {
-    display: block;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--cinza-texto);
-    margin-bottom: 5px;
+  .field-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 5px; }
+  .field-group input, .field-group textarea, .field-group select {
+    width: 100%; background: var(--azul-claro); border: 1px solid var(--cinza-borda);
+    border-radius: 6px; padding: 10px 12px; color: var(--branco); font-family: 'Barlow', sans-serif;
+    font-size: 14px; outline: none; transition: border-color 0.2s; -webkit-appearance: none;
   }
-  .field-group input,
-  .field-group textarea,
-  .field-group select {
-    width: 100%;
-    background: var(--azul-claro);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 6px;
-    padding: 10px 12px;
-    color: var(--branco);
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .field-group input:focus,
-  .field-group textarea:focus,
-  .field-group select:focus {
-    border-color: var(--vermelho);
-    background: rgba(26,46,66,0.9);
-  }
+  .field-group input:focus, .field-group textarea:focus, .field-group select:focus { border-color: var(--vermelho); background: rgba(26,46,66,0.9); }
   .field-group textarea { resize: vertical; min-height: 70px; }
   .field-group select option { background: var(--azul-escuro); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cep-wrap { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
+  .btn-cep {
+    background: var(--vermelho); color: #fff; border: none; border-radius: 6px;
+    padding: 10px 14px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; height: 41px;
+  }
+  .btn-cep:active { background: var(--vermelho-escuro); }
+  .hint { font-size: 10px; color: #6b7785; margin-top: 4px; }
 
-  .field-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-  .field-row-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-  }
-
-  /* ── ITENS TABLE ── */
-  .section-grupo {
-    background: var(--azul-medio);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 10px;
-    margin-bottom: 12px;
-    overflow: hidden;
-  }
-  .grupo-header {
-    background: var(--azul-claro);
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    border-bottom: 1px solid var(--cinza-borda);
-  }
-  .grupo-nome-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    outline: none;
-  }
+  /* ── ITENS ── */
+  .section-grupo { background: var(--azul-medio); border: 1px solid var(--cinza-borda); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
+  .grupo-header { background: var(--azul-claro); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--cinza-borda); }
+  .grupo-nome-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; outline: none; }
   .grupo-nome-input::placeholder { color: rgba(255,255,255,0.35); }
-  .grupo-total {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--vermelho);
-    white-space: nowrap;
-  }
-  .btn-del-grupo {
-    background: none;
-    border: none;
-    color: #666;
-    cursor: pointer;
-    padding: 2px;
-    font-size: 16px;
-    line-height: 1;
-  }
+  .grupo-total { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--vermelho); white-space: nowrap; }
+  .btn-del-grupo { background: none; border: none; color: #666; cursor: pointer; padding: 2px; font-size: 16px; line-height: 1; }
   .btn-del-grupo:hover { color: var(--vermelho); }
-
-  .item-row {
-    padding: 10px 14px;
-    border-bottom: 1px solid rgba(46,61,78,0.5);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 8px;
-    align-items: start;
-  }
+  .item-row { padding: 12px 14px; border-bottom: 1px solid rgba(46,61,78,0.5); display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; }
   .item-row:last-child { border-bottom: none; }
-  .item-desc-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--cinza-borda);
-    color: var(--branco);
-    font-family: 'Barlow', sans-serif;
-    font-size: 13px;
-    padding: 3px 0;
-    outline: none;
-    margin-bottom: 6px;
+  textarea.item-desc-input {
+    width: 100%; background: var(--azul-claro); border: 1px solid var(--cinza-borda);
+    border-radius: 6px; color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 13px;
+    padding: 8px 10px; outline: none; resize: vertical; min-height: 60px; line-height: 1.4;
   }
-  .item-desc-input::placeholder { color: rgba(176,184,193,0.4); }
-  .item-desc-input:focus { border-bottom-color: var(--vermelho); }
-  .item-nums {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
-  }
-  .item-num-group label {
-    display: block;
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--cinza-texto);
-    margin-bottom: 3px;
-  }
-  .item-num-input {
-    width: 100%;
-    background: var(--azul-claro);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 4px;
-    color: var(--branco);
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    padding: 5px 6px;
-    outline: none;
-    text-align: right;
-    -webkit-appearance: none;
-  }
+  textarea.item-desc-input::placeholder { color: rgba(176,184,193,0.4); }
+  textarea.item-desc-input:focus { border-color: var(--vermelho); }
+  .char-counter { text-align: right; font-size: 9px; color: var(--cinza-texto); margin: 3px 0 8px; letter-spacing: 0.5px; }
+  .char-counter.limite { color: var(--amarelo-alerta); font-weight: 700; }
+  .item-nums { display: grid; grid-template-columns: 1fr 0.7fr 1fr; gap: 6px; }
+  .item-num-group label { display: block; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 3px; }
+  .item-num-input { width: 100%; background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 4px; color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 12px; padding: 6px; outline: none; text-align: right; -webkit-appearance: none; }
   .item-num-input:focus { border-color: var(--vermelho); }
-  .item-subtotal {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--vermelho);
-    text-align: right;
-    padding-top: 18px;
-    white-space: nowrap;
-    padding-left: 8px;
-  }
-  .item-del-btn {
-    background: none;
-    border: none;
-    color: #555;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 2px 0;
-    display: block;
-    margin-top: 2px;
-  }
+  .item-subtotal { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--vermelho); text-align: right; padding-top: 4px; white-space: nowrap; padding-left: 8px; }
+  .item-del-btn { background: none; border: none; color: #555; cursor: pointer; font-size: 14px; padding: 6px 0 2px; display: block; margin-left: auto; }
   .item-del-btn:hover { color: var(--vermelho); }
-
-  .item-actions {
-    padding: 10px 14px;
-    display: flex;
-    gap: 8px;
-  }
-  .btn-add-item {
-    flex: 1;
-    background: rgba(204,20,20,0.12);
-    border: 1px dashed rgba(204,20,20,0.4);
-    color: var(--vermelho);
-    padding: 8px;
-    border-radius: 6px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-  }
+  .item-actions { padding: 10px 14px; }
+  .btn-add-item { width: 100%; background: rgba(204,20,20,0.12); border: 1px dashed rgba(204,20,20,0.4); color: var(--vermelho); padding: 9px; border-radius: 6px; font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px; }
   .btn-add-item:active { background: rgba(204,20,20,0.2); }
-
-  .btn-add-grupo {
-    width: 100%;
-    background: transparent;
-    border: 2px dashed var(--cinza-borda);
-    color: var(--cinza-texto);
-    padding: 12px;
-    border-radius: 10px;
-    font-family: 'Barlow', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
+  .btn-add-grupo { width: 100%; background: transparent; border: 2px dashed var(--cinza-borda); color: var(--cinza-texto); padding: 12px; border-radius: 10px; font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
   .btn-add-grupo:active { border-color: var(--vermelho); color: var(--vermelho); }
 
   /* ── TOTALIZADOR ── */
-  .totalizador {
-    background: var(--azul-medio);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 14px;
-  }
-  .total-linha {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--cinza-borda);
-  }
+  .totalizador { background: var(--azul-medio); border: 1px solid var(--cinza-borda); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .total-linha { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--cinza-borda); }
   .total-linha:last-child { border-bottom: none; }
-  .total-linha.destaque {
-    background: var(--vermelho);
-    padding: 14px 16px;
-  }
-  .total-linha label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--cinza-texto);
-    font-family: 'Barlow Condensed', sans-serif;
-  }
+  .total-linha.destaque { background: var(--vermelho); padding: 14px 16px; }
+  .total-linha label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cinza-texto); font-family: 'Barlow Condensed', sans-serif; }
   .total-linha.destaque label { color: rgba(255,255,255,0.85); font-size: 13px; }
-  .total-linha .valor {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #fff;
-  }
+  .total-linha .valor { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: #fff; }
   .total-linha.destaque .valor { font-size: 20px; }
-  .total-linha input[type="number"] {
-    width: 70px;
-    background: var(--azul-claro);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 4px;
-    color: var(--branco);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 5px 8px;
-    text-align: right;
-    outline: none;
-    -webkit-appearance: none;
-  }
+  .total-linha input[type="number"] { width: 70px; background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 4px; color: var(--branco); font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; padding: 5px 8px; text-align: right; outline: none; -webkit-appearance: none; }
   .total-linha input[type="number"]:focus { border-color: var(--vermelho); }
 
-  /* ── CONDIÇÕES SECTION ── */
-  .condicao-opcoes {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 8px;
-  }
-  .condicao-opcao {
-    background: var(--azul-claro);
-    border: 1px solid var(--cinza-borda);
-    border-radius: 8px;
-    padding: 12px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    cursor: pointer;
-    transition: border-color 0.2s;
-  }
+  /* ── CONDIÇÕES ── */
+  .condicao-opcoes { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .condicao-opcao { background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 8px; padding: 12px; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; transition: border-color 0.2s; }
   .condicao-opcao.selecionada { border-color: var(--vermelho); background: rgba(204,20,20,0.08); }
   .condicao-opcao input[type="radio"] { accent-color: var(--vermelho); margin-top: 2px; flex-shrink: 0; }
-  .condicao-opcao-texto strong {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 2px;
-  }
-  .condicao-opcao-texto span {
-    font-size: 11px;
-    color: var(--cinza-texto);
-  }
+  .condicao-opcao-texto strong { display: block; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .condicao-opcao-texto span { font-size: 11px; color: var(--cinza-texto); }
 
-  /* ── PREVIEW / PDF ── */
+  /* ── NOTIFICAÇÃO ── */
+  .notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--vermelho); color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; max-width: 90vw; text-align: center; }
+  .notif.show { opacity: 1; }
+
+  /* ── PDF DOC ── */
   #pdf-preview { display: none; }
-
-  @media print {
-    body * { visibility: hidden; }
-    #pdf-preview, #pdf-preview * { visibility: visible; }
-    #pdf-preview { display: block !important; position: fixed; top: 0; left: 0; width: 100%; z-index: 9999; }
-    .app-header, .tabs, .section { display: none !important; }
-  }
-
-  .pdf-doc {
-    background: #fff;
-    color: #1a1a1a;
-    font-family: 'Barlow', sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: 12px;
-  }
-  .pdf-header {
-    background: #0D1B2A;
-    padding: 24px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .pdf-logo-box {
-    background: #CC1414;
-    padding: 10px 18px;
-    border-radius: 4px;
-  }
-  .pdf-logo-box span {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 36px;
-    color: #fff;
-    display: block;
-    line-height: 1;
-  }
-  .pdf-logo-box small {
-    font-size: 10px;
-    color: rgba(255,255,255,0.7);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
+  .pdf-doc { background: #fff; color: #1a1a1a; font-family: 'Barlow', sans-serif; max-width: 800px; margin: 0 auto; font-size: 12px; }
+  .pdf-header { background: #0D1B2A; padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .pdf-logo-box { background: #CC1414; padding: 10px 18px; border-radius: 4px; }
+  .pdf-logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: #fff; display: block; line-height: 1; }
+  .pdf-logo-box small { font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
   .pdf-header-info { text-align: right; }
   .pdf-header-info p { color: rgba(255,255,255,0.7); font-size: 11px; margin-bottom: 2px; }
   .pdf-header-info strong { color: #fff; font-size: 12px; }
   .pdf-stripe { height: 5px; background: #CC1414; }
   .pdf-body { padding: 24px 32px; }
-  .pdf-titulo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    letter-spacing: 3px;
-    color: #0D1B2A;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .pdf-subtitulo {
-    font-size: 11px;
-    color: #CC1414;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .pdf-info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding: 16px;
-    background: #f5f5f5;
-    border-left: 4px solid #CC1414;
-    border-radius: 0 4px 4px 0;
-  }
-  .pdf-info-item label {
-    display: block;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 3px;
-  }
-  .pdf-info-item span {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1a1a1a;
-  }
-  .pdf-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 16px;
-  }
-  .pdf-table-grupo {
-    background: #0D1B2A;
-    color: #fff;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 7px 10px;
-  }
-  .pdf-table th {
-    background: #1A2E42;
-    color: rgba(255,255,255,0.8);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 6px 10px;
-    text-align: left;
-  }
-  .pdf-table th:last-child, .pdf-table th:nth-child(3),
-  .pdf-table th:nth-child(4) { text-align: right; }
-  .pdf-table td {
-    padding: 7px 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 11px;
-    color: #2c2c2c;
-  }
-  .pdf-table td:last-child, .pdf-table td:nth-child(3),
-  .pdf-table td:nth-child(4) { text-align: right; font-weight: 600; }
+  .pdf-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: #0D1B2A; text-transform: uppercase; margin-bottom: 4px; }
+  .pdf-subtitulo { font-size: 11px; color: #CC1414; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
+  .pdf-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; margin-bottom: 24px; padding: 16px; background: #f5f5f5; border-left: 4px solid #CC1414; border-radius: 0 4px 4px 0; }
+  .pdf-info-item label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 3px; }
+  .pdf-info-item span { font-size: 13px; font-weight: 600; color: #1a1a1a; word-break: break-word; }
+  .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; table-layout: fixed; }
+  .pdf-table-grupo { background: #0D1B2A; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 7px 10px; }
+  .pdf-table th { background: #1A2E42; color: rgba(255,255,255,0.85); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 10px; text-align: left; }
+  .pdf-table td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 11px; color: #2c2c2c; vertical-align: top; word-wrap: break-word; overflow-wrap: break-word; }
+  .pdf-table tr { page-break-inside: avoid; }
   .pdf-table tr:nth-child(even) td { background: #fafafa; }
-  .pdf-totais {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 4px;
-    margin-top: 16px;
-    margin-bottom: 20px;
-  }
-  .pdf-total-linha {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px;
-    font-size: 12px;
-    color: #555;
-    width: 300px;
-  }
-  .pdf-total-linha.destaque {
-    background: #CC1414;
-    padding: 10px 14px;
-    border-radius: 4px;
-    width: 320px;
-  }
+  .pdf-totais { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; margin-top: 16px; margin-bottom: 20px; page-break-inside: avoid; }
+  .pdf-total-linha { display: flex; justify-content: flex-end; align-items: center; gap: 20px; font-size: 12px; color: #555; width: 320px; }
+  .pdf-total-linha.destaque { background: #CC1414; padding: 10px 14px; border-radius: 4px; width: 340px; }
   .pdf-total-linha.destaque label { color: rgba(255,255,255,0.9); font-weight: 700; font-size: 13px; }
   .pdf-total-linha.destaque span { color: #fff; font-size: 18px; font-weight: 700; font-family: 'Barlow Condensed'; }
   .pdf-total-linha label { flex: 1; font-weight: 600; text-align: right; }
-  .pdf-total-linha span { font-weight: 700; color: #1a1a1a; min-width: 100px; text-align: right; }
-  .pdf-observacoes {
-    margin-top: 20px;
-    padding: 14px;
-    background: #f5f5f5;
-    border-radius: 4px;
-    border-left: 3px solid #CC1414;
-  }
-  .pdf-observacoes h4 {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 6px;
-  }
+  .pdf-total-linha span { font-weight: 700; color: #1a1a1a; min-width: 110px; text-align: right; }
+  .pdf-observacoes { margin-top: 20px; padding: 14px; background: #f5f5f5; border-radius: 4px; border-left: 3px solid #CC1414; page-break-inside: avoid; }
+  .pdf-observacoes h4 { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
   .pdf-observacoes p { font-size: 11px; color: #444; line-height: 1.5; }
-  .pdf-condicoes { margin-top: 16px; }
-  .pdf-condicoes h4 {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 8px;
-  }
-  .pdf-condicoes-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .pdf-condicao-item {
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 4px;
-  }
-  .pdf-condicao-item strong {
-    display: block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: #CC1414;
-    margin-bottom: 2px;
-  }
+  .pdf-condicoes { margin-top: 16px; page-break-inside: avoid; }
+  .pdf-condicoes h4 { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+  .pdf-condicoes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pdf-condicao-item { padding: 10px; background: #f0f0f0; border-radius: 4px; }
+  .pdf-condicao-item strong { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #CC1414; margin-bottom: 2px; }
   .pdf-condicao-item span { font-size: 11px; color: #444; }
-  .pdf-footer {
-    background: #0D1B2A;
-    padding: 16px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-  }
+  .pdf-assinar { display: flex; gap: 40px; margin-top: 36px; page-break-inside: avoid; }
+  .pdf-assinar-campo { flex: 1; border-top: 1px solid #aaa; padding-top: 6px; }
+  .pdf-footer { background: #0D1B2A; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
   .pdf-footer p { font-size: 10px; color: rgba(255,255,255,0.5); }
   .pdf-footer strong { color: rgba(255,255,255,0.85); display: block; font-size: 11px; }
-  .pdf-assinar {
-    display: flex;
-    gap: 40px;
-    margin-top: 30px;
-    padding-top: 20px;
-  }
-  .pdf-assinar-campo {
-    flex: 1;
-    border-top: 1px solid #aaa;
-    padding-top: 6px;
-  }
-  .pdf-assinar-campo p { font-size: 10px; color: #888; }
 
-  /* ── NOTIFICAÇÃO ── */
-  .notif {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--vermelho);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 13px;
-    font-weight: 600;
-    z-index: 9999;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-  .notif.show { opacity: 1; }
-
-  /* ── Número de orçamento badge ── */
-  .numero-orcamento {
-    display: inline-flex;
-    align-items: center;
-    background: rgba(204,20,20,0.15);
-    border: 1px solid rgba(204,20,20,0.3);
-    border-radius: 20px;
-    padding: 3px 10px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--vermelho);
-    letter-spacing: 1px;
-    margin-top: 6px;
+  /* ── PRINT (corrigido: sem position fixed que duplicava páginas) ── */
+  @media print {
+    @page { margin: 8mm; }
+    .app-header, .tabs, .section, .notif { display: none !important; }
+    #pdf-preview { display: block !important; }
+    .pdf-doc, .pdf-header, .pdf-stripe, .pdf-table-grupo, .pdf-table th,
+    .pdf-total-linha.destaque, .pdf-footer, .pdf-info-grid, .pdf-observacoes,
+    .pdf-condicao-item, .pdf-table tr:nth-child(even) td {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
   }
 </style>
 </head>
@@ -738,6 +244,7 @@
     <button class="btn-action btn-limpar" onclick="limparTudo()">↺ Limpar</button>
     <button class="btn-action btn-pdf" onclick="gerarPDF()">⬇ Salvar PDF</button>
   </div>
+  <div class="autosave-tag">● Salvamento automático ativo neste dispositivo</div>
 </div>
 
 <!-- TABS -->
@@ -748,17 +255,14 @@
   <div class="tab" onclick="irPara('condicoes', this)">Condições</div>
 </div>
 
-<!-- ── ABA CLIENTE ── -->
+<!-- ── CLIENTE ── -->
 <div class="section active" id="s-cliente">
   <div class="card">
-    <div class="card-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Dados do Orçamento
-    </div>
+    <div class="card-title">Dados do Orçamento</div>
     <div class="field-row">
       <div class="field-group">
         <label>Nº do Orçamento</label>
-        <input type="text" id="numero" value="001" oninput="atualizarBadge()" placeholder="001">
+        <input type="text" id="numero" value="001" inputmode="numeric" oninput="atualizarBadge()" placeholder="001">
       </div>
       <div class="field-group">
         <label>Data de Emissão</label>
@@ -768,27 +272,30 @@
     <div class="field-group">
       <label>Validade da Proposta</label>
       <select id="validade">
-        <option>5 dias</option>
-        <option>7 dias</option>
-        <option>10 dias</option>
-        <option>15 dias</option>
-        <option>30 dias</option>
+        <option>5 dias</option><option>7 dias</option><option>10 dias</option>
+        <option>15 dias</option><option>30 dias</option>
       </select>
     </div>
   </div>
 
   <div class="card">
-    <div class="card-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      Dados do Cliente
-    </div>
+    <div class="card-title">Dados do Cliente</div>
     <div class="field-group">
       <label>Nome / Razão Social</label>
       <input type="text" id="cliente-nome" placeholder="Nome do cliente ou empresa">
     </div>
     <div class="field-group">
       <label>CPF / CNPJ</label>
-      <input type="text" id="cliente-doc" placeholder="000.000.000-00">
+      <input type="text" id="cliente-doc" inputmode="numeric" placeholder="Digite só os números">
+      <div class="hint">Detecta automaticamente CPF ou CNPJ ao digitar.</div>
+    </div>
+    <div class="field-group">
+      <label>CEP do Cliente</label>
+      <div class="cep-wrap">
+        <input type="text" id="cliente-cep" inputmode="numeric" placeholder="00000-000">
+        <button class="btn-cep" onclick="buscarCepManual('cliente-cep','cliente-endereco')">Buscar</button>
+      </div>
+      <div class="hint">Ao completar 8 dígitos o endereço é preenchido sozinho.</div>
     </div>
     <div class="field-group">
       <label>Endereço do Cliente</label>
@@ -797,7 +304,7 @@
     <div class="field-row">
       <div class="field-group">
         <label>Telefone</label>
-        <input type="tel" id="cliente-tel" placeholder="(85) 9 0000-0000">
+        <input type="tel" id="cliente-tel" inputmode="numeric" placeholder="(85) 90000-0000">
       </div>
       <div class="field-group">
         <label>E-mail</label>
@@ -807,9 +314,13 @@
   </div>
 
   <div class="card">
-    <div class="card-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-      Local da Obra
+    <div class="card-title">Local da Obra</div>
+    <div class="field-group">
+      <label>CEP da Obra</label>
+      <div class="cep-wrap">
+        <input type="text" id="obra-cep" inputmode="numeric" placeholder="00000-000">
+        <button class="btn-cep" onclick="buscarCepManual('obra-cep','obra-endereco')">Buscar</button>
+      </div>
     </div>
     <div class="field-group">
       <label>Endereço do Serviço</label>
@@ -817,7 +328,8 @@
     </div>
     <div class="field-group">
       <label>Descrição Resumida da Obra</label>
-      <textarea id="obra-desc" placeholder="Ex: Reforma de área de convivência — demolição de piso, instalação de revestimento, pintura..."></textarea>
+      <textarea id="obra-desc" maxlength="120" placeholder="Ex: Reforma de sala — demolição, elétrica, pintura e acabamentos"></textarea>
+      <div class="hint">Aparece como subtítulo do PDF. Máx. 120 caracteres.</div>
     </div>
     <div class="field-row">
       <div class="field-group">
@@ -831,297 +343,308 @@
     </div>
   </div>
 
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('servicos', document.querySelectorAll('.tab')[1])">
-    Próximo: Serviços →
-  </button>
+  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('servicos', document.querySelectorAll('.tab')[1])">Próximo: Serviços →</button>
 </div>
 
-<!-- ── ABA SERVIÇOS ── -->
+<!-- ── SERVIÇOS ── -->
 <div class="section" id="s-servicos">
   <div id="container-grupos"></div>
-
-  <button class="btn-add-grupo" onclick="adicionarGrupo()">
-    + Adicionar Grupo de Serviço
-  </button>
-
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('totais', document.querySelectorAll('.tab')[2])">
-    Próximo: Totais →
-  </button>
+  <button class="btn-add-grupo" onclick="adicionarGrupo()">+ Adicionar Grupo de Serviço</button>
+  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('totais', document.querySelectorAll('.tab')[2])">Próximo: Totais →</button>
 </div>
 
-<!-- ── ABA TOTAIS ── -->
+<!-- ── TOTAIS ── -->
 <div class="section" id="s-totais">
   <div class="card">
-    <div class="card-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      Resumo por Grupo
-    </div>
+    <div class="card-title">Resumo por Grupo</div>
     <div id="resumo-grupos"></div>
   </div>
-
   <div class="totalizador">
-    <div class="total-linha">
-      <label>Custo Total dos Serviços</label>
-      <span class="valor" id="t-subtotal">R$ 0,00</span>
+    <div class="total-linha"><label>Custo Total dos Serviços</label><span class="valor" id="t-subtotal">R$ 0,00</span></div>
+    <div class="total-linha"><label>Taxa de Administração / BDI</label>
+      <div style="display:flex;align-items:center;gap:6px"><input type="number" id="taxa-adm" value="0" min="0" max="100" oninput="recalcular();saveDraft()"><span style="color:var(--cinza-texto);font-size:12px">%</span></div>
     </div>
-    <div class="total-linha">
-      <label>Taxa de Administração / BDI</label>
-      <div style="display:flex;align-items:center;gap:6px">
-        <input type="number" id="taxa-adm" value="0" min="0" max="100" oninput="recalcular()">
-        <span style="color:var(--cinza-texto);font-size:12px">%</span>
-      </div>
+    <div class="total-linha"><label>Valor da Taxa</label><span class="valor" id="t-adm">R$ 0,00</span></div>
+    <div class="total-linha"><label>Desconto</label>
+      <div style="display:flex;align-items:center;gap:6px"><input type="number" id="desconto" value="0" min="0" max="100" oninput="recalcular();saveDraft()"><span style="color:var(--cinza-texto);font-size:12px">%</span></div>
     </div>
-    <div class="total-linha">
-      <label>Valor da Taxa</label>
-      <span class="valor" id="t-adm">R$ 0,00</span>
-    </div>
-    <div class="total-linha">
-      <label>Desconto</label>
-      <div style="display:flex;align-items:center;gap:6px">
-        <input type="number" id="desconto" value="0" min="0" oninput="recalcular()">
-        <span style="color:var(--cinza-texto);font-size:12px">%</span>
-      </div>
-    </div>
-    <div class="total-linha destaque">
-      <label>INVESTIMENTO TOTAL</label>
-      <span class="valor" id="t-total">R$ 0,00</span>
-    </div>
+    <div class="total-linha destaque"><label>INVESTIMENTO TOTAL</label><span class="valor" id="t-total">R$ 0,00</span></div>
   </div>
-
   <div class="card">
     <div class="card-title">Observações Gerais</div>
     <div class="field-group">
-      <textarea id="observacoes" placeholder="Itens não inclusos no orçamento, condições especiais, garantia dos serviços...
-Ex: Não inclui fornecimento de materiais.
+      <textarea id="observacoes" maxlength="600" placeholder="Itens não inclusos, condições especiais, garantia...
+Ex: Não inclui móveis planejados e esquadrias de alumínio.
 Garantia de 90 dias na mão de obra." style="min-height:100px"></textarea>
     </div>
   </div>
-
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('condicoes', document.querySelectorAll('.tab')[3])">
-    Próximo: Condições →
-  </button>
+  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('condicoes', document.querySelectorAll('.tab')[3])">Próximo: Condições →</button>
 </div>
 
-<!-- ── ABA CONDIÇÕES ── -->
+<!-- ── CONDIÇÕES ── -->
 <div class="section" id="s-condicoes">
   <div class="card">
-    <div class="card-title">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-      Forma de Pagamento
-    </div>
+    <div class="card-title">Forma de Pagamento</div>
     <div class="condicao-opcoes" id="opcoes-pagamento">
       <div class="condicao-opcao selecionada" onclick="selecionarOpcao(this)">
         <input type="radio" name="pagamento" checked>
-        <div class="condicao-opcao-texto">
-          <strong>50% + 50%</strong>
-          <span>50% na assinatura do contrato e 50% na entrega da obra</span>
-        </div>
+        <div class="condicao-opcao-texto"><strong>50% + 50%</strong><span>50% na assinatura do contrato e 50% na entrega da obra</span></div>
       </div>
       <div class="condicao-opcao" onclick="selecionarOpcao(this)">
         <input type="radio" name="pagamento">
-        <div class="condicao-opcao-texto">
-          <strong>30% + 40% + 30%</strong>
-          <span>30% na assinatura, 40% na metade da obra, 30% na entrega</span>
-        </div>
+        <div class="condicao-opcao-texto"><strong>50% + 25% + 25%</strong><span>50% na assinatura, 25% em 15 dias e 25% na entrega</span></div>
       </div>
       <div class="condicao-opcao" onclick="selecionarOpcao(this)">
         <input type="radio" name="pagamento">
-        <div class="condicao-opcao-texto">
-          <strong>Mensalmente</strong>
-          <span>Pagamento conforme medição mensal da obra</span>
-        </div>
+        <div class="condicao-opcao-texto"><strong>30% + 40% + 30%</strong><span>30% na assinatura, 40% na metade da obra, 30% na entrega</span></div>
       </div>
       <div class="condicao-opcao" onclick="selecionarOpcao(this)">
         <input type="radio" name="pagamento">
-        <div class="condicao-opcao-texto">
-          <strong>À vista</strong>
-          <span>Pagamento integral na assinatura do contrato</span>
-        </div>
+        <div class="condicao-opcao-texto"><strong>À vista</strong><span>Pagamento integral na assinatura do contrato</span></div>
       </div>
     </div>
     <div class="field-group" style="margin-top:12px">
       <label>Outras condições de pagamento</label>
-      <input type="text" id="pagamento-custom" placeholder="Descreva aqui se necessário...">
+      <input type="text" id="pagamento-custom" placeholder="Se preenchido, substitui a opção acima no PDF">
     </div>
   </div>
 
   <div class="card">
     <div class="card-title">Dados da Empresa</div>
-    <div class="field-group">
-      <label>Nome da Empresa</label>
-      <input type="text" id="emp-nome" value="FM Serviço de Reforma" placeholder="Nome da empresa">
+    <div class="field-group"><label>Nome da Empresa</label><input type="text" id="emp-nome" value="FM Serviço de Reforma e Construção Ltda" placeholder="Nome da empresa"></div>
+    <div class="field-row">
+      <div class="field-group"><label>Responsável</label><input type="text" id="emp-responsavel" placeholder="Nome do responsável"></div>
+      <div class="field-group"><label>CNPJ / CPF</label><input type="text" id="emp-cnpj" inputmode="numeric" placeholder="Digite só os números"></div>
     </div>
     <div class="field-row">
-      <div class="field-group">
-        <label>Responsável</label>
-        <input type="text" id="emp-responsavel" placeholder="Nome do responsável">
-      </div>
-      <div class="field-group">
-        <label>CNPJ / CPF</label>
-        <input type="text" id="emp-cnpj" placeholder="00.000.000/0001-00">
-      </div>
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <label>WhatsApp</label>
-        <input type="tel" id="emp-tel" value="85 98762-5872" placeholder="(85) 9 0000-0000">
-      </div>
-      <div class="field-group">
-        <label>E-mail</label>
-        <input type="email" id="emp-email" placeholder="email@empresa.com">
-      </div>
+      <div class="field-group"><label>WhatsApp</label><input type="tel" id="emp-tel" inputmode="numeric" value="(85) 98762-5872" placeholder="(85) 90000-0000"></div>
+      <div class="field-group"><label>E-mail</label><input type="email" id="emp-email" placeholder="email@empresa.com"></div>
     </div>
   </div>
 
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px;background:var(--vermelho);font-size:14px;padding:16px" onclick="gerarPDF()">
-    ⬇ Gerar e Salvar PDF
-  </button>
+  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px;font-size:14px;padding:16px" onclick="gerarPDF()">⬇ Gerar e Salvar PDF</button>
 </div>
 
-<!-- PDF PREVIEW (hidden, for print) -->
 <div id="pdf-preview"></div>
-<div class="notif" id="notif">PDF gerado com sucesso!</div>
+<div class="notif" id="notif"></div>
 
 <script>
-// ── Estado ──
-let grupos = [];
-let contadorGrupo = 0;
+const MAX_DESC = 350;
+const STATIC_FIELDS = ['numero','data','validade','cliente-nome','cliente-doc','cliente-cep','cliente-endereco','cliente-tel','cliente-email','obra-cep','obra-endereco','obra-desc','obra-prazo','obra-inicio','taxa-adm','desconto','observacoes','pagamento-custom','emp-nome','emp-responsavel','emp-cnpj','emp-tel','emp-email'];
 
-// ── Inicializar ──
+let grupos = [];
+
+/* ───────── INIT ───────── */
 document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('data').value = new Date().toISOString().split('T')[0];
-  adicionarGrupo('SERVIÇOS DE MÃO DE OBRA');
-  adicionarItemAoGrupo(0);
+
+  const restaurou = loadDraft();
+  if (!restaurou) {
+    grupos = [{ nome: 'SERVIÇOS DE MÃO DE OBRA E MATERIAIS', itens: [{ desc:'', qty:1, unidade:'UN', valor:0 }] }];
+  }
+  renderGrupos();
+  atualizarBadge();
+
+  // máscaras
+  attachMask('cliente-doc', maskCpfCnpj);
+  attachMask('emp-cnpj', maskCpfCnpj);
+  attachMask('cliente-tel', maskPhone);
+  attachMask('emp-tel', maskPhone);
+  attachCep('cliente-cep', 'cliente-endereco');
+  attachCep('obra-cep', 'obra-endereco');
+
+  // autosave em todos os campos estáticos
+  STATIC_FIELDS.forEach(id => {
+    const e = document.getElementById(id);
+    if (e) e.addEventListener('input', saveDraft);
+  });
 });
 
-// ── Tabs ──
+/* ───────── TABS ───────── */
 function irPara(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('s-' + id).classList.add('active');
-  if(el) el.classList.add('active');
-  if(id === 'totais') { recalcular(); atualizarResumoGrupos(); }
+  if (el) el.classList.add('active');
+  if (id === 'totais') { recalcular(); atualizarResumoGrupos(); }
+  window.scrollTo(0, 0);
 }
 
-// ── Número badge ──
+/* ───────── BADGE ───────── */
 function atualizarBadge() {
-  const n = document.getElementById('numero').value || '001';
-  const a = new Date().getFullYear();
-  document.getElementById('badge-numero').textContent = 'Nº ' + n.padStart(3,'0') + '/' + a;
+  const n = (document.getElementById('numero').value || '001').replace(/\D/g,'') || '001';
+  document.getElementById('badge-numero').textContent = 'Nº ' + n.padStart(3,'0') + '/' + new Date().getFullYear();
 }
 
-// ── Grupos ──
+/* ───────── MÁSCARAS ───────── */
+function attachMask(id, fn) {
+  const e = document.getElementById(id);
+  if (!e) return;
+  e.addEventListener('input', () => { e.value = fn(e.value); });
+  if (e.value) e.value = fn(e.value);
+}
+function maskCpfCnpj(v) {
+  v = (v || '').replace(/\D/g, '');
+  if (v.length <= 11) {
+    v = v.substring(0,11);
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d)/, '$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  } else {
+    v = v.substring(0,14);
+    v = v.replace(/^(\d{2})(\d)/, '$1.$2');
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    v = v.replace(/(\d{4})(\d)/, '$1-$2');
+  }
+  return v;
+}
+function maskPhone(v) {
+  v = (v || '').replace(/\D/g, '').substring(0,11);
+  if (v.length <= 10) {
+    v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+    v = v.replace(/(\d{4})(\d)$/, '$1-$2');
+  } else {
+    v = v.replace(/^(\d{2})(\d)/, '($1) $2');
+    v = v.replace(/(\d{5})(\d)$/, '$1-$2');
+  }
+  return v;
+}
+function maskCep(v) {
+  v = (v || '').replace(/\D/g, '').substring(0,8);
+  return v.replace(/^(\d{5})(\d)/, '$1-$2');
+}
+
+/* ───────── CEP (ViaCEP) ───────── */
+function attachCep(idCep, idEndereco) {
+  const e = document.getElementById(idCep);
+  if (!e) return;
+  e.addEventListener('input', () => {
+    e.value = maskCep(e.value);
+    const d = e.value.replace(/\D/g, '');
+    if (d.length === 8) buscarCep(d, idEndereco);
+  });
+}
+function buscarCepManual(idCep, idEndereco) {
+  const d = (document.getElementById(idCep).value || '').replace(/\D/g, '');
+  if (d.length !== 8) { mostrarNotif('Digite um CEP com 8 dígitos'); return; }
+  buscarCep(d, idEndereco);
+}
+async function buscarCep(cep, idEndereco) {
+  try {
+    mostrarNotif('Buscando endereço...');
+    const r = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
+    const d = await r.json();
+    if (d.erro) { mostrarNotif('CEP não encontrado'); return; }
+    const partes = [d.logradouro, d.bairro, d.localidade, d.uf].filter(Boolean);
+    const endereco = partes.join(', ').replace(', ' + d.uf, ' - ' + d.uf);
+    const campo = document.getElementById(idEndereco);
+    campo.value = endereco;
+    campo.dispatchEvent(new Event('input'));
+    mostrarNotif('Endereço preenchido — complete o número');
+  } catch (e) {
+    mostrarNotif('Sem conexão para buscar o CEP');
+  }
+}
+
+/* ───────── GRUPOS / ITENS ───────── */
+function renderGrupos() {
+  const c = document.getElementById('container-grupos');
+  c.innerHTML = '';
+  grupos.forEach((g, gi) => {
+    let itensHTML = '';
+    g.itens.forEach((item, ii) => { itensHTML += itemTemplate(gi, item, ii); });
+    const div = document.createElement('div');
+    div.className = 'section-grupo';
+    div.innerHTML =
+      '<div class="grupo-header">' +
+        '<input class="grupo-nome-input" type="text" value="' + escAttr(g.nome) + '" placeholder="NOME DO GRUPO" oninput="grupos['+gi+'].nome=this.value;saveDraft()" style="text-transform:uppercase">' +
+        '<span class="grupo-total" id="grupo-total-'+gi+'">R$ 0,00</span>' +
+        '<button class="btn-del-grupo" onclick="removerGrupo('+gi+')" title="Remover grupo">✕</button>' +
+      '</div>' +
+      '<div>' + itensHTML + '</div>' +
+      '<div class="item-actions"><button class="btn-add-item" onclick="adicionarItem('+gi+')">+ Adicionar Item</button></div>';
+    c.appendChild(div);
+  });
+  grupos.forEach((g, gi) => g.itens.forEach((it, ii) => atualizarItem(gi, ii)));
+  recalcular();
+}
+
+function itemTemplate(gi, item, ii) {
+  const len = (item.desc || '').length;
+  const limite = len >= MAX_DESC ? ' limite' : '';
+  return '' +
+  '<div class="item-row">' +
+    '<div>' +
+      '<textarea class="item-desc-input" maxlength="'+MAX_DESC+'" placeholder="Descrição do serviço..." oninput="onDescInput(this,'+gi+','+ii+')">' + escHtml(item.desc) + '</textarea>' +
+      '<div class="char-counter'+limite+'" id="ccw-'+gi+'-'+ii+'"><span id="cc-'+gi+'-'+ii+'">'+len+'</span>/'+MAX_DESC+'</div>' +
+      '<div class="item-nums">' +
+        '<div class="item-num-group"><label>Qtd.</label><input class="item-num-input" type="text" inputmode="decimal" value="'+formatQty(item.qty)+'" oninput="onQtyInput(this,'+gi+','+ii+')"></div>' +
+        '<div class="item-num-group"><label>Unid.</label><input class="item-num-input" type="text" value="'+escAttr(item.unidade)+'" style="text-transform:uppercase;text-align:center" oninput="grupos['+gi+'].itens['+ii+'].unidade=this.value;saveDraft()"></div>' +
+        '<div class="item-num-group"><label>R$ Unit.</label><input class="item-num-input" type="text" inputmode="numeric" value="'+formatMoneyInput(item.valor)+'" oninput="onValorInput(this,'+gi+','+ii+')"></div>' +
+      '</div>' +
+    '</div>' +
+    '<div>' +
+      '<div class="item-subtotal" id="subtotal-'+gi+'-'+ii+'">R$ 0,00</div>' +
+      '<button class="item-del-btn" onclick="removerItem('+gi+','+ii+')" title="Remover">✕</button>' +
+    '</div>' +
+  '</div>';
+}
+
 function adicionarGrupo(nome) {
-  const idx = grupos.length;
-  grupos.push({ nome: nome || '', itens: [] });
-  renderGrupo(idx);
-  return idx;
+  grupos.push({ nome: nome || '', itens: [{ desc:'', qty:1, unidade:'UN', valor:0 }] });
+  renderGrupos(); saveDraft();
 }
-
-function renderGrupo(idx) {
-  const container = document.getElementById('container-grupos');
-  const div = document.createElement('div');
-  div.className = 'section-grupo';
-  div.id = 'grupo-' + idx;
-  div.innerHTML = `
-    <div class="grupo-header">
-      <input class="grupo-nome-input" type="text" value="${grupos[idx].nome}" 
-             placeholder="NOME DO GRUPO" 
-             oninput="grupos[${idx}].nome=this.value"
-             style="text-transform:uppercase">
-      <span class="grupo-total" id="grupo-total-${idx}">R$ 0,00</span>
-      <button class="btn-del-grupo" onclick="removerGrupo(${idx})" title="Remover grupo">✕</button>
-    </div>
-    <div id="itens-grupo-${idx}"></div>
-    <div class="item-actions">
-      <button class="btn-add-item" onclick="adicionarItemAoGrupo(${idx})">+ Adicionar Item</button>
-    </div>
-  `;
-  container.appendChild(div);
+function removerGrupo(gi) {
+  if (grupos.length === 1) { mostrarNotif('Mantenha ao menos um grupo'); return; }
+  grupos.splice(gi, 1);
+  renderGrupos(); saveDraft();
 }
-
-function removerGrupo(idx) {
-  const el = document.getElementById('grupo-' + idx);
-  if(el) el.remove();
-  grupos[idx] = null;
-  recalcular();
+function adicionarItem(gi) {
+  grupos[gi].itens.push({ desc:'', qty:1, unidade:'UN', valor:0 });
+  renderGrupos(); saveDraft();
 }
-
-// ── Itens ──
-function adicionarItemAoGrupo(grupoIdx) {
-  const g = grupos[grupoIdx];
-  if(!g) return;
-  const itemIdx = g.itens.length;
-  g.itens.push({ desc: '', qty: 1, unidade: 'UN', valor: 0 });
-  
-  const container = document.getElementById('itens-grupo-' + grupoIdx);
-  const div = document.createElement('div');
-  div.className = 'item-row';
-  div.id = `item-${grupoIdx}-${itemIdx}`;
-  div.innerHTML = `
-    <div style="flex:1">
-      <input class="item-desc-input" type="text" 
-             placeholder="Descrição do serviço..."
-             oninput="grupos[${grupoIdx}].itens[${itemIdx}].desc=this.value">
-      <div class="item-nums">
-        <div class="item-num-group">
-          <label>Qtd.</label>
-          <input class="item-num-input" type="number" value="1" min="0" step="0.01"
-                 oninput="grupos[${grupoIdx}].itens[${itemIdx}].qty=parseFloat(this.value)||0;atualizarSubtotal(${grupoIdx},${itemIdx})">
-        </div>
-        <div class="item-num-group">
-          <label>Unid.</label>
-          <input class="item-num-input" type="text" value="UN" style="text-transform:uppercase"
-                 oninput="grupos[${grupoIdx}].itens[${itemIdx}].unidade=this.value">
-        </div>
-        <div class="item-num-group">
-          <label>R$ Unit.</label>
-          <input class="item-num-input" type="number" value="0" min="0" step="0.01"
-                 oninput="grupos[${grupoIdx}].itens[${itemIdx}].valor=parseFloat(this.value)||0;atualizarSubtotal(${grupoIdx},${itemIdx})">
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="item-subtotal" id="subtotal-${grupoIdx}-${itemIdx}">R$ 0,00</div>
-      <button class="item-del-btn" onclick="removerItem(${grupoIdx},${itemIdx})" title="Remover">✕</button>
-    </div>
-  `;
-  container.appendChild(div);
-}
-
 function removerItem(gi, ii) {
-  const el = document.getElementById(`item-${gi}-${ii}`);
-  if(el) el.remove();
-  if(grupos[gi] && grupos[gi].itens[ii]) grupos[gi].itens[ii] = null;
-  atualizarTotalGrupo(gi);
-  recalcular();
+  if (grupos[gi].itens.length === 1) { mostrarNotif('Mantenha ao menos um item no grupo'); return; }
+  grupos[gi].itens.splice(ii, 1);
+  renderGrupos(); saveDraft();
 }
 
-function atualizarSubtotal(gi, ii) {
-  const item = grupos[gi]?.itens[ii];
-  if(!item) return;
+function onDescInput(el, gi, ii) {
+  grupos[gi].itens[ii].desc = el.value;
+  const cc = document.getElementById('cc-'+gi+'-'+ii);
+  const ccw = document.getElementById('ccw-'+gi+'-'+ii);
+  if (cc) cc.textContent = el.value.length;
+  if (ccw) ccw.classList.toggle('limite', el.value.length >= MAX_DESC);
+  saveDraft();
+}
+function onQtyInput(el, gi, ii) {
+  el.value = el.value.replace(/[^\d.,]/g, '');
+  grupos[gi].itens[ii].qty = parseQty(el.value);
+  atualizarItem(gi, ii); saveDraft();
+}
+function onValorInput(el, gi, ii) {
+  el.value = maskMoney(el.value);
+  grupos[gi].itens[ii].valor = parseMoney(el.value);
+  atualizarItem(gi, ii); saveDraft();
+}
+
+function atualizarItem(gi, ii) {
+  const item = grupos[gi] && grupos[gi].itens[ii];
+  if (!item) return;
   const s = item.qty * item.valor;
-  const el = document.getElementById(`subtotal-${gi}-${ii}`);
-  if(el) el.textContent = formatBRL(s);
-  atualizarTotalGrupo(gi);
+  const el = document.getElementById('subtotal-'+gi+'-'+ii);
+  if (el) el.textContent = formatBRL(s);
+  const gt = grupos[gi].itens.reduce((a,b) => a + b.qty*b.valor, 0);
+  const ge = document.getElementById('grupo-total-'+gi);
+  if (ge) ge.textContent = formatBRL(gt);
   recalcular();
 }
 
-function atualizarTotalGrupo(gi) {
-  const g = grupos[gi];
-  if(!g) return;
-  const total = g.itens.filter(Boolean).reduce((s,i) => s + (i.qty * i.valor), 0);
-  const el = document.getElementById('grupo-total-' + gi);
-  if(el) el.textContent = formatBRL(total);
-}
-
-// ── Totais ──
+/* ───────── TOTAIS ───────── */
 function calcSubtotal() {
-  return grupos.filter(Boolean).reduce((s, g) => {
-    return s + g.itens.filter(Boolean).reduce((ss, i) => ss + (i.qty * i.valor), 0);
-  }, 0);
+  return grupos.reduce((s,g) => s + g.itens.reduce((a,b) => a + b.qty*b.valor, 0), 0);
 }
-
 function recalcular() {
   const sub = calcSubtotal();
   const taxaPct = parseFloat(document.getElementById('taxa-adm').value) || 0;
@@ -1133,72 +656,102 @@ function recalcular() {
   document.getElementById('t-adm').textContent = formatBRL(adm);
   document.getElementById('t-total').textContent = formatBRL(total);
 }
-
 function atualizarResumoGrupos() {
   const el = document.getElementById('resumo-grupos');
   el.innerHTML = '';
-  grupos.filter(Boolean).forEach((g, i) => {
-    const t = g.itens.filter(Boolean).reduce((s,ii) => s + (ii.qty * ii.valor), 0);
-    if(t === 0 && !g.nome) return;
+  grupos.forEach((g, i) => {
+    const t = g.itens.reduce((s,ii) => s + ii.qty*ii.valor, 0);
+    if (t === 0 && !g.nome) return;
     const linha = document.createElement('div');
     linha.style = 'display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--cinza-borda);font-size:13px;';
-    linha.innerHTML = `<span style="color:var(--cinza-texto)">${g.nome || 'Grupo ' + (i+1)}</span><span style="font-weight:700;color:#fff">${formatBRL(t)}</span>`;
+    linha.innerHTML = '<span style="color:var(--cinza-texto)">' + escHtml(g.nome || 'Grupo ' + (i+1)) + '</span><span style="font-weight:700;color:#fff">' + formatBRL(t) + '</span>';
     el.appendChild(linha);
   });
 }
 
-// ── Pagamento ──
+/* ───────── PAGAMENTO ───────── */
 function selecionarOpcao(el) {
-  document.querySelectorAll('.condicao-opcao').forEach(o => {
-    o.classList.remove('selecionada');
-    o.querySelector('input').checked = false;
-  });
+  document.querySelectorAll('.condicao-opcao').forEach(o => { o.classList.remove('selecionada'); o.querySelector('input').checked = false; });
   el.classList.add('selecionada');
   el.querySelector('input').checked = true;
+  saveDraft();
 }
-
 function getPagamentoSelecionado() {
-  const sel = document.querySelector('.condicao-opcao.selecionada');
-  if(!sel) return '';
   const custom = document.getElementById('pagamento-custom').value;
-  if(custom) return custom;
+  if (custom) return custom;
+  const sel = document.querySelector('.condicao-opcao.selecionada');
+  if (!sel) return '';
   return sel.querySelector('strong').textContent + ' — ' + sel.querySelector('span').textContent;
 }
 
-// ── Formatar BRL ──
-function formatBRL(v) {
-  return 'R$ ' + v.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+/* ───────── HELPERS NUMÉRICOS ───────── */
+function maskMoney(v) {
+  v = (v + '').replace(/\D/g, '');
+  if (v === '') return '';
+  v = (parseInt(v, 10) / 100).toFixed(2);
+  return v.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+function parseMoney(v) { if (!v) return 0; return parseFloat((v+'').replace(/\./g,'').replace(',','.')) || 0; }
+function formatMoneyInput(n) { if (!n) return ''; return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function parseQty(v) { return parseFloat((v+'').replace(',', '.')) || 0; }
+function formatQty(n) { if (n === 0 || n == null) return ''; return Number.isInteger(n) ? n.toString() : n.toString().replace('.', ','); }
+function formatBRL(v) { return 'R$ ' + (v||0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s) { return escHtml(s).replace(/"/g,'&quot;'); }
+
+/* ───────── AUTOSAVE ───────── */
+function saveDraft() {
+  try {
+    const data = {};
+    STATIC_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) data[id] = e.value; });
+    data.pagamentoIdx = [...document.querySelectorAll('.condicao-opcao')].findIndex(o => o.classList.contains('selecionada'));
+    data.grupos = grupos;
+    localStorage.setItem('fm_orcamento_draft', JSON.stringify(data));
+  } catch (e) {}
+}
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem('fm_orcamento_draft');
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    STATIC_FIELDS.forEach(id => { const e = document.getElementById(id); if (e && data[id] != null) e.value = data[id]; });
+    if (Array.isArray(data.grupos) && data.grupos.length) {
+      grupos = data.grupos.map(g => ({ nome: g.nome||'', itens: (g.itens||[]).map(i => ({ desc:i.desc||'', qty:typeof i.qty==='number'?i.qty:parseQty(i.qty), unidade:i.unidade||'UN', valor:typeof i.valor==='number'?i.valor:parseMoney(i.valor) })) }));
+      grupos.forEach(g => { if (!g.itens.length) g.itens.push({ desc:'', qty:1, unidade:'UN', valor:0 }); });
+    }
+    if (data.pagamentoIdx >= 0) { const opts = document.querySelectorAll('.condicao-opcao'); if (opts[data.pagamentoIdx]) selecionarOpcao(opts[data.pagamentoIdx]); }
+    return true;
+  } catch (e) { return false; }
 }
 
-// ── Limpar ──
+/* ───────── LIMPAR ───────── */
 function limparTudo() {
-  if(!confirm('Limpar todos os dados deste orçamento?')) return;
-  ['numero','data','validade','cliente-nome','cliente-doc','cliente-endereco',
-   'cliente-tel','cliente-email','obra-endereco','obra-desc','obra-prazo','obra-inicio',
-   'taxa-adm','desconto','observacoes','pagamento-custom','emp-nome','emp-responsavel',
-   'emp-cnpj','emp-tel','emp-email'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) { el.tagName === 'SELECT' ? el.selectedIndex = 0 : el.value = ''; }
-  });
+  if (!confirm('Limpar TODOS os dados deste orçamento? Esta ação não pode ser desfeita.')) return;
+  try { localStorage.removeItem('fm_orcamento_draft'); } catch(e){}
+  STATIC_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) { if (e.tagName === 'SELECT') e.selectedIndex = 0; else e.value = ''; } });
+  document.getElementById('numero').value = '001';
+  document.getElementById('data').value = new Date().toISOString().split('T')[0];
   document.getElementById('taxa-adm').value = 0;
   document.getElementById('desconto').value = 0;
-  document.getElementById('container-grupos').innerHTML = '';
-  grupos = [];
-  adicionarGrupo('SERVIÇOS DE MÃO DE OBRA');
-  adicionarItemAoGrupo(0);
+  document.getElementById('emp-nome').value = 'FM Serviço de Reforma e Construção Ltda';
+  document.getElementById('emp-tel').value = '(85) 98762-5872';
+  grupos = [{ nome: 'SERVIÇOS DE MÃO DE OBRA E MATERIAIS', itens: [{ desc:'', qty:1, unidade:'UN', valor:0 }] }];
+  renderGrupos();
   atualizarBadge();
   mostrarNotif('Orçamento limpo!');
 }
 
-// ── Notificação ──
+/* ───────── NOTIF ───────── */
+let notifTimer;
 function mostrarNotif(msg) {
   const n = document.getElementById('notif');
   n.textContent = msg;
   n.classList.add('show');
-  setTimeout(() => n.classList.remove('show'), 2500);
+  clearTimeout(notifTimer);
+  notifTimer = setTimeout(() => n.classList.remove('show'), 2600);
 }
 
-// ── Gerar PDF ──
+/* ───────── GERAR PDF ───────── */
 function gerarPDF() {
   recalcular();
   const sub = calcSubtotal();
@@ -1208,208 +761,134 @@ function gerarPDF() {
   const descVal = (sub + adm) * descPct / 100;
   const total = sub + adm - descVal;
 
-  const num = (document.getElementById('numero').value || '001').padStart(3,'0');
+  const ano = new Date().getFullYear();
+  const num = ((document.getElementById('numero').value || '001').replace(/\D/g,'') || '001').padStart(3,'0');
   const dataVal = document.getElementById('data').value;
   const dataFmt = dataVal ? new Date(dataVal + 'T12:00:00').toLocaleDateString('pt-BR') : '--/--/----';
   const validade = document.getElementById('validade').value;
 
-  const clienteNome = document.getElementById('cliente-nome').value || 'Não informado';
-  const clienteDoc = document.getElementById('cliente-doc').value;
-  const clienteTel = document.getElementById('cliente-tel').value;
-  const clienteEmail = document.getElementById('cliente-email').value;
-  const clienteEnd = document.getElementById('cliente-endereco').value;
-  const obraEnd = document.getElementById('obra-endereco').value || 'Não informado';
-  const obraDesc = document.getElementById('obra-desc').value || 'Reforma / Manutenção';
-  const obraPrazo = document.getElementById('obra-prazo').value || 'A definir';
-  const obraInicio = document.getElementById('obra-inicio').value;
+  const v = id => document.getElementById(id).value;
+  const clienteNome = v('cliente-nome') || 'Não informado';
+  const obraEnd = v('obra-endereco') || 'Não informado';
+  const obraDesc = v('obra-desc') || 'Reforma / Manutenção';
+  const obraPrazo = v('obra-prazo') || 'A definir';
+  const obraInicio = v('obra-inicio');
   const obraInicioFmt = obraInicio ? new Date(obraInicio + 'T12:00:00').toLocaleDateString('pt-BR') : 'A combinar';
-  const obs = document.getElementById('observacoes').value;
+  const obs = v('observacoes');
   const pagamento = getPagamentoSelecionado();
+  const empNome = v('emp-nome') || 'FM Serviço de Reforma';
+  const empResp = v('emp-responsavel');
+  const empCnpj = v('emp-cnpj');
+  const empTel = v('emp-tel') || '(85) 98762-5872';
+  const empEmail = v('emp-email');
 
-  const empNome = document.getElementById('emp-nome').value || 'FM Serviço de Reforma';
-  const empResp = document.getElementById('emp-responsavel').value;
-  const empCnpj = document.getElementById('emp-cnpj').value;
-  const empTel = document.getElementById('emp-tel').value || '85 98762-5872';
-  const empEmail = document.getElementById('emp-email').value;
-
-  // Tabela de itens
   let tabelaHTML = '';
-  grupos.filter(Boolean).forEach(g => {
-    const itensValidos = g.itens.filter(i => i && (i.desc || i.valor > 0));
-    if(!itensValidos.length) return;
-    const totalGrupo = itensValidos.reduce((s, i) => s + i.qty * i.valor, 0);
-    tabelaHTML += `
-      <tr><td colspan="5" class="pdf-table-grupo">${g.nome || 'SERVIÇOS'}</td></tr>
-      <tr>
-        <th style="width:40%">Descrição</th>
-        <th style="width:10%;text-align:center">Unid.</th>
-        <th style="width:10%;text-align:right">Qtd.</th>
-        <th style="width:18%;text-align:right">R$ Unit.</th>
-        <th style="width:22%;text-align:right">Total</th>
-      </tr>
-    `;
+  grupos.forEach(g => {
+    const itensValidos = g.itens.filter(i => i.desc || i.valor > 0);
+    if (!itensValidos.length) return;
+    const totalGrupo = itensValidos.reduce((s,i) => s + i.qty*i.valor, 0);
+    tabelaHTML +=
+      '<tr><td colspan="5" class="pdf-table-grupo">' + escHtml(g.nome || 'SERVIÇOS') + '</td></tr>' +
+      '<tr>' +
+        '<th style="width:42%">Descrição</th>' +
+        '<th style="width:11%;text-align:center">Unid.</th>' +
+        '<th style="width:11%;text-align:right">Qtd.</th>' +
+        '<th style="width:17%;text-align:right">R$ Unit.</th>' +
+        '<th style="width:19%;text-align:right">Total</th>' +
+      '</tr>';
     itensValidos.forEach(i => {
       const st = i.qty * i.valor;
-      tabelaHTML += `
-        <tr>
-          <td>${i.desc || '—'}</td>
-          <td style="text-align:center">${i.unidade || 'UN'}</td>
-          <td style="text-align:right">${i.qty.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
-          <td style="text-align:right">${formatBRL(i.valor)}</td>
-          <td style="text-align:right;font-weight:700;color:#CC1414">${formatBRL(st)}</td>
-        </tr>
-      `;
+      tabelaHTML +=
+        '<tr>' +
+          '<td>' + escHtml(i.desc || '—').replace(/\n/g,'<br>') + '</td>' +
+          '<td style="text-align:center">' + escHtml(i.unidade || 'UN') + '</td>' +
+          '<td style="text-align:right">' + i.qty.toLocaleString('pt-BR',{minimumFractionDigits:2}) + '</td>' +
+          '<td style="text-align:right">' + formatBRL(i.valor) + '</td>' +
+          '<td style="text-align:right;font-weight:700;color:#CC1414">' + formatBRL(st) + '</td>' +
+        '</tr>';
     });
-    tabelaHTML += `
-      <tr>
-        <td colspan="4" style="text-align:right;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;padding-right:10px">Subtotal ${g.nome}</td>
-        <td style="text-align:right;font-weight:700;color:#0D1B2A;font-size:13px">${formatBRL(totalGrupo)}</td>
-      </tr>
-      <tr><td colspan="5" style="padding:4px"></td></tr>
-    `;
+    tabelaHTML +=
+      '<tr>' +
+        '<td colspan="4" style="text-align:right;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px">Subtotal ' + escHtml(g.nome) + '</td>' +
+        '<td style="text-align:right;font-weight:700;color:#0D1B2A;font-size:13px">' + formatBRL(totalGrupo) + '</td>' +
+      '</tr>' +
+      '<tr><td colspan="5" style="padding:3px;border:none"></td></tr>';
   });
 
-  const html = `
-    <div class="pdf-doc">
-      <div class="pdf-header">
-        <div class="pdf-logo-box">
-          <span>FM</span>
-          <small>Serviço de Reforma</small>
-        </div>
-        <div class="pdf-header-info">
-          <p>Orçamento Nº</p>
-          <strong>${num}/${new Date().getFullYear()}</strong>
-          <p style="margin-top:8px">Data de emissão</p>
-          <strong>${dataFmt}</strong>
-          <p style="margin-top:8px">Validade</p>
-          <strong>${validade}</strong>
-        </div>
-      </div>
-      <div class="pdf-stripe"></div>
-      <div class="pdf-body">
-        <div class="pdf-titulo">Proposta Comercial</div>
-        <div class="pdf-subtitulo">Orçamento de Serviços — ${obraDesc}</div>
-
-        <div class="pdf-info-grid">
-          <div class="pdf-info-item">
-            <label>Cliente</label>
-            <span>${clienteNome}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>CPF / CNPJ</label>
-            <span>${clienteDoc || '—'}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>Telefone</label>
-            <span>${clienteTel || '—'}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>E-mail</label>
-            <span>${clienteEmail || '—'}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>Endereço do Serviço</label>
-            <span>${obraEnd}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>Prazo de Execução</label>
-            <span>${obraPrazo}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>Início Previsto</label>
-            <span>${obraInicioFmt}</span>
-          </div>
-          <div class="pdf-info-item">
-            <label>Endereço do Cliente</label>
-            <span>${clienteEnd || '—'}</span>
-          </div>
-        </div>
-
-        <table class="pdf-table">
-          ${tabelaHTML}
-        </table>
-
-        <div class="pdf-totais">
-          <div class="pdf-total-linha">
-            <label>Custo Total dos Serviços</label>
-            <span>${formatBRL(sub)}</span>
-          </div>
-          ${taxaPct > 0 ? `
-          <div class="pdf-total-linha">
-            <label>Taxa de Administração (${taxaPct}%)</label>
-            <span>${formatBRL(adm)}</span>
-          </div>` : ''}
-          ${descPct > 0 ? `
-          <div class="pdf-total-linha">
-            <label>Desconto (${descPct}%)</label>
-            <span>- ${formatBRL(descVal)}</span>
-          </div>` : ''}
-          <div class="pdf-total-linha destaque">
-            <label>INVESTIMENTO TOTAL</label>
-            <span>${formatBRL(total)}</span>
-          </div>
-        </div>
-
-        ${obs ? `
-        <div class="pdf-observacoes">
-          <h4>Observações Gerais</h4>
-          <p>${obs.replace(/\n/g,'<br>')}</p>
-        </div>` : ''}
-
-        <div class="pdf-condicoes">
-          <h4>Condições Comerciais</h4>
-          <div class="pdf-condicoes-grid">
-            <div class="pdf-condicao-item">
-              <strong>Forma de Pagamento</strong>
-              <span>${pagamento || '—'}</span>
-            </div>
-            <div class="pdf-condicao-item">
-              <strong>Validade da Proposta</strong>
-              <span>${validade} a partir da emissão</span>
-            </div>
-            <div class="pdf-condicao-item">
-              <strong>Prazo de Execução</strong>
-              <span>${obraPrazo}</span>
-            </div>
-            <div class="pdf-condicao-item">
-              <strong>Início Previsto</strong>
-              <span>${obraInicioFmt}</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="pdf-assinar">
-          <div class="pdf-assinar-campo">
-            <p style="font-weight:700;color:#1a1a1a;font-size:11px">${empNome}</p>
-            ${empResp ? `<p style="font-size:10px;color:#555">${empResp}</p>` : ''}
-            ${empCnpj ? `<p style="font-size:10px;color:#888">CNPJ: ${empCnpj}</p>` : ''}
-            <p style="font-size:10px;color:#888;margin-top:2px">WhatsApp: ${empTel}${empEmail ? ' | ' + empEmail : ''}</p>
-          </div>
-          <div class="pdf-assinar-campo">
-            <p style="font-weight:700;color:#1a1a1a;font-size:11px">${clienteNome}</p>
-            <p style="font-size:10px;color:#888">Assinatura do Contratante</p>
-            <p style="font-size:10px;color:#888">Data: ____/____/________</p>
-          </div>
-        </div>
-      </div>
-      <div class="pdf-footer">
-        <div>
-          <strong>${empNome}</strong>
-          <p>WhatsApp: ${empTel}${empEmail ? ' | ' + empEmail : ''}</p>
-        </div>
-        <div style="text-align:right">
-          <p style="color:rgba(255,255,255,0.3);font-size:9px">Orçamento gerado em ${new Date().toLocaleDateString('pt-BR')}</p>
-        </div>
-      </div>
-    </div>
-  `;
+  const html =
+  '<div class="pdf-doc">' +
+    '<div class="pdf-header">' +
+      '<div class="pdf-logo-box"><span>FM</span><small>Serviço de Reforma</small></div>' +
+      '<div class="pdf-header-info">' +
+        '<p>Orçamento Nº</p><strong>' + num + '/' + ano + '</strong>' +
+        '<p style="margin-top:8px">Data de emissão</p><strong>' + dataFmt + '</strong>' +
+        '<p style="margin-top:8px">Validade</p><strong>' + validade + '</strong>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pdf-stripe"></div>' +
+    '<div class="pdf-body">' +
+      '<div class="pdf-titulo">Proposta Comercial</div>' +
+      '<div class="pdf-subtitulo">Orçamento de Serviços — ' + escHtml(obraDesc) + '</div>' +
+      '<div class="pdf-info-grid">' +
+        infoItem('Cliente', clienteNome) +
+        infoItem('CPF / CNPJ', v('cliente-doc')) +
+        infoItem('Telefone', v('cliente-tel')) +
+        infoItem('E-mail', v('cliente-email')) +
+        infoItem('Endereço do Serviço', obraEnd) +
+        infoItem('Endereço do Cliente', v('cliente-endereco')) +
+        infoItem('Prazo de Execução', obraPrazo) +
+        infoItem('Início Previsto', obraInicioFmt) +
+      '</div>' +
+      '<table class="pdf-table">' + tabelaHTML + '</table>' +
+      '<div class="pdf-totais">' +
+        '<div class="pdf-total-linha"><label>Custo Total dos Serviços</label><span>' + formatBRL(sub) + '</span></div>' +
+        (taxaPct > 0 ? '<div class="pdf-total-linha"><label>Taxa de Administração (' + taxaPct + '%)</label><span>' + formatBRL(adm) + '</span></div>' : '') +
+        (descPct > 0 ? '<div class="pdf-total-linha"><label>Desconto (' + descPct + '%)</label><span>- ' + formatBRL(descVal) + '</span></div>' : '') +
+        '<div class="pdf-total-linha destaque"><label>INVESTIMENTO TOTAL</label><span>' + formatBRL(total) + '</span></div>' +
+      '</div>' +
+      (obs ? '<div class="pdf-observacoes"><h4>Observações Gerais</h4><p>' + escHtml(obs).replace(/\n/g,'<br>') + '</p></div>' : '') +
+      '<div class="pdf-condicoes"><h4>Condições Comerciais</h4><div class="pdf-condicoes-grid">' +
+        condItem('Forma de Pagamento', pagamento || '—') +
+        condItem('Validade da Proposta', validade + ' a partir da emissão') +
+        condItem('Prazo de Execução', obraPrazo) +
+        condItem('Início Previsto', obraInicioFmt) +
+      '</div></div>' +
+      '<div class="pdf-assinar">' +
+        '<div class="pdf-assinar-campo">' +
+          '<p style="font-weight:700;color:#1a1a1a;font-size:11px">' + escHtml(empNome) + '</p>' +
+          (empResp ? '<p style="font-size:10px;color:#555">' + escHtml(empResp) + '</p>' : '') +
+          (empCnpj ? '<p style="font-size:10px;color:#888">CNPJ: ' + escHtml(empCnpj) + '</p>' : '') +
+          '<p style="font-size:10px;color:#888;margin-top:2px">WhatsApp: ' + escHtml(empTel) + (empEmail ? ' | ' + escHtml(empEmail) : '') + '</p>' +
+        '</div>' +
+        '<div class="pdf-assinar-campo">' +
+          '<p style="font-weight:700;color:#1a1a1a;font-size:11px">' + escHtml(clienteNome) + '</p>' +
+          '<p style="font-size:10px;color:#888">Assinatura do Contratante</p>' +
+          '<p style="font-size:10px;color:#888">Data: ____/____/________</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="pdf-footer">' +
+      '<div><strong>' + escHtml(empNome) + '</strong><p>WhatsApp: ' + escHtml(empTel) + (empEmail ? ' | ' + escHtml(empEmail) : '') + '</p></div>' +
+      '<div style="text-align:right"><p style="color:rgba(255,255,255,0.35);font-size:9px">Gerado em ' + new Date().toLocaleDateString('pt-BR') + '</p></div>' +
+    '</div>' +
+  '</div>';
 
   document.getElementById('pdf-preview').innerHTML = html;
-  
+
+  const tituloOriginal = document.title;
+  document.title = 'Orcamento FM ' + num + ' - ' + clienteNome;
   setTimeout(() => {
     window.print();
-    mostrarNotif('PDF gerado — use "Salvar como PDF" na impressão');
-  }, 150);
+    document.title = tituloOriginal;
+    mostrarNotif('Na impressão, escolha "Salvar como PDF"');
+  }, 200);
+}
+
+function infoItem(label, val) {
+  return '<div class="pdf-info-item"><label>' + escHtml(label) + '</label><span>' + escHtml(val || '—') + '</span></div>';
+}
+function condItem(label, val) {
+  return '<div class="pdf-condicao-item"><strong>' + escHtml(label) + '</strong><span>' + escHtml(val || '—') + '</span></div>';
 }
 </script>
 </body>
