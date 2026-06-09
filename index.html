@@ -2,228 +2,357 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>FM Serviço de Reforma — Orçamento</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>FM Serviço de Reforma — Sistema</title>
+<meta name="theme-color" content="#0D1B2A">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  /* ════════════════════════════════════════════
+     FM DESIGN SYSTEM — v2
+     ════════════════════════════════════════════ */
   :root {
+    /* marca */
     --vermelho: #CC1414;
     --vermelho-escuro: #A50E0E;
+    --vermelho-texto: #FF6A57;      /* acentos de texto sobre fundo escuro */
     --azul-escuro: #0D1B2A;
     --azul-medio: #1A2E42;
     --azul-claro: #243B55;
     --branco: #FFFFFF;
     --cinza-texto: #B0B8C1;
     --cinza-borda: #2E3D4E;
-    --amarelo-alerta: #F5A623;
+    --texto-fraco: #6E7C8C;
+    --amarelo: #F5A623;
+    --verde: #2ECC71;
+    --azul-info: #4A90D9;
+    /* sistema */
+    --fundo: var(--azul-escuro);
+    --superficie: var(--azul-medio);
+    --campo: #122438;
+    --raio-s: 10px;
+    --raio-m: 14px;
+    --raio-g: 18px;
+    --header-h: 64px;
+    --sombra-card: 0 12px 28px -20px rgba(0,0,0,.9);
+    --anel-foco: 0 0 0 3px rgba(204,20,20,.28);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Barlow', sans-serif;
-    background: var(--azul-escuro);
-    color: var(--branco);
-    min-height: 100vh;
-    font-size: 14px;
+  /* alto contraste — leitura sob sol forte, na obra */
+  html.alto-contraste {
+    --fundo: #04101C;
+    --azul-medio: #0E2236;
+    --azul-claro: #1C3A5C;
+    --campo: #081A2C;
+    --cinza-texto: #DCE4ED;
+    --cinza-borda: #4A5F76;
+    --texto-fraco: #9DAAB9;
+    --vermelho-texto: #FF7E6B;
   }
+  html.alto-contraste body { background: var(--fundo); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Barlow', sans-serif; background: var(--fundo); color: var(--branco); min-height: 100vh; font-size: 15px; line-height: 1.45; }
+  button { font-family: 'Barlow', sans-serif; }
+  button:focus-visible, .status-chip:focus-visible, .nav-item:focus-visible { outline: 2px solid var(--vermelho-texto); outline-offset: 2px; }
 
   /* ── HEADER ── */
-  .app-header {
-    background: linear-gradient(135deg, var(--azul-escuro) 0%, var(--azul-medio) 100%);
-    border-bottom: 3px solid var(--vermelho);
-    padding: 16px 20px 12px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  }
-  .header-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
-  .logo-box {
-    background: var(--vermelho);
-    width: 52px; height: 52px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 6px; flex-shrink: 0;
-    box-shadow: 0 2px 10px rgba(204,20,20,0.4);
-  }
-  .logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; letter-spacing: 1px; }
-  .header-title h1 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: #fff; line-height: 1; }
-  .header-title p { font-size: 10px; color: var(--vermelho); font-weight: 600; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
-  .numero-orcamento {
-    display: inline-flex; align-items: center;
-    background: rgba(204,20,20,0.15); border: 1px solid rgba(204,20,20,0.3);
-    border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 700;
-    color: var(--vermelho); letter-spacing: 1px; margin-top: 6px;
-  }
-  .header-actions { display: flex; gap: 8px; }
-  .btn-action {
-    display: flex; align-items: center; gap: 6px; padding: 10px 16px;
-    border: none; border-radius: 6px; font-family: 'Barlow', sans-serif;
-    font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
-    cursor: pointer; transition: all 0.2s; flex: 1; justify-content: center;
-  }
-  .btn-pdf { background: var(--vermelho); color: #fff; box-shadow: 0 2px 8px rgba(204,20,20,0.35); }
-  .btn-pdf:active { background: var(--vermelho-escuro); transform: scale(0.97); }
-  .btn-limpar { background: var(--azul-claro); color: var(--cinza-texto); border: 1px solid var(--cinza-borda); }
-  .btn-limpar:active { background: var(--azul-medio); transform: scale(0.97); }
-  .autosave-tag { font-size: 9px; color: #5a8a5a; text-align: center; margin-top: 8px; letter-spacing: 1px; }
+  .app-header { background: var(--azul-escuro); border-bottom: 1px solid var(--cinza-borda); box-shadow: 0 1px 0 rgba(204,20,20,.55), 0 10px 24px -14px rgba(0,0,0,.8); padding: 0 16px; min-height: var(--header-h); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; }
+  .logo-box { background: var(--vermelho); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 9px; flex-shrink: 0; box-shadow: 0 4px 14px -4px rgba(204,20,20,.7); }
+  .logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 21px; color: #fff; letter-spacing: .5px; transform: translateY(1px); }
+  .header-title { flex: 1; min-width: 0; }
+  .header-title h1 { font-family: 'Bebas Neue', sans-serif; font-size: 19px; font-weight: 400; letter-spacing: 1.6px; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .header-title p { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; color: var(--vermelho-texto); font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-top: 3px; }
+  .header-view-name { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cinza-texto); border: 1px solid var(--cinza-borda); background: var(--azul-medio); padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
+  .hc-toggle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--cinza-borda); background: var(--azul-medio); color: var(--cinza-texto); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all .15s; }
+  .hc-toggle svg { width: 18px; height: 18px; }
+  .hc-toggle[aria-pressed="true"] { background: var(--branco); color: var(--azul-escuro); border-color: var(--branco); }
+  .hc-toggle:active { transform: scale(.94); }
 
-  /* ── TABS ── */
-  .tabs {
-    display: flex; background: var(--azul-medio);
-    border-bottom: 1px solid var(--cinza-borda);
-    overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
-    position: sticky; top: 96px; z-index: 90;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab {
-    padding: 10px 18px; font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--cinza-texto); cursor: pointer; white-space: nowrap;
-    border-bottom: 3px solid transparent; transition: all 0.2s; font-family: 'Barlow Condensed', sans-serif;
-  }
-  .tab.active { color: var(--vermelho); border-bottom-color: var(--vermelho); background: rgba(204,20,20,0.06); }
+  /* ── MAIN / VIEWS ── */
+  .app-main { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
+  .view { display: none; padding: 18px 16px; animation: fade .22s ease-out; }
+  .view.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .secao-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 32px; font-weight: 400; letter-spacing: 1.5px; line-height: 1; display: flex; align-items: center; gap: 10px; }
+  .secao-titulo::before { content: ''; width: 5px; height: 24px; background: var(--vermelho); border-radius: 3px; }
+  .secao-sub { font-size: 13px; color: var(--cinza-texto); margin: 8px 0 20px 15px; }
 
-  /* ── SECTIONS ── */
-  .section { display: none; padding: 16px; }
-  .section.active { display: block; }
+  /* ── BOTTOM NAV ── */
+  .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(20,34,51,.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-top: 1px solid var(--cinza-borda); display: flex; z-index: 100; box-shadow: 0 -10px 30px -12px rgba(0,0,0,.6); }
+  .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 4px calc(10px + env(safe-area-inset-bottom)); color: var(--texto-fraco); cursor: pointer; border: none; background: none; transition: color .18s; min-height: 56px; }
+  .nav-item svg { width: 23px; height: 23px; }
+  .nav-item span { font-family: 'Barlow Condensed', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-item.active { color: #fff; }
+  .nav-item.active span { color: var(--vermelho-texto); }
+  .nav-item:active svg { transform: scale(.9); }
+  .nav-item.cta .nav-cta-circle { width: 56px; height: 56px; background: linear-gradient(160deg, #E02020 0%, var(--vermelho-escuro) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: -28px; box-shadow: 0 8px 22px -6px rgba(204,20,20,.8); border: 4px solid var(--fundo); transition: transform .15s; }
+  .nav-item.cta:active .nav-cta-circle { transform: scale(.93); }
+  .nav-item.cta .nav-cta-circle svg { color: #fff; width: 26px; height: 26px; }
+  .nav-item.cta span { color: var(--vermelho-texto); margin-top: 2px; }
 
-  /* ── CARDS / FIELDS ── */
-  .card { background: var(--azul-medio); border: 1px solid var(--cinza-borda); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
-  .card-title {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase; color: var(--vermelho);
-    margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--cinza-borda);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .card-title svg { flex-shrink: 0; }
-  .field-group { margin-bottom: 12px; }
-  .field-group label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 5px; }
-  .field-group input, .field-group textarea, .field-group select {
-    width: 100%; background: var(--azul-claro); border: 1px solid var(--cinza-borda);
-    border-radius: 6px; padding: 10px 12px; color: var(--branco); font-family: 'Barlow', sans-serif;
-    font-size: 14px; outline: none; transition: border-color 0.2s; -webkit-appearance: none;
-  }
-  .field-group input:focus, .field-group textarea:focus, .field-group select:focus { border-color: var(--vermelho); background: rgba(26,46,66,0.9); }
-  .field-group textarea { resize: vertical; min-height: 70px; }
+  /* ── CARDS ── */
+  .card { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-g); padding: 18px 16px; margin-bottom: 14px; box-shadow: var(--sombra-card); }
+  .card-title { display: flex; align-items: center; gap: 9px; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #E8EDF3; margin-bottom: 16px; }
+  .card-title::before { content: ''; width: 4px; height: 14px; background: var(--vermelho); border-radius: 2px; flex-shrink: 0; }
+  .lista-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 6px 0 12px; }
+
+  /* ── FIELDS ── */
+  .field-group { margin-bottom: 14px; }
+  .field-group:last-child { margin-bottom: 0; }
+  .field-group label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 11.5px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 6px; }
+  .field-group input, .field-group textarea, .field-group select { width: 100%; background: var(--campo); border: 1px solid var(--cinza-borda); border-radius: var(--raio-s); padding: 13px 14px; min-height: 48px; color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 16px; outline: none; transition: border-color .15s, box-shadow .15s; -webkit-appearance: none; }
+  .field-group input:focus, .field-group textarea:focus, .field-group select:focus { border-color: var(--vermelho); box-shadow: var(--anel-foco); }
+  .field-group input::placeholder, .field-group textarea::placeholder { color: var(--texto-fraco); }
+  .field-group textarea { resize: vertical; min-height: 76px; line-height: 1.5; }
+  .field-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23B0B8C1' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
   .field-group select option { background: var(--azul-escuro); }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .cep-wrap { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: end; }
-  .btn-cep {
-    background: var(--vermelho); color: #fff; border: none; border-radius: 6px;
-    padding: 10px 14px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; height: 41px;
-  }
-  .btn-cep:active { background: var(--vermelho-escuro); }
-  .hint { font-size: 10px; color: #6b7785; margin-top: 4px; }
+  .cep-wrap { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+  .btn-cep { display: inline-flex; align-items: center; gap: 6px; background: var(--vermelho); color: #fff; border: none; border-radius: var(--raio-s); padding: 0 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; white-space: nowrap; height: 48px; transition: transform .12s; }
+  .btn-cep svg { width: 15px; height: 15px; }
+  .btn-cep:active { background: var(--vermelho-escuro); transform: scale(.96); }
+  .hint { font-size: 12px; color: var(--texto-fraco); margin-top: 6px; line-height: 1.45; }
 
-  /* ── ITENS ── */
-  .section-grupo { background: var(--azul-medio); border: 1px solid var(--cinza-borda); border-radius: 10px; margin-bottom: 12px; overflow: hidden; }
-  .grupo-header { background: var(--azul-claro); padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--cinza-borda); }
-  .grupo-nome-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; outline: none; }
-  .grupo-nome-input::placeholder { color: rgba(255,255,255,0.35); }
-  .grupo-total { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--vermelho); white-space: nowrap; }
-  .btn-del-grupo { background: none; border: none; color: #666; cursor: pointer; padding: 2px; font-size: 16px; line-height: 1; }
-  .btn-del-grupo:hover { color: var(--vermelho); }
-  .item-row { padding: 12px 14px; border-bottom: 1px solid rgba(46,61,78,0.5); display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; }
+  /* ── BOTÕES ── */
+  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 18px; min-height: 52px; border: none; border-radius: var(--raio-m); font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase; cursor: pointer; transition: transform .12s, background .15s, filter .15s; width: 100%; }
+  .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primario { background: linear-gradient(160deg, #E02020 0%, var(--vermelho) 55%, var(--vermelho-escuro) 100%); color: #fff; box-shadow: 0 8px 20px -8px rgba(204,20,20,.65); }
+  .btn-primario:active { transform: scale(.98); filter: brightness(.9); }
+  .btn-sec { background: var(--azul-claro); color: #fff; border: 1px solid var(--cinza-borda); }
+  .btn-sec:active { transform: scale(.98); filter: brightness(1.15); }
+  .btn-verde { background: var(--verde); color: #06371C; }
+  .btn-verde:active { transform: scale(.98); filter: brightness(.92); }
+  .btn-perigo { background: rgba(204,20,20,.12); color: var(--vermelho-texto); border: 1px solid rgba(204,20,20,.45); }
+  .btn-perigo:active { transform: scale(.98); background: rgba(204,20,20,.22); }
+  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn-mini { min-height: 40px; padding: 0 14px; font-size: 12px; width: auto; border-radius: var(--raio-s); }
+
+  /* ── STEPPER (abas do editor) ── */
+  .subtabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; counter-reset: passo; margin-bottom: 18px; position: sticky; top: var(--header-h); z-index: 60; padding: 10px 0 12px; background: linear-gradient(to bottom, var(--fundo) 78%, transparent); }
+  .subtab { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 9px 2px 10px; min-height: 60px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.1px; text-transform: uppercase; color: var(--cinza-texto); cursor: pointer; border-radius: var(--raio-m); background: var(--azul-medio); border: 1px solid var(--cinza-borda); transition: all .18s; text-align: center; }
+  .subtab::before { counter-increment: passo; content: counter(passo); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,.09); color: var(--cinza-texto); font-family: 'Barlow', sans-serif; font-size: 11.5px; font-weight: 800; transition: all .18s; }
+  .subtab.active { color: #fff; background: var(--vermelho); border-color: transparent; box-shadow: 0 6px 16px -6px rgba(204,20,20,.7); }
+  .subtab.active::before { background: rgba(255,255,255,.25); color: #fff; }
+  .subtab:active { transform: scale(.96); }
+  .subview { display: none; animation: fade .22s ease-out; }
+  .subview.active { display: block; }
+
+  /* ── GRUPOS / ITENS ── */
+  .section-grupo { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-g); margin-bottom: 14px; overflow: hidden; box-shadow: var(--sombra-card); }
+  .grupo-header { background: var(--azul-claro); padding: 12px 14px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--cinza-borda); border-left: 4px solid var(--vermelho); }
+  .grupo-nome-input { flex: 1; min-width: 0; background: transparent; border: none; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; outline: none; padding: 6px 0; }
+  .grupo-nome-input::placeholder { color: rgba(255,255,255,.32); }
+  .grupo-total { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .5px; color: var(--vermelho-texto); white-space: nowrap; }
+  .btn-del-grupo { background: none; border: none; color: var(--texto-fraco); cursor: pointer; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; line-height: 1; flex-shrink: 0; transition: all .15s; }
+  .btn-del-grupo:active { color: var(--vermelho-texto); background: rgba(204,20,20,.15); }
+  .item-row { padding: 14px; border-bottom: 1px solid rgba(46,61,78,.55); display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: start; }
   .item-row:last-child { border-bottom: none; }
-  textarea.item-desc-input {
-    width: 100%; background: var(--azul-claro); border: 1px solid var(--cinza-borda);
-    border-radius: 6px; color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 13px;
-    padding: 8px 10px; outline: none; resize: vertical; min-height: 60px; line-height: 1.4;
-  }
-  textarea.item-desc-input::placeholder { color: rgba(176,184,193,0.4); }
-  textarea.item-desc-input:focus { border-color: var(--vermelho); }
-  .char-counter { text-align: right; font-size: 9px; color: var(--cinza-texto); margin: 3px 0 8px; letter-spacing: 0.5px; }
-  .char-counter.limite { color: var(--amarelo-alerta); font-weight: 700; }
-  .item-nums { display: grid; grid-template-columns: 1fr 0.7fr 1fr; gap: 6px; }
-  .item-num-group label { display: block; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 3px; }
-  .item-num-input { width: 100%; background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 4px; color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 12px; padding: 6px; outline: none; text-align: right; -webkit-appearance: none; }
-  .item-num-input:focus { border-color: var(--vermelho); }
-  .item-subtotal { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--vermelho); text-align: right; padding-top: 4px; white-space: nowrap; padding-left: 8px; }
-  .item-del-btn { background: none; border: none; color: #555; cursor: pointer; font-size: 14px; padding: 6px 0 2px; display: block; margin-left: auto; }
-  .item-del-btn:hover { color: var(--vermelho); }
-  .item-actions { padding: 10px 14px; }
-  .btn-add-item { width: 100%; background: rgba(204,20,20,0.12); border: 1px dashed rgba(204,20,20,0.4); color: var(--vermelho); padding: 9px; border-radius: 6px; font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 4px; }
-  .btn-add-item:active { background: rgba(204,20,20,0.2); }
-  .btn-add-grupo { width: 100%; background: transparent; border: 2px dashed var(--cinza-borda); color: var(--cinza-texto); padding: 12px; border-radius: 10px; font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
-  .btn-add-grupo:active { border-color: var(--vermelho); color: var(--vermelho); }
+  textarea.item-desc-input { width: 100%; background: var(--campo); border: 1px solid var(--cinza-borda); border-radius: var(--raio-s); color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 14.5px; padding: 10px 12px; outline: none; resize: vertical; min-height: 58px; line-height: 1.45; transition: border-color .15s, box-shadow .15s; }
+  textarea.item-desc-input::placeholder { color: var(--texto-fraco); }
+  textarea.item-desc-input:focus { border-color: var(--vermelho); box-shadow: var(--anel-foco); }
+  .char-counter { text-align: right; font-size: 10.5px; color: var(--texto-fraco); margin: 4px 0 10px; font-variant-numeric: tabular-nums; }
+  .char-counter.limite { color: var(--amarelo); font-weight: 700; }
+  .item-nums { display: grid; grid-template-columns: 1fr .7fr 1.1fr; gap: 7px; }
+  .item-num-group label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 4px; }
+  .item-num-input { width: 100%; background: var(--campo); border: 1px solid var(--cinza-borda); border-radius: 8px; color: var(--branco); font-family: 'Barlow', sans-serif; font-size: 14px; padding: 9px 8px; min-height: 40px; outline: none; text-align: right; -webkit-appearance: none; font-variant-numeric: tabular-nums; transition: border-color .15s; }
+  .item-num-input:focus { border-color: var(--vermelho); box-shadow: var(--anel-foco); }
+  .item-subtotal { font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--vermelho-texto); text-align: right; padding-top: 4px; white-space: nowrap; padding-left: 4px; font-variant-numeric: tabular-nums; }
+  .item-del-btn { background: none; border: none; color: var(--texto-fraco); cursor: pointer; font-size: 15px; width: 32px; height: 32px; border-radius: 50%; display: block; margin-left: auto; margin-top: 6px; transition: all .15s; }
+  .item-del-btn:active { color: var(--vermelho-texto); background: rgba(204,20,20,.15); }
+  .item-actions { padding: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(13,27,42,.35); }
+  .btn-add-item { background: rgba(204,20,20,.16); border: 1.5px solid rgba(204,20,20,.55); color: var(--vermelho-texto); padding: 12px 8px; min-height: 56px; border-radius: var(--raio-m); font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; letter-spacing: .2px; transition: transform .12s, background .15s; }
+  .btn-add-item .add-ico { font-size: 19px; line-height: 1; font-weight: 700; }
+  .btn-add-item.lib { background: rgba(74,144,217,.14); border-color: rgba(74,144,217,.55); color: #7FB3E8; }
+  .btn-add-item:active { transform: scale(.96); }
+  .btn-add-grupo { width: 100%; background: transparent; border: 2px dashed var(--cinza-borda); color: var(--cinza-texto); padding: 14px; min-height: 52px; border-radius: var(--raio-m); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; transition: all .15s; }
+  .btn-add-grupo:active { border-color: var(--vermelho); color: var(--vermelho-texto); }
+  .btn-copiar-end { background: rgba(74,144,217,.12); border: 1px solid rgba(74,144,217,.42); color: #7FB3E8; padding: 0 12px; min-height: 44px; border-radius: var(--raio-s); font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; width: 100%; justify-content: center; transition: transform .12s, background .15s; }
+  .btn-copiar-end svg { width: 16px; height: 16px; }
+  .btn-copiar-end:active { transform: scale(.98); background: rgba(74,144,217,.22); }
 
   /* ── TOTALIZADOR ── */
-  .totalizador { background: var(--azul-medio); border: 1px solid var(--cinza-borda); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
-  .total-linha { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--cinza-borda); }
+  .totalizador { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-g); overflow: hidden; margin-bottom: 14px; box-shadow: var(--sombra-card); }
+  .total-linha { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--cinza-borda); }
   .total-linha:last-child { border-bottom: none; }
-  .total-linha.destaque { background: var(--vermelho); padding: 14px 16px; }
-  .total-linha label { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cinza-texto); font-family: 'Barlow Condensed', sans-serif; }
-  .total-linha.destaque label { color: rgba(255,255,255,0.85); font-size: 13px; }
-  .total-linha .valor { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: #fff; }
-  .total-linha.destaque .valor { font-size: 20px; }
-  .total-linha input[type="number"] { width: 70px; background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 4px; color: var(--branco); font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; padding: 5px 8px; text-align: right; outline: none; -webkit-appearance: none; }
-  .total-linha input[type="number"]:focus { border-color: var(--vermelho); }
+  .total-linha.destaque { background: linear-gradient(160deg, #E02020 0%, var(--vermelho) 55%, var(--vermelho-escuro) 100%); padding: 18px 16px; }
+  .total-linha label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 1.4px; text-transform: uppercase; color: var(--cinza-texto); }
+  .total-linha.destaque label { color: rgba(255,255,255,.9); font-size: 13px; }
+  .total-linha .valor { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .total-linha.destaque .valor { font-family: 'Bebas Neue', sans-serif; font-size: 28px; font-weight: 400; letter-spacing: .5px; }
+  .total-linha input[type="number"] { width: 76px; background: var(--campo); border: 1px solid var(--cinza-borda); border-radius: 8px; color: var(--branco); font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; padding: 8px; min-height: 40px; text-align: right; outline: none; -webkit-appearance: none; }
+  .total-linha input[type="number"]:focus { border-color: var(--vermelho); box-shadow: var(--anel-foco); }
 
-  /* ── CONDIÇÕES ── */
-  .condicao-opcoes { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
-  .condicao-opcao { background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 8px; padding: 12px; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; transition: border-color 0.2s; }
-  .condicao-opcao.selecionada { border-color: var(--vermelho); background: rgba(204,20,20,0.08); }
-  .condicao-opcao input[type="radio"] { accent-color: var(--vermelho); margin-top: 2px; flex-shrink: 0; }
-  .condicao-opcao-texto strong { display: block; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
-  .condicao-opcao-texto span { font-size: 11px; color: var(--cinza-texto); }
+  /* ── STATUS CHIPS ── */
+  .status-select-wrap { display: flex; gap: 8px; flex-wrap: wrap; }
+  .status-chip { flex: 1; min-width: 72px; min-height: 44px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px 8px; border-radius: var(--raio-s); border: 1px solid var(--cinza-borda); background: var(--campo); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1.1px; cursor: pointer; color: var(--cinza-texto); transition: all .15s; }
+  .status-chip:active { transform: scale(.95); }
+  .status-chip.sel-rascunho { border-color: #8A97A5; background: rgba(138,151,165,.16); color: #DDE4EB; }
+  .status-chip.sel-enviado { border-color: var(--azul-info); background: rgba(74,144,217,.18); color: #8FC0F0; }
+  .status-chip.sel-aprovado { border-color: var(--verde); background: rgba(46,204,113,.16); color: #5BE598; }
+  .status-chip.sel-recusado { border-color: var(--vermelho); background: rgba(204,20,20,.18); color: var(--vermelho-texto); }
 
-  /* ── NOTIFICAÇÃO ── */
-  .notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--vermelho); color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; z-index: 9999; box-shadow: 0 4px 20px rgba(0,0,0,0.4); opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; max-width: 90vw; text-align: center; }
-  .notif.show { opacity: 1; }
+  /* ── DASHBOARD ── */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 22px; }
+  .stat-card { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-g); padding: 16px 14px; box-shadow: var(--sombra-card); }
+  .stat-card.full { grid-column: 1 / -1; background: linear-gradient(150deg, #E02020 0%, var(--vermelho) 50%, var(--vermelho-escuro) 100%); border: none; box-shadow: 0 14px 30px -14px rgba(204,20,20,.7); }
+  .stat-card .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.6px; text-transform: uppercase; color: var(--cinza-texto); margin-bottom: 8px; }
+  .stat-card.full .stat-label { color: rgba(255,255,255,.88); }
+  .stat-card .stat-value { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat-card.full .stat-value { color: #fff; font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 40px; letter-spacing: .5px; }
 
-  /* ── PDF DOC ── */
+  .orc-card { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-g); padding: 15px 16px; margin-bottom: 10px; cursor: pointer; transition: border-color .15s, transform .12s; display: flex; align-items: center; gap: 12px; box-shadow: var(--sombra-card); }
+  .orc-card:active { border-color: var(--vermelho); transform: scale(.985); }
+  .orc-card-info { flex: 1; min-width: 0; }
+  .orc-card-num { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: var(--texto-fraco); font-weight: 600; letter-spacing: 1.4px; }
+  .orc-card-cliente { font-size: 16px; font-weight: 700; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .orc-card-meta { font-size: 12px; color: var(--cinza-texto); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .orc-card-right { text-align: right; flex-shrink: 0; }
+  .orc-card-valor { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; color: var(--vermelho-texto); font-variant-numeric: tabular-nums; }
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-family: 'Barlow Condensed', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; margin-top: 6px; }
+  .badge-rascunho { background: rgba(138,151,165,.18); color: #C7D0D9; border: 1px solid rgba(138,151,165,.35); }
+  .badge-enviado { background: rgba(74,144,217,.18); color: #8FC0F0; border: 1px solid rgba(74,144,217,.4); }
+  .badge-aprovado { background: rgba(46,204,113,.16); color: #5BE598; border: 1px solid rgba(46,204,113,.4); }
+  .badge-recusado { background: rgba(204,20,20,.18); color: var(--vermelho-texto); border: 1px solid rgba(204,20,20,.45); }
+  .empty-state { text-align: center; padding: 48px 20px; color: var(--cinza-texto); font-size: 14px; line-height: 1.6; }
+  .empty-state svg { width: 52px; height: 52px; opacity: .3; margin-bottom: 14px; }
+
+  /* ── BIBLIOTECA ── */
+  .lib-search { width: 100%; background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-m); padding: 13px 16px; min-height: 50px; color: #fff; font-family: 'Barlow', sans-serif; font-size: 16px; outline: none; margin-bottom: 14px; -webkit-appearance: none; transition: border-color .15s, box-shadow .15s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17' viewBox='0 0 24 24' fill='none' stroke='%236E7C8C' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 44px; }
+  .lib-search::placeholder { color: var(--texto-fraco); }
+  .lib-search:focus { border-color: var(--vermelho); box-shadow: var(--anel-foco); }
+  .lib-cat-header { display: flex; align-items: center; gap: 9px; font-family: 'Barlow Condensed', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: 2.2px; text-transform: uppercase; color: #E8EDF3; margin: 20px 0 10px; }
+  .lib-cat-header::before { content: ''; width: 4px; height: 13px; background: var(--vermelho); border-radius: 2px; flex-shrink: 0; }
+  .lib-cat-header::after { content: ''; flex: 1; height: 1px; background: var(--cinza-borda); }
+  .lib-item { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-m); padding: 13px 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; transition: border-color .15s, transform .12s; }
+  .lib-item-info { flex: 1; min-width: 0; }
+  .lib-item-desc { font-size: 13.5px; line-height: 1.4; }
+  .lib-item-meta { font-size: 12px; color: var(--cinza-texto); margin-top: 5px; }
+  .lib-item-meta b { color: var(--vermelho-texto); font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; letter-spacing: .3px; }
+  .lib-item-acoes { display: flex; gap: 7px; flex-shrink: 0; }
+  .lib-icon-btn { background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 9px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--cinza-texto); font-size: 14px; transition: all .15s; }
+  .lib-icon-btn:active { color: #fff; transform: scale(.92); }
+  .lib-item.selecionavel { cursor: pointer; }
+  .lib-item.selecionavel:active { border-color: var(--verde); transform: scale(.985); }
+  .lib-item.selecionavel .lib-icon-btn { font-size: 19px; font-weight: 700; border-color: rgba(46,204,113,.45); background: rgba(46,204,113,.12); }
+
+  /* ── MODAIS (bottom sheets) ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(4,10,18,.72); z-index: 1000; display: none; align-items: flex-end; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  .modal-overlay.show { display: flex; }
+  .modal { background: var(--fundo); border: 1px solid var(--cinza-borda); border-bottom: none; border-radius: 22px 22px 0 0; width: 100%; max-height: 92vh; overflow-y: auto; padding: 12px 18px calc(20px + env(safe-area-inset-bottom)); animation: slideup .28s cubic-bezier(.32,.72,.35,1); box-shadow: 0 -20px 50px rgba(0,0,0,.55); }
+  .modal::before { content: ''; display: block; width: 44px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.18); margin: 2px auto 14px; }
+  @keyframes slideup { from { transform: translateY(100%); } to { transform: none; } }
+  .modal-fs { max-height: 100vh; max-height: 100dvh; height: 100dvh; border-radius: 0; border: none; }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+  .modal-header h3 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; font-weight: 400; letter-spacing: 1.2px; line-height: 1; }
+  .modal-close { background: var(--azul-claro); border: 1px solid var(--cinza-borda); color: #fff; width: 40px; height: 40px; border-radius: 50%; font-size: 17px; cursor: pointer; flex-shrink: 0; transition: transform .12s; }
+  .modal-close:active { transform: scale(.9); }
+  .modal-hint { font-size: 13px; color: var(--cinza-texto); margin-bottom: 14px; line-height: 1.5; }
+  .modal-orc-resumo { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-m); padding: 14px 16px; margin-bottom: 16px; }
+  .modal-orc-resumo .linha { display: flex; justify-content: space-between; gap: 14px; padding: 5px 0; font-size: 13.5px; }
+  .modal-orc-resumo .linha span:first-child { color: var(--cinza-texto); flex-shrink: 0; }
+  .modal-orc-resumo .linha b { text-align: right; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .modal-acoes { display: flex; flex-direction: column; gap: 9px; }
+  .btn-concluir-lib { position: sticky; bottom: 6px; margin-top: 10px; box-shadow: 0 8px 26px rgba(0,0,0,.6); }
+
+  /* ── TOAST ── */
+  .notif { position: fixed; bottom: calc(102px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%) translateY(8px); background: #0A1622; border: 1px solid var(--cinza-borda); border-left: 3px solid var(--vermelho); color: #fff; padding: 12px 20px; border-radius: var(--raio-m); font-size: 13.5px; font-weight: 600; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,.6); opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; max-width: min(90vw, 420px); text-align: center; }
+  .notif.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── TABLET / DESKTOP ── */
+  @media (min-width: 700px) {
+    .app-main { max-width: 600px; margin: 0 auto; }
+    .app-header { padding-left: max(16px, calc(50vw - 300px)); padding-right: max(16px, calc(50vw - 300px)); }
+    .bottom-nav { max-width: 600px; left: 50%; transform: translateX(-50%); border: 1px solid var(--cinza-borda); border-bottom: none; border-radius: var(--raio-g) var(--raio-g) 0 0; }
+    .modal { max-width: 600px; margin: 0 auto; }
+    .modal-fs { border-radius: 22px 22px 0 0; height: 94dvh; max-height: 94dvh; border: 1px solid var(--cinza-borda); border-bottom: none; }
+  }
+
+  /* ════ DOCUMENTOS (PDF / IMPRESSÃO) ════ */
   #pdf-preview { display: none; }
-  .pdf-doc { background: #fff; color: #1a1a1a; font-family: 'Barlow', sans-serif; max-width: 800px; margin: 0 auto; font-size: 12px; }
-  .pdf-header { background: #0D1B2A; padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; }
-  .pdf-logo-box { background: #CC1414; padding: 10px 18px; border-radius: 4px; }
+  .pdf-doc, .contrato-doc { background: #fff; color: #1A1A1A; font-family: 'Barlow', sans-serif; max-width: 800px; margin: 0 auto; font-size: 12px; }
+  .pdf-header { background: #0D1B2A; padding: 26px 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .pdf-logo-box { background: #CC1414; padding: 10px 18px; border-radius: 6px; }
   .pdf-logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: #fff; display: block; line-height: 1; }
-  .pdf-logo-box small { font-size: 10px; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .pdf-logo-box small { font-size: 9.5px; color: rgba(255,255,255,.75); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
   .pdf-header-info { text-align: right; }
-  .pdf-header-info p { color: rgba(255,255,255,0.7); font-size: 11px; margin-bottom: 2px; }
-  .pdf-header-info strong { color: #fff; font-size: 12px; }
+  .pdf-header-info p { color: rgba(255,255,255,.6); font-size: 10px; letter-spacing: 1.4px; text-transform: uppercase; font-weight: 600; margin-bottom: 2px; font-family: 'Barlow Condensed', sans-serif; }
+  .pdf-header-info strong { color: #fff; font-size: 13px; }
   .pdf-stripe { height: 5px; background: #CC1414; }
-  .pdf-body { padding: 24px 32px; }
-  .pdf-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; color: #0D1B2A; text-transform: uppercase; margin-bottom: 4px; }
-  .pdf-subtitulo { font-size: 11px; color: #CC1414; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
-  .pdf-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; margin-bottom: 24px; padding: 16px; background: #f5f5f5; border-left: 4px solid #CC1414; border-radius: 0 4px 4px 0; }
-  .pdf-info-item label { display: block; font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 3px; }
-  .pdf-info-item span { font-size: 13px; font-weight: 600; color: #1a1a1a; word-break: break-word; }
+  .pdf-body { padding: 28px 36px; }
+  .pdf-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 26px; font-weight: 400; letter-spacing: 3px; color: #0D1B2A; text-transform: uppercase; margin-bottom: 4px; }
+  .pdf-subtitulo { font-size: 11px; color: #CC1414; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 22px; font-family: 'Barlow Condensed', sans-serif; }
+  .pdf-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; margin-bottom: 26px; padding: 18px; background: #F6F7F8; border: 1px solid #E8EAEC; border-left: 4px solid #CC1414; border-radius: 0 6px 6px 0; }
+  .pdf-info-item label { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: #8A929B; margin-bottom: 3px; }
+  .pdf-info-item span { font-size: 12.5px; font-weight: 600; color: #1A1A1A; word-break: break-word; }
   .pdf-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; table-layout: fixed; }
-  .pdf-table-grupo { background: #0D1B2A; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 7px 10px; }
-  .pdf-table th { background: #1A2E42; color: rgba(255,255,255,0.85); font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 10px; text-align: left; }
-  .pdf-table td { padding: 8px 10px; border-bottom: 1px solid #eee; font-size: 11px; color: #2c2c2c; vertical-align: top; word-wrap: break-word; overflow-wrap: break-word; }
+  .pdf-table-grupo { background: #0D1B2A; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11.5px; letter-spacing: 2px; text-transform: uppercase; padding: 8px 10px; border-left: 4px solid #CC1414; }
+  .pdf-table th { background: #1A2E42; color: rgba(255,255,255,.88); font-family: 'Barlow Condensed', sans-serif; font-size: 9.5px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; padding: 7px 10px; text-align: left; }
+  .pdf-table td { padding: 8px 10px; border-bottom: 1px solid #ECEEF0; font-size: 11px; color: #2C2C2C; vertical-align: top; word-wrap: break-word; overflow-wrap: break-word; }
   .pdf-table tr { page-break-inside: avoid; }
-  .pdf-table tr:nth-child(even) td { background: #fafafa; }
-  .pdf-totais { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; margin-top: 16px; margin-bottom: 20px; page-break-inside: avoid; }
-  .pdf-total-linha { display: flex; justify-content: flex-end; align-items: center; gap: 20px; font-size: 12px; color: #555; width: 320px; }
-  .pdf-total-linha.destaque { background: #CC1414; padding: 10px 14px; border-radius: 4px; width: 340px; }
-  .pdf-total-linha.destaque label { color: rgba(255,255,255,0.9); font-weight: 700; font-size: 13px; }
-  .pdf-total-linha.destaque span { color: #fff; font-size: 18px; font-weight: 700; font-family: 'Barlow Condensed'; }
+  .pdf-table tr:nth-child(even) td { background: #FAFBFB; }
+  .pdf-totais { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; margin-top: 18px; margin-bottom: 22px; page-break-inside: avoid; }
+  .pdf-total-linha { display: flex; justify-content: flex-end; align-items: center; gap: 20px; font-size: 12px; color: #555; width: 330px; }
+  .pdf-total-linha.destaque { background: #CC1414; padding: 12px 16px; border-radius: 6px; width: 350px; margin-top: 4px; }
+  .pdf-total-linha.destaque label { color: rgba(255,255,255,.92); font-weight: 700; font-size: 13px; letter-spacing: .6px; }
+  .pdf-total-linha.destaque span { color: #fff; font-size: 19px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif; }
   .pdf-total-linha label { flex: 1; font-weight: 600; text-align: right; }
-  .pdf-total-linha span { font-weight: 700; color: #1a1a1a; min-width: 110px; text-align: right; }
-  .pdf-observacoes { margin-top: 20px; padding: 14px; background: #f5f5f5; border-radius: 4px; border-left: 3px solid #CC1414; page-break-inside: avoid; }
-  .pdf-observacoes h4 { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
-  .pdf-observacoes p { font-size: 11px; color: #444; line-height: 1.5; }
-  .pdf-condicoes { margin-top: 16px; page-break-inside: avoid; }
-  .pdf-condicoes h4 { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+  .pdf-total-linha span { font-weight: 700; color: #1A1A1A; min-width: 112px; text-align: right; font-variant-numeric: tabular-nums; }
+  .pdf-observacoes { margin-top: 20px; padding: 15px 16px; background: #F6F7F8; border-radius: 6px; border: 1px solid #E8EAEC; border-left: 4px solid #CC1414; page-break-inside: avoid; }
+  .pdf-observacoes h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #8A929B; margin-bottom: 6px; }
+  .pdf-observacoes p { font-size: 11px; color: #444; line-height: 1.55; }
+  .pdf-condicoes { margin-top: 18px; page-break-inside: avoid; }
+  .pdf-condicoes h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 10.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #8A929B; margin-bottom: 8px; }
   .pdf-condicoes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pdf-condicao-item { padding: 10px; background: #f0f0f0; border-radius: 4px; }
-  .pdf-condicao-item strong { display: block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #CC1414; margin-bottom: 2px; }
-  .pdf-condicao-item span { font-size: 11px; color: #444; }
-  .pdf-assinar { display: flex; gap: 40px; margin-top: 36px; page-break-inside: avoid; }
-  .pdf-assinar-campo { flex: 1; border-top: 1px solid #aaa; padding-top: 6px; }
-  .pdf-footer { background: #0D1B2A; padding: 16px 32px; display: flex; justify-content: space-between; align-items: center; margin-top: 30px; }
-  .pdf-footer p { font-size: 10px; color: rgba(255,255,255,0.5); }
-  .pdf-footer strong { color: rgba(255,255,255,0.85); display: block; font-size: 11px; }
+  .pdf-condicao-item { padding: 11px 12px; background: #F2F3F5; border-radius: 6px; }
+  .pdf-condicao-item strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #CC1414; margin-bottom: 3px; }
+  .pdf-condicao-item span { font-size: 11px; color: #444; line-height: 1.45; }
+  .pdf-assinar { display: flex; gap: 44px; margin-top: 40px; page-break-inside: avoid; }
+  .pdf-assinar-campo { flex: 1; border-top: 1.5px solid #9AA1A8; padding-top: 8px; }
+  .pdf-footer { background: #0D1B2A; padding: 18px 36px; display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+  .pdf-footer p { font-size: 10px; color: rgba(255,255,255,.5); }
+  .pdf-footer strong { color: rgba(255,255,255,.9); display: block; font-size: 11.5px; }
 
-  /* ── PRINT (corrigido: sem position fixed que duplicava páginas) ── */
+  /* ── CONTRATO ── */
+  .contrato-body { padding: 32px 40px; }
+  .contrato-titulo { text-align: center; font-family: 'Bebas Neue', sans-serif; font-size: 22px; font-weight: 400; letter-spacing: 2.5px; color: #0D1B2A; margin-bottom: 4px; }
+  .contrato-sub { text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 10.5px; color: #CC1414; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; margin-bottom: 26px; }
+  .contrato-partes { margin-bottom: 20px; font-size: 12px; line-height: 1.7; color: #2C2C2C; }
+  .contrato-partes p { margin-bottom: 8px; }
+  .contrato-clausula { margin-bottom: 15px; page-break-inside: avoid; }
+  .contrato-clausula h4 { font-size: 12px; font-weight: 800; color: #0D1B2A; margin-bottom: 5px; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid #ECEEF0; padding-bottom: 3px; }
+  .contrato-clausula p { font-size: 11.5px; line-height: 1.62; color: #333; text-align: justify; margin-bottom: 4px; }
+  .contrato-assinaturas { margin-top: 40px; }
+  .contrato-data { text-align: right; font-size: 12px; color: #333; margin: 30px 0; }
+  .assina-bloco { display: flex; gap: 44px; margin-top: 38px; page-break-inside: avoid; }
+  .assina-campo { flex: 1; text-align: center; }
+  .assina-linha { border-top: 1.5px solid #333; padding-top: 7px; margin-top: 42px; }
+  .assina-campo p { font-size: 11px; color: #333; }
+  .assina-campo .nome { font-weight: 700; }
+  .testemunhas { display: flex; gap: 44px; margin-top: 30px; page-break-inside: avoid; }
+  .testemunha { flex: 1; }
+  .testemunha .assina-linha { font-size: 10px; color: #666; }
+
+  /* ── ANEXO I ── */
+  .anexo-quebra { page-break-before: always; height: 0; }
+  .anexo-titulo { font-family: 'Bebas Neue', sans-serif; font-size: 19px; font-weight: 400; letter-spacing: 1.8px; color: #0D1B2A; text-transform: uppercase; margin: 10px 0 4px; border-bottom: 2.5px solid #CC1414; padding-bottom: 5px; }
+  .anexo-nota { font-size: 10px; color: #666; line-height: 1.55; margin-bottom: 10px; }
+  .anexo-table { width: 100%; border-collapse: collapse; margin-top: 8px; table-layout: fixed; }
+  .anexo-table th { background: #1A2E42; color: rgba(255,255,255,.88); font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; padding: 6px; text-align: left; }
+  .anexo-table td { padding: 5.5px 6px; border-bottom: 1px solid #ECEEF0; font-size: 10px; color: #2C2C2C; vertical-align: top; word-wrap: break-word; overflow-wrap: break-word; }
+  .anexo-table tr { page-break-inside: avoid; }
+  .anexo-table .anx-grupo { background: #0D1B2A; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: .8px; }
+  .anexo-table .anx-total td { background: #F0F1F3; font-weight: 700; font-size: 10px; color: #0D1B2A; }
+  .anexo-table .anx-investimento td { background: #CC1414; color: #fff; font-weight: 700; font-size: 12px; padding: 9px 8px; }
+
   @media print {
     @page { margin: 8mm; }
-    .app-header, .tabs, .section, .notif { display: none !important; }
+    body { background: #fff; }
+    .app-header, .bottom-nav, .view, .notif, .modal-overlay { display: none !important; }
     #pdf-preview { display: block !important; }
-    .pdf-doc, .pdf-header, .pdf-stripe, .pdf-table-grupo, .pdf-table th,
+    .pdf-doc, .contrato-doc, .pdf-header, .pdf-stripe, .pdf-table-grupo, .pdf-table th,
     .pdf-total-linha.destaque, .pdf-footer, .pdf-info-grid, .pdf-observacoes,
-    .pdf-condicao-item, .pdf-table tr:nth-child(even) td {
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
+    .pdf-condicao-item, .pdf-table tr:nth-child(even) td,
+    .anexo-table th, .anexo-table .anx-grupo, .anexo-table .anx-total td, .anexo-table .anx-investimento td {
+      -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important;
     }
   }
 </style>
@@ -232,664 +361,1123 @@
 
 <!-- HEADER -->
 <div class="app-header">
-  <div class="header-top">
-    <div class="logo-box"><span>FM</span></div>
-    <div class="header-title">
-      <h1>FM Serviço de Reforma</h1>
-      <p>Sistema de Orçamento</p>
-      <div class="numero-orcamento" id="badge-numero">Nº 001/2026</div>
-    </div>
+  <div class="logo-box"><span>FM</span></div>
+  <div class="header-title">
+    <h1>FM Serviço de Reforma</h1>
+    <p>Sistema de Gestão</p>
   </div>
-  <div class="header-actions">
-    <button class="btn-action btn-limpar" onclick="limparTudo()">↺ Limpar</button>
-    <button class="btn-action btn-pdf" onclick="gerarPDF()">⬇ Salvar PDF</button>
-  </div>
-  <div class="autosave-tag">● Salvamento automático ativo neste dispositivo</div>
+  <div class="header-view-name" id="header-view-name">Início</div>
+  <button class="hc-toggle" id="hc-toggle" aria-pressed="false" aria-label="Alto contraste (sol forte)" title="Alto contraste (sol forte)">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  </button>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <div class="tab active" onclick="irPara('cliente', this)">Cliente</div>
-  <div class="tab" onclick="irPara('servicos', this)">Serviços</div>
-  <div class="tab" onclick="irPara('totais', this)">Totais</div>
-  <div class="tab" onclick="irPara('condicoes', this)">Condições</div>
+<div class="app-main">
+
+  <!-- ══════ VIEW: INÍCIO ══════ -->
+  <div class="view active" id="view-inicio" data-screen-label="Início (Painel)">
+    <div class="secao-titulo">Painel</div>
+    <div class="secao-sub">Resumo das suas cotações e atalhos</div>
+    <div class="stats-grid" id="dashboard-stats"></div>
+    <div class="lista-head">
+      <div class="card-title" style="margin: 0;">Cotações Recentes</div>
+      <button class="btn btn-mini btn-sec" onclick="novaCotacao()">+ Nova</button>
+    </div>
+    <div id="lista-orcamentos"></div>
+  </div>
+
+  <!-- ══════ VIEW: COTAÇÃO ══════ -->
+  <div class="view" id="view-cotacao" data-screen-label="Cotação (Editor)">
+    <div class="subtabs">
+      <div class="subtab active" onclick="subAba('cliente', this)" role="button" tabindex="0">Cliente</div>
+      <div class="subtab" onclick="subAba('servicos', this)" role="button" tabindex="0">Serviços</div>
+      <div class="subtab" onclick="subAba('totais', this)" role="button" tabindex="0">Totais</div>
+      <div class="subtab" onclick="subAba('condicoes', this)" role="button" tabindex="0">Condições</div>
+    </div>
+
+    <!-- SUB: CLIENTE -->
+    <div class="subview active" id="sv-cliente" data-screen-label="Editor — Cliente">
+      <div class="card">
+        <div class="card-title">Dados do Orçamento</div>
+        <div class="field-row">
+          <div class="field-group"><label for="numero">Nº</label><input type="text" id="numero" inputmode="numeric" oninput="autosave()" placeholder="001"></div>
+          <div class="field-group"><label for="data">Data</label><input type="date" id="data" oninput="autosave()"></div>
+        </div>
+        <div class="field-group"><label for="validade">Validade</label>
+          <select id="validade" onchange="autosave()"><option>5 dias</option><option>7 dias</option><option>10 dias</option><option>15 dias</option><option>30 dias</option></select>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Cliente</div>
+        <div class="field-group"><label for="cliente-nome">Nome / Razão Social</label><input type="text" id="cliente-nome" oninput="autosave()" placeholder="Nome do cliente"></div>
+        <div class="field-group"><label for="cliente-doc">CPF / CNPJ</label><input type="text" id="cliente-doc" inputmode="numeric" placeholder="Só números"><div class="hint">Detecta CPF ou CNPJ automaticamente.</div></div>
+        <div class="field-group"><label for="cliente-cep">CEP do Cliente</label>
+          <div class="cep-wrap"><input type="text" id="cliente-cep" inputmode="numeric" placeholder="00000-000"><button class="btn-cep" onclick="buscarCepManual('cliente-cep','cliente-endereco')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Buscar</button></div>
+        </div>
+        <div class="field-group"><label for="cliente-endereco">Endereço do Cliente</label><input type="text" id="cliente-endereco" oninput="autosave()" placeholder="Rua, número, bairro"></div>
+        <div class="field-row">
+          <div class="field-group"><label for="cliente-tel">Telefone</label><input type="tel" id="cliente-tel" inputmode="numeric" placeholder="(85) 90000-0000"></div>
+          <div class="field-group"><label for="cliente-email">E-mail</label><input type="email" id="cliente-email" oninput="autosave()" placeholder="email@email.com"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Local da Obra</div>
+        <div class="field-group"><label for="obra-cep">CEP da Obra</label>
+          <div class="cep-wrap"><input type="text" id="obra-cep" inputmode="numeric" placeholder="00000-000"><button class="btn-cep" onclick="buscarCepManual('obra-cep','obra-endereco')"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Buscar</button></div>
+        </div>
+        <button class="btn-copiar-end" onclick="copiarEnderecoCliente()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>Usar o mesmo endereço do cliente</button>
+        <div class="field-group"><label for="obra-endereco">Endereço do Serviço</label><input type="text" id="obra-endereco" oninput="autosave()" placeholder="Onde será executado"></div>
+        <div class="field-group"><label for="obra-desc">Descrição da Obra</label><textarea id="obra-desc" maxlength="120" oninput="autosave()" placeholder="Ex: Reforma de sala — demolição, elétrica, pintura"></textarea><div class="hint">Subtítulo do PDF. Máx. 120.</div></div>
+        <div class="field-row">
+          <div class="field-group"><label for="obra-prazo">Prazo</label><input type="text" id="obra-prazo" oninput="autosave()" placeholder="Ex: 30 dias"></div>
+          <div class="field-group"><label for="obra-inicio">Início Previsto</label><input type="date" id="obra-inicio" oninput="autosave()"></div>
+        </div>
+      </div>
+      <button class="btn btn-primario" onclick="subAba('servicos', document.querySelectorAll('.subtab')[1])">Próximo: Serviços<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+    </div>
+
+    <!-- SUB: SERVIÇOS -->
+    <div class="subview" id="sv-servicos" data-screen-label="Editor — Serviços">
+      <div id="container-grupos"></div>
+      <button class="btn-add-grupo" onclick="adicionarGrupo()"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Adicionar Grupo</button>
+      <button class="btn btn-primario" onclick="subAba('totais', document.querySelectorAll('.subtab')[2])">Próximo: Totais<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+    </div>
+
+    <!-- SUB: TOTAIS -->
+    <div class="subview" id="sv-totais" data-screen-label="Editor — Totais">
+      <div class="card"><div class="card-title">Resumo por Grupo</div><div id="resumo-grupos"></div></div>
+      <div class="totalizador">
+        <div class="total-linha"><label>Custo Total dos Serviços</label><span class="valor" id="t-subtotal">R$ 0,00</span></div>
+        <div class="total-linha"><label>Taxa de Adm. / BDI</label><div style="display:flex;align-items:center;gap:7px;"><input type="number" id="taxa-adm" value="0" min="0" max="100" oninput="recalcular();autosave()"><span style="color:var(--cinza-texto);font-size:13px;">%</span></div></div>
+        <div class="total-linha"><label>Valor da Taxa</label><span class="valor" id="t-adm">R$ 0,00</span></div>
+        <div class="total-linha"><label>Desconto</label><div style="display:flex;align-items:center;gap:7px;"><input type="number" id="desconto" value="0" min="0" max="100" oninput="recalcular();autosave()"><span style="color:var(--cinza-texto);font-size:13px;">%</span></div></div>
+        <div class="total-linha destaque"><label>Investimento Total</label><span class="valor" id="t-total">R$ 0,00</span></div>
+      </div>
+      <div class="card"><div class="card-title">Observações Gerais</div>
+        <div class="field-group"><textarea id="observacoes" maxlength="600" oninput="autosave()" placeholder="Itens não inclusos, garantia, condições..." style="min-height: 100px;"></textarea></div>
+      </div>
+      <button class="btn btn-primario" onclick="subAba('condicoes', document.querySelectorAll('.subtab')[3])">Próximo: Condições<svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+    </div>
+
+    <!-- SUB: CONDIÇÕES -->
+    <div class="subview" id="sv-condicoes" data-screen-label="Editor — Condições">
+      <div class="card">
+        <div class="card-title">Status do Orçamento</div>
+        <div class="status-select-wrap" id="status-wrap">
+          <div class="status-chip" data-status="Rascunho" onclick="selStatus(this)" role="button" tabindex="0">Rascunho</div>
+          <div class="status-chip" data-status="Enviado" onclick="selStatus(this)" role="button" tabindex="0">Enviado</div>
+          <div class="status-chip" data-status="Aprovado" onclick="selStatus(this)" role="button" tabindex="0">Aprovado</div>
+          <div class="status-chip" data-status="Recusado" onclick="selStatus(this)" role="button" tabindex="0">Recusado</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Forma de Pagamento</div>
+        <div class="status-select-wrap" style="margin-bottom: 14px;">
+          <div class="status-chip" onclick="atalhoPagamento(40,'semanal',this)" role="button" tabindex="0">40% + medição</div>
+          <div class="status-chip" onclick="atalhoPagamento(50,'entrega',this)" role="button" tabindex="0">50% + entrega</div>
+          <div class="status-chip" onclick="atalhoPagamento(30,'mensal',this)" role="button" tabindex="0">30% + mensal</div>
+          <div class="status-chip" onclick="atalhoPagamento(100,'avista',this)" role="button" tabindex="0">À vista</div>
+        </div>
+        <div class="field-row">
+          <div class="field-group"><label for="entrada-pct">Entrada na assinatura (%)</label><input type="number" id="entrada-pct" min="0" max="100" value="40" oninput="recalcular();autosave()"></div>
+          <div class="field-group"><label for="regime-saldo">Regime do saldo</label>
+            <select id="regime-saldo" onchange="recalcular();autosave()">
+              <option value="semanal">Parcelas semanais (medição)</option>
+              <option value="entrega">Parcela única na entrega</option>
+              <option value="mensal">Parcelas mensais (cronograma)</option>
+              <option value="avista">À vista (sem saldo)</option>
+            </select>
+          </div>
+        </div>
+        <div class="hint" id="pagamento-preview" style="margin-top: 8px; line-height: 1.55;"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Materiais por Conta do Contratante</div>
+        <div class="field-group"><textarea id="materiais-contratante" maxlength="400" oninput="autosave()" placeholder="Ex: porcelanato, granito de bancadas, louças e metais, luminárias e caixas de som" style="min-height: 70px;"></textarea>
+        <div class="hint">Opcional. Se preenchido, entra na cláusula 1.4 do contrato (fornecimento do contratante, sem incidência da taxa de administração).</div></div>
+      </div>
+      <div class="btn-row" style="margin-bottom: 10px;">
+        <button class="btn btn-sec" onclick="gerarPDF()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Gerar PDF</button>
+        <button class="btn btn-verde" onclick="salvarOrcamento(true)"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Salvar</button>
+      </div>
+      <button class="btn btn-primario" onclick="gerarContrato()" style="margin-bottom: 20px;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>Gerar Contrato</button>
+    </div>
+  </div>
+
+  <!-- ══════ VIEW: BIBLIOTECA ══════ -->
+  <div class="view" id="view-biblioteca" data-screen-label="Biblioteca">
+    <div class="secao-titulo">Biblioteca</div>
+    <div class="secao-sub">Serviços prontos para reaproveitar nos orçamentos</div>
+    <input type="text" class="lib-search" id="lib-search" placeholder="Buscar serviço..." oninput="renderBiblioteca()">
+    <div class="btn-row" style="margin-bottom: 14px;">
+      <button class="btn btn-sec btn-mini" onclick="abrirEdicaoLib()"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Novo Serviço</button>
+      <button class="btn btn-sec btn-mini" onclick="abrirImportar()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Importar em massa</button>
+    </div>
+    <div id="lib-container"></div>
+  </div>
+
+  <!-- ══════ VIEW: AJUSTES ══════ -->
+  <div class="view" id="view-config" data-screen-label="Ajustes">
+    <div class="secao-titulo">Ajustes</div>
+    <div class="secao-sub">Dados usados em todos os orçamentos e contratos</div>
+    <div class="card">
+      <div class="card-title">Dados da Empresa</div>
+      <div class="field-group"><label for="cfg-emp-nome">Nome / Razão Social</label><input type="text" id="cfg-emp-nome" placeholder="FM Serviço de Reforma e Construção Ltda"></div>
+      <div class="field-group"><label for="cfg-emp-resp">Responsável</label><input type="text" id="cfg-emp-resp" placeholder="Nome do responsável"></div>
+      <div class="field-row">
+        <div class="field-group"><label for="cfg-emp-cnpj">CNPJ / CPF</label><input type="text" id="cfg-emp-cnpj" inputmode="numeric" placeholder="Só números"></div>
+        <div class="field-group"><label for="cfg-emp-tel">WhatsApp</label><input type="tel" id="cfg-emp-tel" inputmode="numeric" placeholder="(85) 90000-0000"></div>
+      </div>
+      <div class="field-group"><label for="cfg-emp-email">E-mail</label><input type="email" id="cfg-emp-email" placeholder="email@empresa.com"></div>
+      <div class="field-group"><label for="cfg-emp-cidade">Cidade (foro do contrato)</label><input type="text" id="cfg-emp-cidade" placeholder="Fortaleza/CE"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Cláusulas Padrão do Contrato</div>
+      <div class="field-row">
+        <div class="field-group"><label for="cfg-garantia-solidez">Garantia de solidez (anos)</label><input type="number" id="cfg-garantia-solidez" placeholder="5"></div>
+        <div class="field-group"><label for="cfg-garantia-acab">Garantia acabamentos (meses)</label><input type="number" id="cfg-garantia-acab" placeholder="12"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group"><label for="cfg-multa-entrega">Multa atraso entrega (%/dia útil)</label><input type="number" id="cfg-multa-entrega" step="0.1" placeholder="0.3"></div>
+        <div class="field-group"><label for="cfg-multa-max">Teto multa atraso (%)</label><input type="number" id="cfg-multa-max" placeholder="10"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group"><label for="cfg-multa-pagto">Multa atraso pagamento (%)</label><input type="number" id="cfg-multa-pagto" step="0.1" placeholder="2"></div>
+        <div class="field-group"><label for="cfg-juros">Juros de mora (%/mês)</label><input type="number" id="cfg-juros" step="0.1" placeholder="1"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group"><label for="cfg-multa-resc">Multa rescisão (%)</label><input type="number" id="cfg-multa-resc" placeholder="10"></div>
+        <div class="field-group"><label for="cfg-teto-aditivos">Teto de aditivos (%)</label><input type="number" id="cfg-teto-aditivos" placeholder="15"></div>
+      </div>
+      <div class="hint">Esses valores preenchem automaticamente as cláusulas do contrato. Os padrões reproduzem o modelo de empreitada a preço fechado.</div>
+    </div>
+    <button class="btn btn-primario" onclick="salvarConfig()"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Salvar Ajustes</button>
+    <div class="card" style="margin-top: 16px;">
+      <div class="card-title">Dados</div>
+      <button class="btn btn-perigo" onclick="resetarTudo()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>Apagar todos os dados do app</button>
+      <div class="hint" style="margin-top: 8px;">Remove cotações, biblioteca e ajustes deste dispositivo.</div>
+    </div>
+  </div>
+
 </div>
 
-<!-- ── CLIENTE ── -->
-<div class="section active" id="s-cliente">
-  <div class="card">
-    <div class="card-title">Dados do Orçamento</div>
-    <div class="field-row">
-      <div class="field-group">
-        <label>Nº do Orçamento</label>
-        <input type="text" id="numero" value="001" inputmode="numeric" oninput="atualizarBadge()" placeholder="001">
-      </div>
-      <div class="field-group">
-        <label>Data de Emissão</label>
-        <input type="date" id="data">
-      </div>
-    </div>
-    <div class="field-group">
-      <label>Validade da Proposta</label>
-      <select id="validade">
-        <option>5 dias</option><option>7 dias</option><option>10 dias</option>
-        <option>15 dias</option><option>30 dias</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Dados do Cliente</div>
-    <div class="field-group">
-      <label>Nome / Razão Social</label>
-      <input type="text" id="cliente-nome" placeholder="Nome do cliente ou empresa">
-    </div>
-    <div class="field-group">
-      <label>CPF / CNPJ</label>
-      <input type="text" id="cliente-doc" inputmode="numeric" placeholder="Digite só os números">
-      <div class="hint">Detecta automaticamente CPF ou CNPJ ao digitar.</div>
-    </div>
-    <div class="field-group">
-      <label>CEP do Cliente</label>
-      <div class="cep-wrap">
-        <input type="text" id="cliente-cep" inputmode="numeric" placeholder="00000-000">
-        <button class="btn-cep" onclick="buscarCepManual('cliente-cep','cliente-endereco')">Buscar</button>
-      </div>
-      <div class="hint">Ao completar 8 dígitos o endereço é preenchido sozinho.</div>
-    </div>
-    <div class="field-group">
-      <label>Endereço do Cliente</label>
-      <input type="text" id="cliente-endereco" placeholder="Rua, número, bairro">
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <label>Telefone</label>
-        <input type="tel" id="cliente-tel" inputmode="numeric" placeholder="(85) 90000-0000">
-      </div>
-      <div class="field-group">
-        <label>E-mail</label>
-        <input type="email" id="cliente-email" placeholder="email@email.com">
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Local da Obra</div>
-    <div class="field-group">
-      <label>CEP da Obra</label>
-      <div class="cep-wrap">
-        <input type="text" id="obra-cep" inputmode="numeric" placeholder="00000-000">
-        <button class="btn-cep" onclick="buscarCepManual('obra-cep','obra-endereco')">Buscar</button>
-      </div>
-    </div>
-    <div class="field-group">
-      <label>Endereço do Serviço</label>
-      <input type="text" id="obra-endereco" placeholder="Endereço onde será executado">
-    </div>
-    <div class="field-group">
-      <label>Descrição Resumida da Obra</label>
-      <textarea id="obra-desc" maxlength="120" placeholder="Ex: Reforma de sala — demolição, elétrica, pintura e acabamentos"></textarea>
-      <div class="hint">Aparece como subtítulo do PDF. Máx. 120 caracteres.</div>
-    </div>
-    <div class="field-row">
-      <div class="field-group">
-        <label>Prazo de Execução</label>
-        <input type="text" id="obra-prazo" placeholder="Ex: 30 dias">
-      </div>
-      <div class="field-group">
-        <label>Início Previsto</label>
-        <input type="date" id="obra-inicio">
-      </div>
-    </div>
-  </div>
-
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('servicos', document.querySelectorAll('.tab')[1])">Próximo: Serviços →</button>
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" data-view="inicio" onclick="irView('inicio', this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    <span>Início</span>
+  </button>
+  <button class="nav-item" data-view="biblioteca" onclick="irView('biblioteca', this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+    <span>Biblioteca</span>
+  </button>
+  <button class="nav-item cta" onclick="novaCotacao()">
+    <div class="nav-cta-circle"><svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+    <span>Cotação</span>
+  </button>
+  <button class="nav-item" data-view="cotacao" onclick="irView('cotacao', this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+    <span>Editor</span>
+  </button>
+  <button class="nav-item" data-view="config" onclick="irView('config', this)">
+    <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    <span>Ajustes</span>
+  </button>
 </div>
 
-<!-- ── SERVIÇOS ── -->
-<div class="section" id="s-servicos">
-  <div id="container-grupos"></div>
-  <button class="btn-add-grupo" onclick="adicionarGrupo()">+ Adicionar Grupo de Serviço</button>
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('totais', document.querySelectorAll('.tab')[2])">Próximo: Totais →</button>
+<!-- MODAL: AÇÕES DO ORÇAMENTO -->
+<div class="modal-overlay" id="modal-orc">
+  <div class="modal" data-screen-label="Modal — Ações do orçamento">
+    <div class="modal-header"><h3 id="modal-orc-titulo">Orçamento</h3><button class="modal-close" onclick="fecharModal('modal-orc')" aria-label="Fechar">✕</button></div>
+    <div class="modal-orc-resumo" id="modal-orc-resumo"></div>
+    <div class="modal-acoes">
+      <button class="btn btn-sec" onclick="acaoEditar()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>Editar</button>
+      <button class="btn btn-sec" onclick="acaoPDF()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Gerar PDF do Orçamento</button>
+      <button class="btn btn-verde" id="btn-aprovar" onclick="acaoAprovar()"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Marcar como Aprovado</button>
+      <button class="btn btn-primario" onclick="acaoContrato()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>Gerar Contrato</button>
+      <button class="btn btn-perigo" onclick="acaoExcluir()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg>Excluir</button>
+    </div>
+  </div>
 </div>
 
-<!-- ── TOTAIS ── -->
-<div class="section" id="s-totais">
-  <div class="card">
-    <div class="card-title">Resumo por Grupo</div>
-    <div id="resumo-grupos"></div>
+<!-- MODAL: SELECIONAR DA BIBLIOTECA -->
+<div class="modal-overlay" id="modal-lib-sel">
+  <div class="modal modal-fs" data-screen-label="Modal — Adicionar serviços da biblioteca">
+    <div class="modal-header"><h3>Adicionar Serviços</h3><button class="modal-close" onclick="fecharModal('modal-lib-sel')" aria-label="Fechar">✕</button></div>
+    <p class="modal-hint">Toque nos serviços para adicioná-los ao orçamento. Você pode adicionar vários seguidos e depois tocar em Concluir.</p>
+    <input type="text" class="lib-search" id="lib-sel-search" placeholder="Buscar serviço..." oninput="renderLibSelecao()">
+    <div id="lib-sel-container" style="padding-bottom: 20px;"></div>
+    <button class="btn btn-primario btn-concluir-lib" id="btn-concluir-lib" onclick="fecharModal('modal-lib-sel')">Concluir</button>
   </div>
-  <div class="totalizador">
-    <div class="total-linha"><label>Custo Total dos Serviços</label><span class="valor" id="t-subtotal">R$ 0,00</span></div>
-    <div class="total-linha"><label>Taxa de Administração / BDI</label>
-      <div style="display:flex;align-items:center;gap:6px"><input type="number" id="taxa-adm" value="0" min="0" max="100" oninput="recalcular();saveDraft()"><span style="color:var(--cinza-texto);font-size:12px">%</span></div>
-    </div>
-    <div class="total-linha"><label>Valor da Taxa</label><span class="valor" id="t-adm">R$ 0,00</span></div>
-    <div class="total-linha"><label>Desconto</label>
-      <div style="display:flex;align-items:center;gap:6px"><input type="number" id="desconto" value="0" min="0" max="100" oninput="recalcular();saveDraft()"><span style="color:var(--cinza-texto);font-size:12px">%</span></div>
-    </div>
-    <div class="total-linha destaque"><label>INVESTIMENTO TOTAL</label><span class="valor" id="t-total">R$ 0,00</span></div>
-  </div>
-  <div class="card">
-    <div class="card-title">Observações Gerais</div>
-    <div class="field-group">
-      <textarea id="observacoes" maxlength="600" placeholder="Itens não inclusos, condições especiais, garantia...
-Ex: Não inclui móveis planejados e esquadrias de alumínio.
-Garantia de 90 dias na mão de obra." style="min-height:100px"></textarea>
-    </div>
-  </div>
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px" onclick="irPara('condicoes', document.querySelectorAll('.tab')[3])">Próximo: Condições →</button>
 </div>
 
-<!-- ── CONDIÇÕES ── -->
-<div class="section" id="s-condicoes">
-  <div class="card">
-    <div class="card-title">Forma de Pagamento</div>
-    <div class="condicao-opcoes" id="opcoes-pagamento">
-      <div class="condicao-opcao selecionada" onclick="selecionarOpcao(this)">
-        <input type="radio" name="pagamento" checked>
-        <div class="condicao-opcao-texto"><strong>50% + 50%</strong><span>50% na assinatura do contrato e 50% na entrega da obra</span></div>
-      </div>
-      <div class="condicao-opcao" onclick="selecionarOpcao(this)">
-        <input type="radio" name="pagamento">
-        <div class="condicao-opcao-texto"><strong>50% + 25% + 25%</strong><span>50% na assinatura, 25% em 15 dias e 25% na entrega</span></div>
-      </div>
-      <div class="condicao-opcao" onclick="selecionarOpcao(this)">
-        <input type="radio" name="pagamento">
-        <div class="condicao-opcao-texto"><strong>30% + 40% + 30%</strong><span>30% na assinatura, 40% na metade da obra, 30% na entrega</span></div>
-      </div>
-      <div class="condicao-opcao" onclick="selecionarOpcao(this)">
-        <input type="radio" name="pagamento">
-        <div class="condicao-opcao-texto"><strong>À vista</strong><span>Pagamento integral na assinatura do contrato</span></div>
-      </div>
-    </div>
-    <div class="field-group" style="margin-top:12px">
-      <label>Outras condições de pagamento</label>
-      <input type="text" id="pagamento-custom" placeholder="Se preenchido, substitui a opção acima no PDF">
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">Dados da Empresa</div>
-    <div class="field-group"><label>Nome da Empresa</label><input type="text" id="emp-nome" value="FM Serviço de Reforma e Construção Ltda" placeholder="Nome da empresa"></div>
+<!-- MODAL: EDITAR ITEM DA BIBLIOTECA -->
+<div class="modal-overlay" id="modal-lib-edit">
+  <div class="modal" data-screen-label="Modal — Editar serviço da biblioteca">
+    <div class="modal-header"><h3 id="lib-edit-titulo">Novo Serviço</h3><button class="modal-close" onclick="fecharModal('modal-lib-edit')" aria-label="Fechar">✕</button></div>
+    <div class="field-group"><label for="lib-edit-cat">Categoria</label><input type="text" id="lib-edit-cat" list="cats" placeholder="Ex: Pintura"><datalist id="cats"></datalist></div>
+    <div class="field-group"><label for="lib-edit-desc">Descrição do Serviço</label><textarea id="lib-edit-desc" maxlength="350" placeholder="Descreva o serviço" style="min-height: 80px;"></textarea></div>
     <div class="field-row">
-      <div class="field-group"><label>Responsável</label><input type="text" id="emp-responsavel" placeholder="Nome do responsável"></div>
-      <div class="field-group"><label>CNPJ / CPF</label><input type="text" id="emp-cnpj" inputmode="numeric" placeholder="Digite só os números"></div>
+      <div class="field-group"><label for="lib-edit-un">Unidade</label><input type="text" id="lib-edit-un" placeholder="m², m, UN, VB" style="text-transform: uppercase;"></div>
+      <div class="field-group"><label for="lib-edit-valor">Valor sugerido (R$)</label><input type="text" id="lib-edit-valor" inputmode="numeric" placeholder="0,00"></div>
     </div>
-    <div class="field-row">
-      <div class="field-group"><label>WhatsApp</label><input type="tel" id="emp-tel" inputmode="numeric" value="(85) 98762-5872" placeholder="(85) 90000-0000"></div>
-      <div class="field-group"><label>E-mail</label><input type="email" id="emp-email" placeholder="email@empresa.com"></div>
-    </div>
+    <button class="btn btn-primario" onclick="salvarItemLib()" style="margin-top: 16px;"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Salvar na Biblioteca</button>
   </div>
+</div>
 
-  <button class="btn-action btn-pdf" style="width:100%;margin-bottom:20px;font-size:14px;padding:16px" onclick="gerarPDF()">⬇ Gerar e Salvar PDF</button>
+<!-- MODAL: IMPORTAR EM MASSA -->
+<div class="modal-overlay" id="modal-importar">
+  <div class="modal" data-screen-label="Modal — Importar em massa">
+    <div class="modal-header"><h3>Importar Serviços</h3><button class="modal-close" onclick="fecharModal('modal-importar')" aria-label="Fechar">✕</button></div>
+    <div class="field-group"><label for="imp-cat">Categoria do lote</label><input type="text" id="imp-cat" placeholder="Ex: Importados"></div>
+    <div class="field-group"><label for="imp-texto">Cole uma linha por serviço</label>
+      <textarea id="imp-texto" style="min-height: 160px;" placeholder="Formato:  Descrição | Unidade | Valor&#10;Exemplos:&#10;Pintura acrílica de parede | m² | 55&#10;Instalação de tomada | UN | 200&#10;Limpeza pós-obra | VB | 500"></textarea>
+      <div class="hint">Separe por barra ( | ). Unidade e valor são opcionais — se faltar, vira UN e 0.</div>
+    </div>
+    <button class="btn btn-primario" onclick="importarLote()" style="margin-top: 16px;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Importar</button>
+  </div>
 </div>
 
 <div id="pdf-preview"></div>
 <div class="notif" id="notif"></div>
 
 <script>
+/* ════════════════════════════════════════════
+   FM SISTEMA — LÓGICA
+   ════════════════════════════════════════════ */
 const MAX_DESC = 350;
-const STATIC_FIELDS = ['numero','data','validade','cliente-nome','cliente-doc','cliente-cep','cliente-endereco','cliente-tel','cliente-email','obra-cep','obra-endereco','obra-desc','obra-prazo','obra-inicio','taxa-adm','desconto','observacoes','pagamento-custom','emp-nome','emp-responsavel','emp-cnpj','emp-tel','emp-email'];
+const LS = { hist:'fm_v3_historico', bib:'fm_v3_biblioteca', cfg:'fm_v3_config', rasc:'fm_v3_rascunho' };
+
+const CAMPOS_ESTATICOS = ['numero','data','validade','cliente-nome','cliente-doc','cliente-cep','cliente-endereco','cliente-tel','cliente-email','obra-cep','obra-endereco','obra-desc','obra-prazo','obra-inicio','taxa-adm','desconto','observacoes','pagamento-custom'];
 
 let grupos = [];
+let historico = [];
+let biblioteca = [];
+let config = {};
+let orcamentoEditandoId = null;     // id do orçamento aberto no editor (null = novo)
+let statusAtual = 'Rascunho';
+let modalOrcId = null;              // orçamento aberto no modal de ações
+let libSelTargetGrupo = null;       // grupo destino ao inserir da biblioteca
+let libEditId = null;               // item da biblioteca em edição
 
-/* ───────── INIT ───────── */
+/* ──────── BIBLIOTECA PADRÃO ──────── */
+const BIBLIOTECA_PADRAO = [
+  // Pacotes prontos FM (descrições completas reutilizáveis)
+  {cat:'Pacotes Prontos FM', desc:'Demolição e construção, reparos de rebocos e gesso. Materiais inclusos: fornecimento de lona e papelão para proteção de piso e móveis, retirada de entulho gerado na obra, preparo de paredes para pintura, readequação de pontos e isolamento geral de piso para início da obra.', un:'VB', valor:4000},
+  {cat:'Pacotes Prontos FM', desc:'Elétrica e iluminação. Readequar pontos de tomadas conforme projeto, criar pontos de iluminação, readequar quadro elétrico. Materiais inclusos: fiação, caixas de passagem, eletrodutos, fitas isolantes, tomadas, interruptores, fitas de LED e drivers.', un:'VB', valor:7500},
+  {cat:'Pacotes Prontos FM', desc:'Acabamentos. Fornecimento e instalação de aparador conforme projeto, confecção e instalação de suporte de TV, limpeza geral pós-obra e retirada de resíduos de materiais.', un:'VB', valor:4100},
+  {cat:'Pacotes Prontos FM', desc:'Pintura geral do ambiente conforme projeto: selar, emassar e pintar; textura de cimento queimado conforme descrito. Materiais inclusos: tintas, massa, lixas e textura de cimento queimado.', un:'VB', valor:8000},
+  // Demolições e Retiradas
+  {cat:'Demolições e Retiradas', desc:'Demolição de piso existente', un:'m²', valor:15},
+  {cat:'Demolições e Retiradas', desc:'Demolição de mureta de alvenaria', un:'m', valor:150},
+  {cat:'Demolições e Retiradas', desc:'Demolição de revestimento de parede', un:'m²', valor:25},
+  {cat:'Demolições e Retiradas', desc:'Remoção de louças, metais e acessórios', un:'VB', valor:120},
+  {cat:'Demolições e Retiradas', desc:'Retirada de entulho (caçamba/container)', un:'UN', valor:400},
+  // Alvenaria e Estrutura
+  {cat:'Alvenaria e Estrutura', desc:'Mureta de alvenaria H=98cm', un:'m²', valor:150},
+  {cat:'Alvenaria e Estrutura', desc:'Parede de alvenaria', un:'m²', valor:600},
+  {cat:'Alvenaria e Estrutura', desc:'Contrapiso de regularização', un:'m²', valor:28},
+  {cat:'Alvenaria e Estrutura', desc:'Reparo de reboco e regularização', un:'m²', valor:45},
+  // Instalações Hidráulicas
+  {cat:'Instalações Hidráulicas', desc:'Ponto de esgoto', un:'UN', valor:152},
+  {cat:'Instalações Hidráulicas', desc:'Ponto de água', un:'UN', valor:160},
+  {cat:'Instalações Hidráulicas', desc:'Instalação de louças, metais e acessórios', un:'VB', valor:800},
+  // Instalações Elétricas
+  {cat:'Instalações Elétricas', desc:'Ponto de tomada', un:'UN', valor:200},
+  {cat:'Instalações Elétricas', desc:'Ponto de iluminação', un:'UN', valor:220},
+  {cat:'Instalações Elétricas', desc:'Interruptor', un:'UN', valor:180},
+  {cat:'Instalações Elétricas', desc:'Ponto de internet / antena de TV', un:'UN', valor:210},
+  {cat:'Instalações Elétricas', desc:'Instalação de fita / perfil de LED', un:'m', valor:45},
+  {cat:'Instalações Elétricas', desc:'Adequação e balanceamento de quadro elétrico', un:'VB', valor:1500},
+  // Forro e Gesso
+  {cat:'Forro e Gesso', desc:'Forro de gesso acartonado', un:'m²', valor:90},
+  {cat:'Forro e Gesso', desc:'Regularização de paredes com gesso', un:'VB', valor:950},
+  {cat:'Forro e Gesso', desc:'Sanca / cortineiro de gesso', un:'m', valor:120},
+  // Pintura
+  {cat:'Pintura', desc:'Pintura acrílica em paredes (cor única)', un:'m²', valor:55},
+  {cat:'Pintura', desc:'Pintura acrílica em forro', un:'m²', valor:50},
+  {cat:'Pintura', desc:'Massa corrida + lixamento', un:'m²', valor:35},
+  {cat:'Pintura', desc:'Textura de cimento queimado', un:'m²', valor:120},
+  {cat:'Pintura', desc:'Textura projetada / decorativa', un:'m²', valor:350},
+  // Revestimentos e Pisos
+  {cat:'Revestimentos e Pisos', desc:'Assentamento de porcelanato', un:'m²', valor:85},
+  {cat:'Revestimentos e Pisos', desc:'Assentamento de rodapé', un:'m', valor:180},
+  {cat:'Revestimentos e Pisos', desc:'Fornecimento de porcelanato (padrão médio)', un:'m²', valor:90},
+  // Marcenaria e Acabamentos
+  {cat:'Marcenaria e Acabamentos', desc:'Marcenaria sob medida', un:'VB', valor:0},
+  {cat:'Marcenaria e Acabamentos', desc:'Fornecimento e instalação de pedra / bancada', un:'VB', valor:0},
+  {cat:'Marcenaria e Acabamentos', desc:'Confecção e instalação de suporte de TV', un:'UN', valor:150},
+  // Serviços Gerais
+  {cat:'Serviços Gerais', desc:'Limpeza fina de entrega de obra', un:'VB', valor:500},
+  {cat:'Serviços Gerais', desc:'Proteção de piso e móveis (lona / papelão)', un:'VB', valor:300},
+  {cat:'Serviços Gerais', desc:'Isolamento e mobilização da área da obra', un:'VB', valor:0}
+];
+
+/* ──────── INIT ──────── */
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('data').value = new Date().toISOString().split('T')[0];
-
-  const restaurou = loadDraft();
-  if (!restaurou) {
-    grupos = [{ nome: 'SERVIÇOS DE MÃO DE OBRA E MATERIAIS', itens: [{ desc:'', qty:1, unidade:'UN', valor:0 }] }];
-  }
-  renderGrupos();
-  atualizarBadge();
-
-  // máscaras
-  attachMask('cliente-doc', maskCpfCnpj);
-  attachMask('emp-cnpj', maskCpfCnpj);
-  attachMask('cliente-tel', maskPhone);
-  attachMask('emp-tel', maskPhone);
-  attachCep('cliente-cep', 'cliente-endereco');
-  attachCep('obra-cep', 'obra-endereco');
-
-  // autosave em todos os campos estáticos
-  STATIC_FIELDS.forEach(id => {
-    const e = document.getElementById(id);
-    if (e) e.addEventListener('input', saveDraft);
-  });
+  carregarDados();
+  document.getElementById('data').value = hoje();
+  const rasc = lerJSON(LS.rasc);
+  if (rasc) aplicarOrcamento(rasc); else novaCotacaoSilenciosa();
+  attachMasks();
+  renderDashboard();
+  preencherConfigCampos();
 });
 
-/* ───────── TABS ───────── */
-function irPara(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('s-' + id).classList.add('active');
-  if (el) el.classList.add('active');
-  if (id === 'totais') { recalcular(); atualizarResumoGrupos(); }
-  window.scrollTo(0, 0);
-}
-
-/* ───────── BADGE ───────── */
-function atualizarBadge() {
-  const n = (document.getElementById('numero').value || '001').replace(/\D/g,'') || '001';
-  document.getElementById('badge-numero').textContent = 'Nº ' + n.padStart(3,'0') + '/' + new Date().getFullYear();
-}
-
-/* ───────── MÁSCARAS ───────── */
-function attachMask(id, fn) {
-  const e = document.getElementById(id);
-  if (!e) return;
-  e.addEventListener('input', () => { e.value = fn(e.value); });
-  if (e.value) e.value = fn(e.value);
-}
-function maskCpfCnpj(v) {
-  v = (v || '').replace(/\D/g, '');
-  if (v.length <= 11) {
-    v = v.substring(0,11);
-    v = v.replace(/(\d{3})(\d)/, '$1.$2');
-    v = v.replace(/(\d{3})(\d)/, '$1.$2');
-    v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-  } else {
-    v = v.substring(0,14);
-    v = v.replace(/^(\d{2})(\d)/, '$1.$2');
-    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
-    v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
-    v = v.replace(/(\d{4})(\d)/, '$1-$2');
+function carregarDados() {
+  historico = lerJSON(LS.hist) || [];
+  biblioteca = lerJSON(LS.bib);
+  if (!biblioteca || !biblioteca.length) {
+    biblioteca = BIBLIOTECA_PADRAO.map((b,i) => ({ id: 'b'+Date.now()+i, ...b }));
+    salvarJSON(LS.bib, biblioteca);
   }
-  return v;
-}
-function maskPhone(v) {
-  v = (v || '').replace(/\D/g, '').substring(0,11);
-  if (v.length <= 10) {
-    v = v.replace(/^(\d{2})(\d)/, '($1) $2');
-    v = v.replace(/(\d{4})(\d)$/, '$1-$2');
-  } else {
-    v = v.replace(/^(\d{2})(\d)/, '($1) $2');
-    v = v.replace(/(\d{5})(\d)$/, '$1-$2');
-  }
-  return v;
-}
-function maskCep(v) {
-  v = (v || '').replace(/\D/g, '').substring(0,8);
-  return v.replace(/^(\d{5})(\d)/, '$1-$2');
+  config = lerJSON(LS.cfg) || { empNome:'FM Serviço de Reforma e Construção Ltda', empTel:'(85) 98762-5872', empCidade:'Fortaleza/CE', garantiaSolidezAnos:5, garantiaAcabamentosMeses:12, multaEntregaDiaUtil:0.3, tetoMultaEntrega:10, multaPagamento:2, jurosMora:1, multaRescisao:10, tetoAditivos:15 };
 }
 
-/* ───────── CEP (ViaCEP) ───────── */
-function attachCep(idCep, idEndereco) {
-  const e = document.getElementById(idCep);
-  if (!e) return;
-  e.addEventListener('input', () => {
-    e.value = maskCep(e.value);
-    const d = e.value.replace(/\D/g, '');
-    if (d.length === 8) buscarCep(d, idEndereco);
+/* ──────── HELPERS BÁSICOS ──────── */
+function hoje() { return new Date().toISOString().split('T')[0]; }
+function lerJSON(k) { try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } }
+function salvarJSON(k,v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+function $(id){ return document.getElementById(id); }
+function val(id){ const e=$(id); return e?e.value:''; }
+function setVal(id,v){ const e=$(id); if(e) e.value=(v==null?'':v); }
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;'); }
+function formatBRL(v){ return 'R$ ' + (v||0).toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+function dataFmt(iso){ return iso ? new Date(iso+'T12:00:00').toLocaleDateString('pt-BR') : '--/--/----'; }
+
+let notifTimer;
+function notif(msg){ const n=$('notif'); n.textContent=msg; n.classList.add('show'); clearTimeout(notifTimer); notifTimer=setTimeout(()=>n.classList.remove('show'),2600); }
+
+/* ──────── NÚMEROS BR ──────── */
+function maskMoney(v){ v=(v+'').replace(/\D/g,''); if(v==='')return ''; v=(parseInt(v,10)/100).toFixed(2); return v.replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+function parseMoney(v){ if(!v)return 0; return parseFloat((v+'').replace(/\./g,'').replace(',','.'))||0; }
+function formatMoneyInput(n){ if(!n)return ''; return n.toFixed(2).replace('.',',').replace(/\B(?=(\d{3})+(?!\d))/g,'.'); }
+function parseQty(v){ return parseFloat((v+'').replace(',','.'))||0; }
+function formatQty(n){ if(n===0||n==null)return ''; return Number.isInteger(n)?n.toString():n.toString().replace('.',','); }
+
+/* ──────── MÁSCARAS ──────── */
+function attachMasks(){
+  mascarar('cliente-doc', maskCpfCnpj); mascarar('cfg-emp-cnpj', maskCpfCnpj);
+  mascarar('cliente-tel', maskPhone); mascarar('cfg-emp-tel', maskPhone);
+  cepAuto('cliente-cep','cliente-endereco'); cepAuto('obra-cep','obra-endereco');
+  CAMPOS_ESTATICOS.forEach(id => { const e=$(id); if(e) e.addEventListener('input', autosave); });
+}
+function mascarar(id, fn){ const e=$(id); if(!e)return; e.addEventListener('input',()=>{ e.value=fn(e.value); autosave(); }); }
+function maskCpfCnpj(v){ v=(v||'').replace(/\D/g,''); if(v.length<=11){ v=v.substring(0,11).replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d)/,'$1.$2').replace(/(\d{3})(\d{1,2})$/,'$1-$2'); } else { v=v.substring(0,14).replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2'); } return v; }
+function maskPhone(v){ v=(v||'').replace(/\D/g,'').substring(0,11); if(v.length===0) return ''; if(v.length<=2) return '('+v; if(v.length<=6) return '('+v.slice(0,2)+') '+v.slice(2); if(v.length<=10) return '('+v.slice(0,2)+') '+v.slice(2,6)+'-'+v.slice(6); return '('+v.slice(0,2)+') '+v.slice(2,7)+'-'+v.slice(7); }
+function maskCep(v){ return (v||'').replace(/\D/g,'').substring(0,8).replace(/^(\d{5})(\d)/,'$1-$2'); }
+function cepAuto(idCep,idEnd){ const e=$(idCep); if(!e)return; e.addEventListener('input',()=>{ e.value=maskCep(e.value); const d=e.value.replace(/\D/g,''); if(d.length===8) buscarCep(d,idEnd); autosave(); }); }
+function buscarCepManual(idCep,idEnd){ const d=(val(idCep)||'').replace(/\D/g,''); if(d.length!==8){ notif('Digite um CEP com 8 dígitos'); return; } buscarCep(d,idEnd); }
+async function buscarCep(cep,idEnd){ try{ notif('Buscando endereço...'); const r=await fetch('https://viacep.com.br/ws/'+cep+'/json/'); const d=await r.json(); if(d.erro){ notif('CEP não encontrado'); return; } const partes=[d.logradouro,d.bairro,d.localidade,d.uf].filter(Boolean); let end=partes.join(', '); if(d.uf) end=end.replace(', '+d.uf,' - '+d.uf); setVal(idEnd,end); autosave(); notif('Endereço preenchido — complete o número'); }catch(e){ notif('Sem conexão para buscar o CEP'); } }
+
+/* ──────── NAVEGAÇÃO ──────── */
+const NOMES_VIEW = { inicio:'Início', cotacao:'Cotação', biblioteca:'Biblioteca', config:'Ajustes' };
+function irView(v, el){
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  $('view-'+v).classList.add('active');
+  if(el) el.classList.add('active');
+  $('header-view-name').textContent = NOMES_VIEW[v] || '';
+  if(v==='inicio') renderDashboard();
+  if(v==='biblioteca') renderBiblioteca();
+  if(v==='config') preencherConfigCampos();
+  window.scrollTo(0,0);
+}
+function subAba(id, el){
+  document.querySelectorAll('.subview').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.subtab').forEach(t=>t.classList.remove('active'));
+  $('sv-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+  if(id==='totais'){ recalcular(); renderResumoGrupos(); }
+  window.scrollTo(0,0);
+}
+
+/* ──────── COTAÇÃO: NOVA / CARREGAR ──────── */
+function proximoNumero(){
+  let max=0; historico.forEach(o=>{ const n=parseInt((o.numero||'').replace(/\D/g,''))||0; if(n>max)max=n; });
+  return String(max+1).padStart(3,'0');
+}
+function novaCotacao(){
+  novaCotacaoSilenciosa();
+  irView('cotacao', document.querySelector('.nav-item[data-view="cotacao"]'));
+  subAba('cliente', document.querySelectorAll('.subtab')[0]);
+  notif('Nova cotação iniciada');
+}
+function novaCotacaoSilenciosa(){
+  orcamentoEditandoId = null;
+  statusAtual = 'Rascunho';
+  CAMPOS_ESTATICOS.forEach(id=>setVal(id,''));
+  setVal('numero', proximoNumero());
+  setVal('data', hoje());
+  setVal('taxa-adm',0); setVal('desconto',0);
+  $('validade').selectedIndex=0;
+  setVal('entrada-pct',40); if($('regime-saldo')) $('regime-saldo').value='semanal'; setVal('materiais-contratante','');
+  grupos = [{ nome:'SERVIÇOS DE MÃO DE OBRA E MATERIAIS', itens:[{desc:'',qty:1,unidade:'UN',valor:0}] }];
+  renderGrupos(); renderStatusChips(); recalcular();
+  salvarRascunho();
+}
+function aplicarOrcamento(o){
+  orcamentoEditandoId = o.id || null;
+  statusAtual = o.status || 'Rascunho';
+  setVal('numero', o.numero||''); setVal('data', o.data||hoje());
+  if(o.validade){ const opt=[...$('validade').options].findIndex(x=>x.value===o.validade); $('validade').selectedIndex = opt>=0?opt:0; }
+  setVal('cliente-nome', o.cliente&&o.cliente.nome); setVal('cliente-doc', o.cliente&&o.cliente.doc);
+  setVal('cliente-cep', o.cliente&&o.cliente.cep); setVal('cliente-endereco', o.cliente&&o.cliente.endereco);
+  setVal('cliente-tel', o.cliente&&o.cliente.tel); setVal('cliente-email', o.cliente&&o.cliente.email);
+  setVal('obra-cep', o.obra&&o.obra.cep); setVal('obra-endereco', o.obra&&o.obra.endereco);
+  setVal('obra-desc', o.obra&&o.obra.desc); setVal('obra-prazo', o.obra&&o.obra.prazo); setVal('obra-inicio', o.obra&&o.obra.inicio);
+  setVal('taxa-adm', o.taxa||0); setVal('desconto', o.desconto||0);
+  setVal('observacoes', o.obs||'');
+  setVal('entrada-pct', o.entradaPct!=null&&o.entradaPct!==''?o.entradaPct:40); if($('regime-saldo')) $('regime-saldo').value=o.regimeSaldo||'semanal'; setVal('materiais-contratante', o.materiaisContratante||'');
+  grupos = (o.grupos&&o.grupos.length) ? o.grupos.map(g=>({nome:g.nome||'',itens:(g.itens||[]).map(i=>({desc:i.desc||'',qty:typeof i.qty==='number'?i.qty:parseQty(i.qty),unidade:i.unidade||'UN',valor:typeof i.valor==='number'?i.valor:parseMoney(i.valor)}))})) : [{nome:'SERVIÇOS',itens:[{desc:'',qty:1,unidade:'UN',valor:0}]}];
+  grupos.forEach(g=>{ if(!g.itens.length) g.itens.push({desc:'',qty:1,unidade:'UN',valor:0}); });
+  renderGrupos(); renderStatusChips(); recalcular();
+}
+function lerOrcamentoDosCampos(){
+  return {
+    id: orcamentoEditandoId,
+    numero: (val('numero').replace(/\D/g,'')||'001').padStart(3,'0'),
+    data: val('data'), validade: val('validade'), status: statusAtual,
+    cliente: { nome:val('cliente-nome'), doc:val('cliente-doc'), cep:val('cliente-cep'), endereco:val('cliente-endereco'), tel:val('cliente-tel'), email:val('cliente-email') },
+    obra: { cep:val('obra-cep'), endereco:val('obra-endereco'), desc:val('obra-desc'), prazo:val('obra-prazo'), inicio:val('obra-inicio') },
+    grupos: grupos,
+    taxa: parseFloat(val('taxa-adm'))||0, desconto: parseFloat(val('desconto'))||0,
+    entradaPct: val('entrada-pct')!==''?Number(val('entrada-pct')):40,
+    regimeSaldo: val('regime-saldo')||'semanal',
+    materiaisContratante: val('materiais-contratante'),
+    obs: val('observacoes'),
+    total: calcTotal()
+  };
+}
+function autosave(){ salvarRascunho(); }
+function salvarRascunho(){ salvarJSON(LS.rasc, lerOrcamentoDosCampos()); }
+
+/* ──────── STATUS ──────── */
+function renderStatusChips(){
+  document.querySelectorAll('#status-wrap .status-chip').forEach(c=>{
+    c.className='status-chip';
+    if(c.dataset.status===statusAtual) c.classList.add('sel-'+statusAtual.toLowerCase());
   });
 }
-function buscarCepManual(idCep, idEndereco) {
-  const d = (document.getElementById(idCep).value || '').replace(/\D/g, '');
-  if (d.length !== 8) { mostrarNotif('Digite um CEP com 8 dígitos'); return; }
-  buscarCep(d, idEndereco);
-}
-async function buscarCep(cep, idEndereco) {
-  try {
-    mostrarNotif('Buscando endereço...');
-    const r = await fetch('https://viacep.com.br/ws/' + cep + '/json/');
-    const d = await r.json();
-    if (d.erro) { mostrarNotif('CEP não encontrado'); return; }
-    const partes = [d.logradouro, d.bairro, d.localidade, d.uf].filter(Boolean);
-    const endereco = partes.join(', ').replace(', ' + d.uf, ' - ' + d.uf);
-    const campo = document.getElementById(idEndereco);
-    campo.value = endereco;
-    campo.dispatchEvent(new Event('input'));
-    mostrarNotif('Endereço preenchido — complete o número');
-  } catch (e) {
-    mostrarNotif('Sem conexão para buscar o CEP');
-  }
-}
+function selStatus(el){ statusAtual = el.dataset.status; renderStatusChips(); autosave(); }
 
-/* ───────── GRUPOS / ITENS ───────── */
-function renderGrupos() {
-  const c = document.getElementById('container-grupos');
-  c.innerHTML = '';
-  grupos.forEach((g, gi) => {
-    let itensHTML = '';
-    g.itens.forEach((item, ii) => { itensHTML += itemTemplate(gi, item, ii); });
-    const div = document.createElement('div');
-    div.className = 'section-grupo';
+/* ──────── GRUPOS / ITENS ──────── */
+function renderGrupos(){
+  const c=$('container-grupos'); c.innerHTML='';
+  grupos.forEach((g,gi)=>{
+    let itensHTML=''; g.itens.forEach((item,ii)=>{ itensHTML+=itemTemplate(gi,item,ii); });
+    const div=document.createElement('div'); div.className='section-grupo';
     div.innerHTML =
-      '<div class="grupo-header">' +
-        '<input class="grupo-nome-input" type="text" value="' + escAttr(g.nome) + '" placeholder="NOME DO GRUPO" oninput="grupos['+gi+'].nome=this.value;saveDraft()" style="text-transform:uppercase">' +
-        '<span class="grupo-total" id="grupo-total-'+gi+'">R$ 0,00</span>' +
-        '<button class="btn-del-grupo" onclick="removerGrupo('+gi+')" title="Remover grupo">✕</button>' +
-      '</div>' +
-      '<div>' + itensHTML + '</div>' +
-      '<div class="item-actions"><button class="btn-add-item" onclick="adicionarItem('+gi+')">+ Adicionar Item</button></div>';
+      '<div class="grupo-header">'+
+        '<input class="grupo-nome-input" type="text" value="'+escAttr(g.nome)+'" placeholder="NOME DO GRUPO" oninput="grupos['+gi+'].nome=this.value;autosave()" style="text-transform:uppercase">'+
+        '<span class="grupo-total" id="grupo-total-'+gi+'">R$ 0,00</span>'+
+        '<button class="btn-del-grupo" onclick="removerGrupo('+gi+')">✕</button>'+
+      '</div>'+
+      '<div>'+itensHTML+'</div>'+
+      '<div class="item-actions">'+
+        '<button class="btn-add-item" onclick="adicionarItem('+gi+')"><span class="add-ico">+</span> Serviço manual</button>'+
+        '<button class="btn-add-item lib" onclick="abrirLibSelecao('+gi+')"><span class="add-ico">+</span> Buscar na biblioteca</button>'+
+      '</div>';
     c.appendChild(div);
   });
-  grupos.forEach((g, gi) => g.itens.forEach((it, ii) => atualizarItem(gi, ii)));
+  grupos.forEach((g,gi)=>g.itens.forEach((it,ii)=>atualizarItem(gi,ii)));
   recalcular();
 }
+function itemTemplate(gi,item,ii){
+  const len=(item.desc||'').length; const lim=len>=MAX_DESC?' limite':'';
+  return '<div class="item-row"><div>'+
+    '<textarea class="item-desc-input" maxlength="'+MAX_DESC+'" placeholder="Descrição do serviço..." oninput="onDesc(this,'+gi+','+ii+')">'+escHtml(item.desc)+'</textarea>'+
+    '<div class="char-counter'+lim+'" id="ccw-'+gi+'-'+ii+'"><span id="cc-'+gi+'-'+ii+'">'+len+'</span>/'+MAX_DESC+'</div>'+
+    '<div class="item-nums">'+
+      '<div class="item-num-group"><label>Qtd.</label><input class="item-num-input" type="text" inputmode="decimal" value="'+formatQty(item.qty)+'" oninput="onQty(this,'+gi+','+ii+')"></div>'+
+      '<div class="item-num-group"><label>Unid.</label><input class="item-num-input" type="text" value="'+escAttr(item.unidade)+'" style="text-transform:uppercase;text-align:center" oninput="grupos['+gi+'].itens['+ii+'].unidade=this.value;autosave()"></div>'+
+      '<div class="item-num-group"><label>R$ Unit.</label><input class="item-num-input" type="text" inputmode="numeric" value="'+formatMoneyInput(item.valor)+'" oninput="onValor(this,'+gi+','+ii+')"></div>'+
+    '</div></div>'+
+    '<div><div class="item-subtotal" id="subtotal-'+gi+'-'+ii+'">R$ 0,00</div><button class="item-del-btn" onclick="removerItem('+gi+','+ii+')">✕</button></div></div>';
+}
+function adicionarGrupo(){ grupos.push({nome:'',itens:[{desc:'',qty:1,unidade:'UN',valor:0}]}); renderGrupos(); autosave(); }
+function removerGrupo(gi){ if(grupos.length===1){ notif('Mantenha ao menos um grupo'); return; } grupos.splice(gi,1); renderGrupos(); autosave(); }
+function adicionarItem(gi){ grupos[gi].itens.push({desc:'',qty:1,unidade:'UN',valor:0}); renderGrupos(); autosave(); }
+function removerItem(gi,ii){ if(grupos[gi].itens.length===1){ notif('Mantenha ao menos um item'); return; } grupos[gi].itens.splice(ii,1); renderGrupos(); autosave(); }
+function onDesc(el,gi,ii){ grupos[gi].itens[ii].desc=el.value; const cc=$('cc-'+gi+'-'+ii); const ccw=$('ccw-'+gi+'-'+ii); if(cc)cc.textContent=el.value.length; if(ccw)ccw.classList.toggle('limite',el.value.length>=MAX_DESC); autosave(); }
+function onQty(el,gi,ii){ el.value=el.value.replace(/[^\d.,]/g,''); grupos[gi].itens[ii].qty=parseQty(el.value); atualizarItem(gi,ii); autosave(); }
+function onValor(el,gi,ii){ el.value=maskMoney(el.value); grupos[gi].itens[ii].valor=parseMoney(el.value); atualizarItem(gi,ii); autosave(); }
+function atualizarItem(gi,ii){ const item=grupos[gi]&&grupos[gi].itens[ii]; if(!item)return; const s=item.qty*item.valor; const el=$('subtotal-'+gi+'-'+ii); if(el)el.textContent=formatBRL(s); const gt=grupos[gi].itens.reduce((a,b)=>a+b.qty*b.valor,0); const ge=$('grupo-total-'+gi); if(ge)ge.textContent=formatBRL(gt); recalcular(); }
 
-function itemTemplate(gi, item, ii) {
-  const len = (item.desc || '').length;
-  const limite = len >= MAX_DESC ? ' limite' : '';
-  return '' +
-  '<div class="item-row">' +
-    '<div>' +
-      '<textarea class="item-desc-input" maxlength="'+MAX_DESC+'" placeholder="Descrição do serviço..." oninput="onDescInput(this,'+gi+','+ii+')">' + escHtml(item.desc) + '</textarea>' +
-      '<div class="char-counter'+limite+'" id="ccw-'+gi+'-'+ii+'"><span id="cc-'+gi+'-'+ii+'">'+len+'</span>/'+MAX_DESC+'</div>' +
-      '<div class="item-nums">' +
-        '<div class="item-num-group"><label>Qtd.</label><input class="item-num-input" type="text" inputmode="decimal" value="'+formatQty(item.qty)+'" oninput="onQtyInput(this,'+gi+','+ii+')"></div>' +
-        '<div class="item-num-group"><label>Unid.</label><input class="item-num-input" type="text" value="'+escAttr(item.unidade)+'" style="text-transform:uppercase;text-align:center" oninput="grupos['+gi+'].itens['+ii+'].unidade=this.value;saveDraft()"></div>' +
-        '<div class="item-num-group"><label>R$ Unit.</label><input class="item-num-input" type="text" inputmode="numeric" value="'+formatMoneyInput(item.valor)+'" oninput="onValorInput(this,'+gi+','+ii+')"></div>' +
-      '</div>' +
-    '</div>' +
-    '<div>' +
-      '<div class="item-subtotal" id="subtotal-'+gi+'-'+ii+'">R$ 0,00</div>' +
-      '<button class="item-del-btn" onclick="removerItem('+gi+','+ii+')" title="Remover">✕</button>' +
-    '</div>' +
-  '</div>';
-}
+/* ──────── TOTAIS ──────── */
+function calcSubtotal(){ return grupos.reduce((s,g)=>s+g.itens.reduce((a,b)=>a+b.qty*b.valor,0),0); }
+function calcTotal(){ const sub=calcSubtotal(); const t=parseFloat(val('taxa-adm'))||0; const d=parseFloat(val('desconto'))||0; const adm=sub*t/100; const desc=(sub+adm)*d/100; return sub+adm-desc; }
+function recalcular(){ const sub=calcSubtotal(); const t=parseFloat(val('taxa-adm'))||0; const d=parseFloat(val('desconto'))||0; const adm=sub*t/100; const desc=(sub+adm)*d/100; setTxt('t-subtotal',formatBRL(sub)); setTxt('t-adm',formatBRL(adm)); setTxt('t-total',formatBRL(sub+adm-desc)); atualizarPagamentoPreview(); }
+function setTxt(id,t){ const e=$(id); if(e)e.textContent=t; }
+function renderResumoGrupos(){ const el=$('resumo-grupos'); el.innerHTML=''; grupos.forEach((g,i)=>{ const t=g.itens.reduce((s,ii)=>s+ii.qty*ii.valor,0); if(t===0&&!g.nome)return; const l=document.createElement('div'); l.style='display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--cinza-borda);font-size:13px'; l.innerHTML='<span style="color:var(--cinza-texto)">'+escHtml(g.nome||'Grupo '+(i+1))+'</span><span style="font-weight:700">'+formatBRL(t)+'</span>'; el.appendChild(l); }); }
 
-function adicionarGrupo(nome) {
-  grupos.push({ nome: nome || '', itens: [{ desc:'', qty:1, unidade:'UN', valor:0 }] });
-  renderGrupos(); saveDraft();
-}
-function removerGrupo(gi) {
-  if (grupos.length === 1) { mostrarNotif('Mantenha ao menos um grupo'); return; }
-  grupos.splice(gi, 1);
-  renderGrupos(); saveDraft();
-}
-function adicionarItem(gi) {
-  grupos[gi].itens.push({ desc:'', qty:1, unidade:'UN', valor:0 });
-  renderGrupos(); saveDraft();
-}
-function removerItem(gi, ii) {
-  if (grupos[gi].itens.length === 1) { mostrarNotif('Mantenha ao menos um item no grupo'); return; }
-  grupos[gi].itens.splice(ii, 1);
-  renderGrupos(); saveDraft();
-}
+/* ──────── PAGAMENTO ──────── */
+function atalhoPagamento(pct,regime,el){ setVal('entrada-pct',pct); if($('regime-saldo')) $('regime-saldo').value=regime; if(el&&el.parentElement){ [...el.parentElement.children].forEach(c=>c.classList.remove('sel-aprovado')); el.classList.add('sel-aprovado'); } recalcular(); autosave(); }
+function atualizarPagamentoPreview(){ const el=$('pagamento-preview'); if(!el) return; el.textContent = pagamentoDoOrc(lerOrcamentoDosCampos()); }
 
-function onDescInput(el, gi, ii) {
-  grupos[gi].itens[ii].desc = el.value;
-  const cc = document.getElementById('cc-'+gi+'-'+ii);
-  const ccw = document.getElementById('ccw-'+gi+'-'+ii);
-  if (cc) cc.textContent = el.value.length;
-  if (ccw) ccw.classList.toggle('limite', el.value.length >= MAX_DESC);
-  saveDraft();
-}
-function onQtyInput(el, gi, ii) {
-  el.value = el.value.replace(/[^\d.,]/g, '');
-  grupos[gi].itens[ii].qty = parseQty(el.value);
-  atualizarItem(gi, ii); saveDraft();
-}
-function onValorInput(el, gi, ii) {
-  el.value = maskMoney(el.value);
-  grupos[gi].itens[ii].valor = parseMoney(el.value);
-  atualizarItem(gi, ii); saveDraft();
-}
+/* ════════════ continua no bloco script 2 ════════════ */
+</script>
+<script>
+/* ════════════════════════════════════════════
+   FM SISTEMA — LÓGICA (parte 2)
+   ════════════════════════════════════════════ */
 
-function atualizarItem(gi, ii) {
-  const item = grupos[gi] && grupos[gi].itens[ii];
-  if (!item) return;
-  const s = item.qty * item.valor;
-  const el = document.getElementById('subtotal-'+gi+'-'+ii);
-  if (el) el.textContent = formatBRL(s);
-  const gt = grupos[gi].itens.reduce((a,b) => a + b.qty*b.valor, 0);
-  const ge = document.getElementById('grupo-total-'+gi);
-  if (ge) ge.textContent = formatBRL(gt);
-  recalcular();
+/* ──────── DASHBOARD ──────── */
+function renderDashboard(){
+  const total = historico.length;
+  const aprovados = historico.filter(o=>o.status==='Aprovado');
+  const valorAprovado = aprovados.reduce((s,o)=>s+(o.total||0),0);
+  const valorPipeline = historico.filter(o=>o.status==='Enviado').reduce((s,o)=>s+(o.total||0),0);
+  $('dashboard-stats').innerHTML =
+    '<div class="stat-card"><div class="stat-label">Cotações</div><div class="stat-value">'+total+'</div></div>'+
+    '<div class="stat-card"><div class="stat-label">Aprovadas</div><div class="stat-value" style="color:var(--verde)">'+aprovados.length+'</div></div>'+
+    '<div class="stat-card"><div class="stat-label">Em Aberto (enviadas)</div><div class="stat-value" style="color:var(--azul-info)">'+formatBRL(valorPipeline)+'</div></div>'+
+    '<div class="stat-card full"><div class="stat-label">Valor Aprovado</div><div class="stat-value">'+formatBRL(valorAprovado)+'</div></div>';
+
+  const lista=$('lista-orcamentos');
+  if(!historico.length){
+    lista.innerHTML='<div class="empty-state"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>Nenhuma cotação ainda.<br>Toque em <b>+ Nova</b> para começar.</p></div>';
+    return;
+  }
+  const ord=[...historico].sort((a,b)=>(b.criadoEm||0)-(a.criadoEm||0));
+  lista.innerHTML = ord.map(o=>{
+    const st=(o.status||'Rascunho').toLowerCase();
+    return '<div class="orc-card" onclick="abrirModalOrc(\''+o.id+'\')">'+
+      '<div class="orc-card-info">'+
+        '<div class="orc-card-num">Nº '+o.numero+'/'+(o.ano||new Date(o.criadoEm).getFullYear())+'</div>'+
+        '<div class="orc-card-cliente">'+escHtml((o.cliente&&o.cliente.nome)||'Sem nome')+'</div>'+
+        '<div class="orc-card-meta">'+dataFmt(o.data)+(o.obra&&o.obra.desc?' • '+escHtml(o.obra.desc.substring(0,30)):'')+'</div>'+
+      '</div>'+
+      '<div class="orc-card-right"><div class="orc-card-valor">'+formatBRL(o.total)+'</div><span class="badge badge-'+st+'">'+(o.status||'Rascunho')+'</span></div>'+
+    '</div>';
+  }).join('');
 }
 
-/* ───────── TOTAIS ───────── */
-function calcSubtotal() {
-  return grupos.reduce((s,g) => s + g.itens.reduce((a,b) => a + b.qty*b.valor, 0), 0);
-}
-function recalcular() {
-  const sub = calcSubtotal();
-  const taxaPct = parseFloat(document.getElementById('taxa-adm').value) || 0;
-  const descPct = parseFloat(document.getElementById('desconto').value) || 0;
-  const adm = sub * taxaPct / 100;
-  const descVal = (sub + adm) * descPct / 100;
-  const total = sub + adm - descVal;
-  document.getElementById('t-subtotal').textContent = formatBRL(sub);
-  document.getElementById('t-adm').textContent = formatBRL(adm);
-  document.getElementById('t-total').textContent = formatBRL(total);
-}
-function atualizarResumoGrupos() {
-  const el = document.getElementById('resumo-grupos');
-  el.innerHTML = '';
-  grupos.forEach((g, i) => {
-    const t = g.itens.reduce((s,ii) => s + ii.qty*ii.valor, 0);
-    if (t === 0 && !g.nome) return;
-    const linha = document.createElement('div');
-    linha.style = 'display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--cinza-borda);font-size:13px;';
-    linha.innerHTML = '<span style="color:var(--cinza-texto)">' + escHtml(g.nome || 'Grupo ' + (i+1)) + '</span><span style="font-weight:700;color:#fff">' + formatBRL(t) + '</span>';
-    el.appendChild(linha);
-  });
+/* ──────── SALVAR / HISTÓRICO ──────── */
+function salvarOrcamento(avisar){
+  const o = lerOrcamentoDosCampos();
+  if(!o.cliente.nome){ notif('Informe o nome do cliente antes de salvar'); subAba('cliente', document.querySelectorAll('.subtab')[0]); return; }
+  o.ano = new Date().getFullYear();
+  if(orcamentoEditandoId){
+    const idx=historico.findIndex(x=>x.id===orcamentoEditandoId);
+    if(idx>=0){ o.id=orcamentoEditandoId; o.criadoEm=historico[idx].criadoEm; if(o.status==='Aprovado'&&!historico[idx].aprovadoEm) o.aprovadoEm=Date.now(); historico[idx]=o; }
+    else { o.id='o'+Date.now(); o.criadoEm=Date.now(); historico.push(o); orcamentoEditandoId=o.id; }
+  } else {
+    o.id='o'+Date.now(); o.criadoEm=Date.now(); if(o.status==='Aprovado') o.aprovadoEm=Date.now(); historico.push(o); orcamentoEditandoId=o.id;
+  }
+  salvarJSON(LS.hist, historico); salvarRascunho();
+  if(avisar) notif('Orçamento salvo no histórico');
+  renderDashboard();
 }
 
-/* ───────── PAGAMENTO ───────── */
-function selecionarOpcao(el) {
-  document.querySelectorAll('.condicao-opcao').forEach(o => { o.classList.remove('selecionada'); o.querySelector('input').checked = false; });
-  el.classList.add('selecionada');
-  el.querySelector('input').checked = true;
-  saveDraft();
+/* ──────── MODAL AÇÕES ──────── */
+function abrirModalOrc(id){
+  modalOrcId=id; const o=historico.find(x=>x.id===id); if(!o)return;
+  $('modal-orc-titulo').textContent='Nº '+o.numero+'/'+ (o.ano||'') ;
+  $('modal-orc-resumo').innerHTML =
+    '<div class="linha"><span>Cliente</span><b>'+escHtml((o.cliente&&o.cliente.nome)||'—')+'</b></div>'+
+    '<div class="linha"><span>Obra</span><b>'+escHtml((o.obra&&o.obra.desc)||'—')+'</b></div>'+
+    '<div class="linha"><span>Data</span><b>'+dataFmt(o.data)+'</b></div>'+
+    '<div class="linha"><span>Status</span><b>'+(o.status||'Rascunho')+'</b></div>'+
+    '<div class="linha" style="border-top:1px solid var(--cinza-borda);margin-top:6px;padding-top:8px"><span>Total</span><b style="color:var(--vermelho);font-size:16px">'+formatBRL(o.total)+'</b></div>';
+  $('btn-aprovar').style.display = o.status==='Aprovado' ? 'none' : 'flex';
+  abrirModal('modal-orc');
 }
-function getPagamentoSelecionado() {
-  const custom = document.getElementById('pagamento-custom').value;
-  if (custom) return custom;
-  const sel = document.querySelector('.condicao-opcao.selecionada');
-  if (!sel) return '';
-  return sel.querySelector('strong').textContent + ' — ' + sel.querySelector('span').textContent;
-}
+function acaoEditar(){ const o=historico.find(x=>x.id===modalOrcId); if(!o)return; aplicarOrcamento(o); salvarRascunho(); fecharModal('modal-orc'); irView('cotacao', document.querySelector('.nav-item[data-view="cotacao"]')); subAba('cliente', document.querySelectorAll('.subtab')[0]); notif('Orçamento carregado no editor'); }
+function acaoAprovar(){ const idx=historico.findIndex(x=>x.id===modalOrcId); if(idx<0)return; historico[idx].status='Aprovado'; historico[idx].aprovadoEm=Date.now(); salvarJSON(LS.hist,historico); fecharModal('modal-orc'); renderDashboard(); notif('Orçamento aprovado'); }
+function acaoExcluir(){ if(!confirm('Excluir este orçamento permanentemente?'))return; historico=historico.filter(x=>x.id!==modalOrcId); salvarJSON(LS.hist,historico); fecharModal('modal-orc'); renderDashboard(); notif('Orçamento excluído'); }
+function acaoPDF(){ const o=historico.find(x=>x.id===modalOrcId); if(!o)return; fecharModal('modal-orc'); gerarPDFde(o); }
+function acaoContrato(){ const o=historico.find(x=>x.id===modalOrcId); if(!o)return; fecharModal('modal-orc'); gerarContratoDe(o); }
 
-/* ───────── HELPERS NUMÉRICOS ───────── */
-function maskMoney(v) {
-  v = (v + '').replace(/\D/g, '');
-  if (v === '') return '';
-  v = (parseInt(v, 10) / 100).toFixed(2);
-  return v.replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-}
-function parseMoney(v) { if (!v) return 0; return parseFloat((v+'').replace(/\./g,'').replace(',','.')) || 0; }
-function formatMoneyInput(n) { if (!n) return ''; return n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
-function parseQty(v) { return parseFloat((v+'').replace(',', '.')) || 0; }
-function formatQty(n) { if (n === 0 || n == null) return ''; return Number.isInteger(n) ? n.toString() : n.toString().replace('.', ','); }
-function formatBRL(v) { return 'R$ ' + (v||0).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
-function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function escAttr(s) { return escHtml(s).replace(/"/g,'&quot;'); }
+/* ──────── MODAIS GENÉRICO ──────── */
+function abrirModal(id){ $(id).classList.add('show'); document.body.style.overflow='hidden'; }
+function fecharModal(id){ $(id).classList.remove('show'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m){ m.classList.remove('show'); document.body.style.overflow=''; } }));
 
-/* ───────── AUTOSAVE ───────── */
-function saveDraft() {
-  try {
-    const data = {};
-    STATIC_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) data[id] = e.value; });
-    data.pagamentoIdx = [...document.querySelectorAll('.condicao-opcao')].findIndex(o => o.classList.contains('selecionada'));
-    data.grupos = grupos;
-    localStorage.setItem('fm_orcamento_draft', JSON.stringify(data));
-  } catch (e) {}
-}
-function loadDraft() {
-  try {
-    const raw = localStorage.getItem('fm_orcamento_draft');
-    if (!raw) return false;
-    const data = JSON.parse(raw);
-    STATIC_FIELDS.forEach(id => { const e = document.getElementById(id); if (e && data[id] != null) e.value = data[id]; });
-    if (Array.isArray(data.grupos) && data.grupos.length) {
-      grupos = data.grupos.map(g => ({ nome: g.nome||'', itens: (g.itens||[]).map(i => ({ desc:i.desc||'', qty:typeof i.qty==='number'?i.qty:parseQty(i.qty), unidade:i.unidade||'UN', valor:typeof i.valor==='number'?i.valor:parseMoney(i.valor) })) }));
-      grupos.forEach(g => { if (!g.itens.length) g.itens.push({ desc:'', qty:1, unidade:'UN', valor:0 }); });
-    }
-    if (data.pagamentoIdx >= 0) { const opts = document.querySelectorAll('.condicao-opcao'); if (opts[data.pagamentoIdx]) selecionarOpcao(opts[data.pagamentoIdx]); }
-    return true;
-  } catch (e) { return false; }
-}
-
-/* ───────── LIMPAR ───────── */
-function limparTudo() {
-  if (!confirm('Limpar TODOS os dados deste orçamento? Esta ação não pode ser desfeita.')) return;
-  try { localStorage.removeItem('fm_orcamento_draft'); } catch(e){}
-  STATIC_FIELDS.forEach(id => { const e = document.getElementById(id); if (e) { if (e.tagName === 'SELECT') e.selectedIndex = 0; else e.value = ''; } });
-  document.getElementById('numero').value = '001';
-  document.getElementById('data').value = new Date().toISOString().split('T')[0];
-  document.getElementById('taxa-adm').value = 0;
-  document.getElementById('desconto').value = 0;
-  document.getElementById('emp-nome').value = 'FM Serviço de Reforma e Construção Ltda';
-  document.getElementById('emp-tel').value = '(85) 98762-5872';
-  grupos = [{ nome: 'SERVIÇOS DE MÃO DE OBRA E MATERIAIS', itens: [{ desc:'', qty:1, unidade:'UN', valor:0 }] }];
-  renderGrupos();
-  atualizarBadge();
-  mostrarNotif('Orçamento limpo!');
-}
-
-/* ───────── NOTIF ───────── */
-let notifTimer;
-function mostrarNotif(msg) {
-  const n = document.getElementById('notif');
-  n.textContent = msg;
-  n.classList.add('show');
-  clearTimeout(notifTimer);
-  notifTimer = setTimeout(() => n.classList.remove('show'), 2600);
-}
-
-/* ───────── GERAR PDF ───────── */
-function gerarPDF() {
-  recalcular();
-  const sub = calcSubtotal();
-  const taxaPct = parseFloat(document.getElementById('taxa-adm').value) || 0;
-  const descPct = parseFloat(document.getElementById('desconto').value) || 0;
-  const adm = sub * taxaPct / 100;
-  const descVal = (sub + adm) * descPct / 100;
-  const total = sub + adm - descVal;
-
-  const ano = new Date().getFullYear();
-  const num = ((document.getElementById('numero').value || '001').replace(/\D/g,'') || '001').padStart(3,'0');
-  const dataVal = document.getElementById('data').value;
-  const dataFmt = dataVal ? new Date(dataVal + 'T12:00:00').toLocaleDateString('pt-BR') : '--/--/----';
-  const validade = document.getElementById('validade').value;
-
-  const v = id => document.getElementById(id).value;
-  const clienteNome = v('cliente-nome') || 'Não informado';
-  const obraEnd = v('obra-endereco') || 'Não informado';
-  const obraDesc = v('obra-desc') || 'Reforma / Manutenção';
-  const obraPrazo = v('obra-prazo') || 'A definir';
-  const obraInicio = v('obra-inicio');
-  const obraInicioFmt = obraInicio ? new Date(obraInicio + 'T12:00:00').toLocaleDateString('pt-BR') : 'A combinar';
-  const obs = v('observacoes');
-  const pagamento = getPagamentoSelecionado();
-  const empNome = v('emp-nome') || 'FM Serviço de Reforma';
-  const empResp = v('emp-responsavel');
-  const empCnpj = v('emp-cnpj');
-  const empTel = v('emp-tel') || '(85) 98762-5872';
-  const empEmail = v('emp-email');
-
-  let tabelaHTML = '';
-  grupos.forEach(g => {
-    const itensValidos = g.itens.filter(i => i.desc || i.valor > 0);
-    if (!itensValidos.length) return;
-    const totalGrupo = itensValidos.reduce((s,i) => s + i.qty*i.valor, 0);
-    tabelaHTML +=
-      '<tr><td colspan="5" class="pdf-table-grupo">' + escHtml(g.nome || 'SERVIÇOS') + '</td></tr>' +
-      '<tr>' +
-        '<th style="width:42%">Descrição</th>' +
-        '<th style="width:11%;text-align:center">Unid.</th>' +
-        '<th style="width:11%;text-align:right">Qtd.</th>' +
-        '<th style="width:17%;text-align:right">R$ Unit.</th>' +
-        '<th style="width:19%;text-align:right">Total</th>' +
-      '</tr>';
-    itensValidos.forEach(i => {
-      const st = i.qty * i.valor;
-      tabelaHTML +=
-        '<tr>' +
-          '<td>' + escHtml(i.desc || '—').replace(/\n/g,'<br>') + '</td>' +
-          '<td style="text-align:center">' + escHtml(i.unidade || 'UN') + '</td>' +
-          '<td style="text-align:right">' + i.qty.toLocaleString('pt-BR',{minimumFractionDigits:2}) + '</td>' +
-          '<td style="text-align:right">' + formatBRL(i.valor) + '</td>' +
-          '<td style="text-align:right;font-weight:700;color:#CC1414">' + formatBRL(st) + '</td>' +
-        '</tr>';
+/* ──────── BIBLIOTECA: RENDER (view) ──────── */
+function renderBiblioteca(){
+  const q=(val('lib-search')||'').toLowerCase().trim();
+  const c=$('lib-container');
+  const filtrados = biblioteca.filter(b=> !q || (b.desc+' '+b.cat).toLowerCase().includes(q));
+  if(!filtrados.length){ c.innerHTML='<div class="empty-state"><p>Nenhum serviço encontrado.</p></div>'; return; }
+  const cats={}; filtrados.forEach(b=>{ (cats[b.cat]=cats[b.cat]||[]).push(b); });
+  let html='';
+  Object.keys(cats).forEach(cat=>{
+    html+='<div class="lib-cat-header">'+escHtml(cat)+'</div>';
+    cats[cat].forEach(b=>{
+      html+='<div class="lib-item">'+
+        '<div class="lib-item-info"><div class="lib-item-desc">'+escHtml(b.desc)+'</div>'+
+        '<div class="lib-item-meta"><b>'+formatBRL(b.valor)+'</b> / '+escHtml(b.un||'UN')+'</div></div>'+
+        '<div class="lib-item-acoes">'+
+          '<button class="lib-icon-btn" onclick="abrirEdicaoLib(\''+b.id+'\')">✎</button>'+
+          '<button class="lib-icon-btn" onclick="excluirItemLib(\''+b.id+'\')">&#10005;</button>'+
+        '</div></div>';
     });
-    tabelaHTML +=
-      '<tr>' +
-        '<td colspan="4" style="text-align:right;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px">Subtotal ' + escHtml(g.nome) + '</td>' +
-        '<td style="text-align:right;font-weight:700;color:#0D1B2A;font-size:13px">' + formatBRL(totalGrupo) + '</td>' +
-      '</tr>' +
-      '<tr><td colspan="5" style="padding:3px;border:none"></td></tr>';
   });
+  c.innerHTML=html;
+  // datalist de categorias
+  $('cats').innerHTML = [...new Set(biblioteca.map(b=>b.cat))].map(c=>'<option value="'+escAttr(c)+'">').join('');
+}
+function abrirEdicaoLib(id){
+  libEditId = (typeof id==='string') ? id : null;
+  if(libEditId){ const b=biblioteca.find(x=>x.id===libEditId); $('lib-edit-titulo').textContent='Editar Serviço'; setVal('lib-edit-cat',b.cat); setVal('lib-edit-desc',b.desc); setVal('lib-edit-un',b.un); setVal('lib-edit-valor',formatMoneyInput(b.valor)); }
+  else { $('lib-edit-titulo').textContent='Novo Serviço'; setVal('lib-edit-cat',''); setVal('lib-edit-desc',''); setVal('lib-edit-un','UN'); setVal('lib-edit-valor',''); }
+  $('cats').innerHTML=[...new Set(biblioteca.map(b=>b.cat))].map(c=>'<option value="'+escAttr(c)+'">').join('');
+  abrirModal('modal-lib-edit');
+}
+$('lib-edit-valor').addEventListener('input',function(){ this.value=maskMoney(this.value); });
+function salvarItemLib(){
+  const cat=val('lib-edit-cat').trim()||'Outros'; const desc=val('lib-edit-desc').trim();
+  if(!desc){ notif('Descreva o serviço'); return; }
+  const un=val('lib-edit-un').trim().toUpperCase()||'UN'; const valor=parseMoney(val('lib-edit-valor'));
+  if(libEditId){ const b=biblioteca.find(x=>x.id===libEditId); b.cat=cat; b.desc=desc; b.un=un; b.valor=valor; }
+  else { biblioteca.push({id:'b'+Date.now(),cat,desc,un,valor}); }
+  salvarJSON(LS.bib,biblioteca); fecharModal('modal-lib-edit'); renderBiblioteca(); notif('Salvo na biblioteca');
+}
+function excluirItemLib(id){ if(!confirm('Remover este serviço da biblioteca?'))return; biblioteca=biblioteca.filter(x=>x.id!==id); salvarJSON(LS.bib,biblioteca); renderBiblioteca(); notif('Removido'); }
+
+/* ──────── IMPORTAR EM MASSA ──────── */
+function abrirImportar(){ setVal('imp-cat',''); setVal('imp-texto',''); abrirModal('modal-importar'); }
+function importarLote(){
+  const cat=val('imp-cat').trim()||'Importados';
+  const linhas=val('imp-texto').split('\n').map(l=>l.trim()).filter(Boolean);
+  if(!linhas.length){ notif('Cole ao menos uma linha'); return; }
+  let n=0;
+  linhas.forEach(l=>{ const p=l.split('|').map(x=>x.trim()); const desc=p[0]; if(!desc)return; const un=(p[1]||'UN').toUpperCase(); const valor=parseMoney(p[2]||'0'); biblioteca.push({id:'b'+Date.now()+n,cat,desc,un,valor}); n++; });
+  salvarJSON(LS.bib,biblioteca); fecharModal('modal-importar'); renderBiblioteca(); notif(n+' serviço(s) importado(s)');
+}
+
+/* ──────── BIBLIOTECA: SELEÇÃO PARA O ORÇAMENTO ──────── */
+let libSelCount = 0;
+function abrirLibSelecao(gi){ libSelTargetGrupo=gi; libSelCount=0; setVal('lib-sel-search',''); renderLibSelecao(); atualizarBtnConcluir(); abrirModal('modal-lib-sel'); }
+function atualizarBtnConcluir(){ const b=$('btn-concluir-lib'); if(b) b.textContent = libSelCount>0 ? 'Concluir ('+libSelCount+' adicionado'+(libSelCount>1?'s':'')+')' : 'Concluir'; }
+function copiarEnderecoCliente(){ setVal('obra-cep', val('cliente-cep')); setVal('obra-endereco', val('cliente-endereco')); autosave(); if(!val('cliente-endereco')) notif('Preencha o endereço do cliente primeiro'); else notif('Endereço do cliente copiado para a obra'); }
+function renderLibSelecao(){
+  const q=(val('lib-sel-search')||'').toLowerCase().trim();
+  const filtrados=biblioteca.filter(b=> !q || (b.desc+' '+b.cat).toLowerCase().includes(q));
+  const c=$('lib-sel-container');
+  if(!filtrados.length){ c.innerHTML='<div class="empty-state"><p>Nada encontrado.</p></div>'; return; }
+  const cats={}; filtrados.forEach(b=>{ (cats[b.cat]=cats[b.cat]||[]).push(b); });
+  let html='';
+  Object.keys(cats).forEach(cat=>{
+    html+='<div class="lib-cat-header">'+escHtml(cat)+'</div>';
+    cats[cat].forEach(b=>{
+      html+='<div class="lib-item selecionavel" onclick="inserirDaLib(\''+b.id+'\')">'+
+        '<div class="lib-item-info"><div class="lib-item-desc">'+escHtml(b.desc)+'</div>'+
+        '<div class="lib-item-meta"><b>'+formatBRL(b.valor)+'</b> / '+escHtml(b.un||'UN')+'</div></div>'+
+        '<div class="lib-item-acoes"><div class="lib-icon-btn" style="color:var(--verde)">+</div></div></div>';
+    });
+  });
+  c.innerHTML=html;
+}
+function inserirDaLib(id){
+  const b=biblioteca.find(x=>x.id===id); if(!b||libSelTargetGrupo==null)return;
+  const g=grupos[libSelTargetGrupo];
+  // se o último item está vazio, substitui; senão adiciona
+  const ult=g.itens[g.itens.length-1];
+  const item={desc:b.desc,qty:1,unidade:b.un||'UN',valor:b.valor||0};
+  if(ult && !ult.desc && !ult.valor) g.itens[g.itens.length-1]=item; else g.itens.push(item);
+  renderGrupos(); autosave(); libSelCount++; atualizarBtnConcluir(); notif('Adicionado: '+(b.desc.length>32?b.desc.substring(0,32)+'…':b.desc));
+}
+
+/* ──────── CONFIG ──────── */
+function preencherConfigCampos(){
+  setVal('cfg-emp-nome',config.empNome); setVal('cfg-emp-resp',config.empResp);
+  setVal('cfg-emp-cnpj',config.empCnpj); setVal('cfg-emp-tel',config.empTel);
+  setVal('cfg-emp-email',config.empEmail); setVal('cfg-emp-cidade',config.empCidade);
+  setVal('cfg-garantia-solidez',config.garantiaSolidezAnos); setVal('cfg-garantia-acab',config.garantiaAcabamentosMeses);
+  setVal('cfg-multa-entrega',config.multaEntregaDiaUtil); setVal('cfg-multa-max',config.tetoMultaEntrega);
+  setVal('cfg-multa-pagto',config.multaPagamento); setVal('cfg-juros',config.jurosMora);
+  setVal('cfg-multa-resc',config.multaRescisao); setVal('cfg-teto-aditivos',config.tetoAditivos);
+}
+function salvarConfig(){
+  config = {
+    empNome:val('cfg-emp-nome')||'FM Serviço de Reforma', empResp:val('cfg-emp-resp'),
+    empCnpj:val('cfg-emp-cnpj'), empTel:val('cfg-emp-tel')||'(85) 98762-5872',
+    empEmail:val('cfg-emp-email'), empCidade:val('cfg-emp-cidade')||'Fortaleza/CE',
+    garantiaSolidezAnos:parseInt(val('cfg-garantia-solidez'))||5, garantiaAcabamentosMeses:parseInt(val('cfg-garantia-acab'))||12,
+    multaEntregaDiaUtil:parseFloat(val('cfg-multa-entrega'))||0.3, tetoMultaEntrega:parseInt(val('cfg-multa-max'))||10,
+    multaPagamento:parseFloat(val('cfg-multa-pagto'))||2, jurosMora:parseFloat(val('cfg-juros'))||1,
+    multaRescisao:parseInt(val('cfg-multa-resc'))||10, tetoAditivos:parseInt(val('cfg-teto-aditivos'))||15
+  };
+  salvarJSON(LS.cfg,config); notif('Ajustes salvos');
+}
+function resetarTudo(){ if(!confirm('Apagar TODOS os dados (cotações, biblioteca e ajustes)? Esta ação é irreversível.'))return; [LS.hist,LS.bib,LS.cfg,LS.rasc].forEach(k=>{ try{localStorage.removeItem(k);}catch(e){} }); location.reload(); }
+
+/* ════════════════ GERAÇÃO DE PDF — ORÇAMENTO ════════════════ */
+function gerarPDF(){ recalcular(); gerarPDFde(lerOrcamentoDosCampos()); }
+function gerarPDFde(o){
+  const ano=o.ano||new Date().getFullYear();
+  const e=config;
+  let tabela='';
+  (o.grupos||[]).forEach(g=>{
+    const itens=g.itens.filter(i=>i.desc||i.valor>0); if(!itens.length)return;
+    const tg=itens.reduce((s,i)=>s+i.qty*i.valor,0);
+    tabela+='<tr><td colspan="5" class="pdf-table-grupo">'+escHtml(g.nome||'SERVIÇOS')+'</td></tr>'+
+      '<tr><th style="width:42%">Descrição</th><th style="width:11%;text-align:center">Unid.</th><th style="width:11%;text-align:right">Qtd.</th><th style="width:17%;text-align:right">R$ Unit.</th><th style="width:19%;text-align:right">Total</th></tr>';
+    itens.forEach(i=>{ const st=i.qty*i.valor; tabela+='<tr><td>'+escHtml(i.desc||'—').replace(/\n/g,'<br>')+'</td><td style="text-align:center">'+escHtml(i.unidade||'UN')+'</td><td style="text-align:right">'+i.qty.toLocaleString('pt-BR',{minimumFractionDigits:2})+'</td><td style="text-align:right">'+formatBRL(i.valor)+'</td><td style="text-align:right;font-weight:700;color:#CC1414">'+formatBRL(st)+'</td></tr>'; });
+    tabela+='<tr><td colspan="4" style="text-align:right;font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px">Subtotal '+escHtml(g.nome)+'</td><td style="text-align:right;font-weight:700;color:#0D1B2A;font-size:13px">'+formatBRL(tg)+'</td></tr><tr><td colspan="5" style="padding:3px;border:none"></td></tr>';
+  });
+  const sub=(o.grupos||[]).reduce((s,g)=>s+g.itens.reduce((a,b)=>a+b.qty*b.valor,0),0);
+  const adm=sub*(o.taxa||0)/100; const descV=(sub+adm)*(o.desconto||0)/100; const total=sub+adm-descV;
+  const obraInicio=o.obra&&o.obra.inicio?dataFmt(o.obra.inicio):'A combinar';
+  const html=
+  '<div class="pdf-doc"><div class="pdf-header"><div class="pdf-logo-box"><span>FM</span><small>Serviço de Reforma</small></div>'+
+  '<div class="pdf-header-info"><p>Orçamento Nº</p><strong>'+o.numero+'/'+ano+'</strong><p style="margin-top:8px">Emissão</p><strong>'+dataFmt(o.data)+'</strong><p style="margin-top:8px">Validade</p><strong>'+(o.validade||'5 dias')+'</strong></div></div>'+
+  '<div class="pdf-stripe"></div><div class="pdf-body">'+
+  '<div class="pdf-titulo">Proposta Comercial</div><div class="pdf-subtitulo">Orçamento de Serviços — '+escHtml((o.obra&&o.obra.desc)||'Reforma / Manutenção')+'</div>'+
+  '<div class="pdf-info-grid">'+
+    infoItem('Cliente',(o.cliente&&o.cliente.nome)||'Não informado')+infoItem('CPF / CNPJ',o.cliente&&o.cliente.doc)+
+    infoItem('Telefone',o.cliente&&o.cliente.tel)+infoItem('E-mail',o.cliente&&o.cliente.email)+
+    infoItem('Endereço do Serviço',(o.obra&&o.obra.endereco)||'—')+infoItem('Endereço do Cliente',o.cliente&&o.cliente.endereco)+
+    infoItem('Prazo de Execução',(o.obra&&o.obra.prazo)||'A definir')+infoItem('Início Previsto',obraInicio)+
+  '</div>'+
+  '<table class="pdf-table">'+tabela+'</table>'+
+  '<div class="pdf-totais"><div class="pdf-total-linha"><label>Custo Total dos Serviços</label><span>'+formatBRL(sub)+'</span></div>'+
+  ((o.taxa||0)>0?'<div class="pdf-total-linha"><label>Taxa de Administração ('+o.taxa+'%)</label><span>'+formatBRL(adm)+'</span></div>':'')+
+  ((o.desconto||0)>0?'<div class="pdf-total-linha"><label>Desconto ('+o.desconto+'%)</label><span>- '+formatBRL(descV)+'</span></div>':'')+
+  '<div class="pdf-total-linha destaque"><label>Investimento Total</label><span>'+formatBRL(total)+'</span></div></div>'+
+  (o.obs?'<div class="pdf-observacoes"><h4>Observações Gerais</h4><p>'+escHtml(o.obs).replace(/\n/g,'<br>')+'</p></div>':'')+
+  '<div class="pdf-condicoes"><h4>Condições Comerciais</h4><div class="pdf-condicoes-grid">'+
+    condItem('Forma de Pagamento',pagamentoDoOrc(o))+condItem('Validade',(o.validade||'5 dias')+' a partir da emissão')+
+    condItem('Prazo de Execução',(o.obra&&o.obra.prazo)||'A definir')+condItem('Início Previsto',obraInicio)+
+  '</div></div>'+
+  '<div class="pdf-assinar"><div class="pdf-assinar-campo"><p style="font-weight:700;font-size:11px">'+escHtml(e.empNome||'FM')+'</p>'+(e.empResp?'<p style="font-size:10px;color:#555">'+escHtml(e.empResp)+'</p>':'')+(e.empCnpj?'<p style="font-size:10px;color:#888">CNPJ: '+escHtml(e.empCnpj)+'</p>':'')+'<p style="font-size:10px;color:#888;margin-top:2px">WhatsApp: '+escHtml(e.empTel||'')+(e.empEmail?' | '+escHtml(e.empEmail):'')+'</p></div>'+
+  '<div class="pdf-assinar-campo"><p style="font-weight:700;font-size:11px">'+escHtml((o.cliente&&o.cliente.nome)||'')+'</p><p style="font-size:10px;color:#888">Assinatura do Contratante</p><p style="font-size:10px;color:#888">Data: ____/____/________</p></div></div>'+
+  '</div>'+
+  '<div class="pdf-footer"><div><strong>'+escHtml(e.empNome||'FM')+'</strong><p>WhatsApp: '+escHtml(e.empTel||'')+(e.empEmail?' | '+escHtml(e.empEmail):'')+'</p></div><div style="text-align:right"><p style="color:rgba(255,255,255,.35);font-size:9px">Gerado em '+new Date().toLocaleDateString('pt-BR')+'</p></div></div></div>';
+  imprimir(html, 'Orcamento FM '+o.numero+' - '+((o.cliente&&o.cliente.nome)||''));
+}
+/* pagamentoDoOrc redefinida no bloco de contrato */
+function infoItem(l,v){ return '<div class="pdf-info-item"><label>'+escHtml(l)+'</label><span>'+escHtml(v||'—')+'</span></div>'; }
+function condItem(l,v){ return '<div class="pdf-condicao-item"><strong>'+escHtml(l)+'</strong><span>'+escHtml(v||'—')+'</span></div>'; }
+
+/* ════════════════ GERAÇÃO DE CONTRATO ════════════════ */
+function gerarContrato(){ const o=lerOrcamentoDosCampos(); if(!o.cliente.nome){ notif('Preencha o cliente para gerar o contrato'); subAba('cliente',document.querySelectorAll('.subtab')[0]); return; } gerarContratoDe(o); }
+/* ════════════ VALORES POR EXTENSO ════════════ */
+function extenso(valor){
+  valor = Math.round((valor||0)*100)/100;
+  const reais = Math.floor(valor);
+  const cent = Math.round((valor - reais)*100);
+  function porExtenso(num){
+    if(num===0) return 'zero';
+    const U=['','um','dois','três','quatro','cinco','seis','sete','oito','nove','dez','onze','doze','treze','catorze','quinze','dezesseis','dezessete','dezoito','dezenove'];
+    const D=['','','vinte','trinta','quarenta','cinquenta','sessenta','setenta','oitenta','noventa'];
+    const C=['','cento','duzentos','trezentos','quatrocentos','quinhentos','seiscentos','setecentos','oitocentos','novecentos'];
+    function grupo(n){
+      if(n===0) return '';
+      if(n===100) return 'cem';
+      const r=[]; const c=Math.floor(n/100); const resto=n%100;
+      if(c) r.push(C[c]);
+      if(resto){
+        if(resto<20) r.push(U[resto]);
+        else { const d=Math.floor(resto/10); const u=resto%10; r.push(u? D[d]+' e '+U[u] : D[d]); }
+      }
+      return r.join(' e ');
+    }
+    const esc=[['',''],['mil','mil'],['milhão','milhões'],['bilhão','bilhões']];
+    const blocos=[]; let n=num;
+    while(n>0){ blocos.push(n%1000); n=Math.floor(n/1000); }
+    const partes=[];
+    for(let k=blocos.length-1;k>=0;k--){
+      const b=blocos[k]; if(b===0) continue;
+      let txt=grupo(b);
+      if(k===1) txt = (b===1?'':txt+' ')+'mil';
+      else if(k>=2) txt = txt+' '+(b===1?esc[k][0]:esc[k][1]);
+      partes.push(txt.trim());
+    }
+    if(partes.length<=1) return partes.join('');
+    const ultimo=partes.pop();
+    const ultimoNum=blocos[0];
+    const usaE=(ultimoNum<100)||(ultimoNum%100===0);
+    return partes.join(', ')+(usaE?' e ':', ')+ultimo;
+  }
+  let t = porExtenso(reais)+' '+(reais===1?'real':'reais');
+  if(cent>0) t += ' e '+porExtenso(cent)+' '+(cent===1?'centavo':'centavos');
+  return t;
+}
+
+/* ════════════ TOTAIS E PAGAMENTO DO ORÇAMENTO ════════════ */
+function subDoOrc(o){ return (o.grupos||[]).reduce((s,g)=>s+g.itens.reduce((a,b)=>a+b.qty*b.valor,0),0); }
+function taxaValorDoOrc(o){ return subDoOrc(o)*(o.taxa||0)/100; }
+function descontoValorDoOrc(o){ return (subDoOrc(o)+taxaValorDoOrc(o))*(o.desconto||0)/100; }
+function totalDoOrc(o){ return subDoOrc(o)+taxaValorDoOrc(o)-descontoValorDoOrc(o); }
+
+const REGIMES_SALDO = {
+  semanal: 'em parcelas semanais, cada uma vinculada à medição física dos serviços efetivamente executados na semana, formalizada em boletim de medição com registro fotográfico aprovado por representante da CONTRATANTE',
+  entrega: 'em parcela única, devida na entrega definitiva da obra, após a vistoria e o aceite pela CONTRATANTE',
+  mensal: 'em parcelas mensais, conforme cronograma físico-financeiro aprovado entre as partes',
+  avista: ''
+};
+const REGIMES_LABEL = {
+  semanal: 'parcelas semanais conforme medição física aprovada',
+  entrega: 'parcela única na entrega da obra',
+  mensal: 'parcelas mensais conforme cronograma',
+  avista: 'pagamento integral na assinatura'
+};
+
+/* resumo curto (proposta) com valores */
+function pagamentoDoOrc(o){
+  const total=totalDoOrc(o);
+  const pct=(o.entradaPct!=null && o.entradaPct!=='')?Number(o.entradaPct):40;
+  if(pct>=100) return 'Pagamento integral na assinatura do contrato ('+formatBRL(total)+').';
+  const entrada=total*pct/100, saldo=total-entrada, saldoPct=100-pct;
+  return pct+'% na assinatura do contrato ('+formatBRL(entrada)+'); saldo de '+saldoPct+'% ('+formatBRL(saldo)+') '+(REGIMES_LABEL[o.regimeSaldo||'semanal'])+'.';
+}
+
+/* ════════════ ANEXO I — QUANTITATIVOS ════════════ */
+function anexoQuantitativos(o){
+  let linhas='';
+  let g=1;
+  (o.grupos||[]).forEach(grp=>{
+    const itens=grp.itens.filter(i=>i.desc||i.valor>0);
+    if(!itens.length) return;
+    const tg=itens.reduce((s,i)=>s+i.qty*i.valor,0);
+    linhas += '<tr><td class="anx-grupo">'+g+'</td><td class="anx-grupo" colspan="4">'+escHtml(grp.nome||'SERVIÇOS').toUpperCase()+'</td><td class="anx-grupo" style="text-align:right">'+formatBRL(tg)+'</td></tr>';
+    let it=1;
+    itens.forEach(i=>{
+      const st=i.qty*i.valor;
+      linhas += '<tr>'+
+        '<td style="text-align:center;color:#888">'+g+'.'+it+'</td>'+
+        '<td>'+escHtml(i.desc||'—')+'</td>'+
+        '<td style="text-align:center">'+escHtml(i.unidade||'UN')+'</td>'+
+        '<td style="text-align:right">'+(Number.isInteger(i.qty)?i.qty:i.qty.toLocaleString('pt-BR',{minimumFractionDigits:2}))+'</td>'+
+        '<td style="text-align:right">'+formatBRL(i.valor)+'</td>'+
+        '<td style="text-align:right;font-weight:600">'+formatBRL(st)+'</td>'+
+      '</tr>';
+      it++;
+    });
+    g++;
+  });
+  const sub=subDoOrc(o), taxa=taxaValorDoOrc(o), desc=descontoValorDoOrc(o), total=totalDoOrc(o);
+  let totais =
+    '<tr class="anx-total"><td colspan="5" style="text-align:right">VALOR TOTAL DOS SERVIÇOS</td><td style="text-align:right">'+formatBRL(sub)+'</td></tr>';
+  if((o.taxa||0)>0) totais += '<tr class="anx-total"><td colspan="5" style="text-align:right">TAXA DE ADMINISTRAÇÃO ('+(o.taxa||0)+'% sobre os serviços)</td><td style="text-align:right">'+formatBRL(taxa)+'</td></tr>';
+  if((o.desconto||0)>0) totais += '<tr class="anx-total"><td colspan="5" style="text-align:right">DESCONTO ('+(o.desconto||0)+'%)</td><td style="text-align:right">- '+formatBRL(desc)+'</td></tr>';
+  totais += '<tr class="anx-investimento"><td colspan="5" style="text-align:right">INVESTIMENTO TOTAL</td><td style="text-align:right">'+formatBRL(total)+'</td></tr>';
+  return '<table class="anexo-table">'+
+    '<tr><th style="width:9%">CÓD.</th><th style="width:42%">DESCRIÇÃO</th><th style="width:9%">UN.</th><th style="width:11%;text-align:right">QTD.</th><th style="width:14%;text-align:right">V. UNIT.</th><th style="width:15%;text-align:right">V. TOTAL</th></tr>'+
+    linhas + totais + '</table>';
+}
+
+/* ════════════ CONTRATO (12 CLÁUSULAS, FIEL AO MODELO) ════════════ */
+function cl(titulo, corpoHTML){
+  return '<div class="contrato-clausula"><h4>'+titulo+'</h4>'+corpoHTML+'</div>';
+}
+function p(txt){ return '<p>'+txt+'</p>'; }
+
+function gerarContratoDe(o){
+  const e = config;
+  const ano = o.ano || new Date().getFullYear();
+  const sub = subDoOrc(o), taxa = taxaValorDoOrc(o), desc = descontoValorDoOrc(o), total = totalDoOrc(o);
+  const cidade = e.empCidade || 'Fortaleza/CE';
+  const cidadeNome = cidade.split('/')[0];
+  const hojeExt = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+  const obraDesc = (o.obra&&o.obra.desc) || 'reforma';
+  const obraEnd = (o.obra&&o.obra.endereco) || 'endereço a ser indicado pela CONTRATANTE';
+  const prazoTxt = (o.obra&&o.obra.prazo) || '90 (noventa) dias corridos';
+  const inicioTxt = o.obra&&o.obra.inicio ? dataFmt(o.obra.inicio) : 'a combinar entre as partes';
+
+  // parâmetros configuráveis (defaults reproduzem o modelo)
+  const gSolidez = e.garantiaSolidezAnos || 5;
+  const gAcab = e.garantiaAcabamentosMeses || 12;
+  const mEntrega = e.multaEntregaDiaUtil!=null ? e.multaEntregaDiaUtil : 0.3;
+  const mEntregaTeto = e.tetoMultaEntrega || 10;
+  const mPagto = e.multaPagamento!=null ? e.multaPagamento : 2;
+  const juros = e.jurosMora!=null ? e.jurosMora : 1;
+  const mRescisao = e.multaRescisao!=null ? e.multaRescisao : 10;
+  const tetoAditivos = e.tetoAditivos || 15;
+
+  // pagamento
+  const pct = (o.entradaPct!=null && o.entradaPct!=='') ? Number(o.entradaPct) : 40;
+  const entrada = total*pct/100, saldo = total-entrada, saldoPct = 100-pct;
+  const regime = o.regimeSaldo || 'semanal';
+
+  // etapas (cláusula 1.2) a partir dos grupos
+  const etapas = (o.grupos||[]).map(g=>g.nome).filter(Boolean).map(n=>n.toLowerCase()).join('; ');
+
+  // materiais por conta do contratante (1.4)
+  const mats = (o.materiaisContratante||'').trim();
+
+  // ── PREÂMBULO ──
+  const contratanteQual =
+    '<b>CONTRATANTE:</b> '+escHtml((o.cliente&&o.cliente.nome)||'[NOME/RAZÃO SOCIAL DO CONTRATANTE]')+
+    (o.cliente&&o.cliente.doc ? ', inscrito(a) no CNPJ/CPF sob o nº '+escHtml(o.cliente.doc) : ', inscrito(a) no CNPJ/CPF sob o nº ____________')+
+    (o.cliente&&o.cliente.endereco ? ', com sede/endereço em '+escHtml(o.cliente.endereco) : ', com sede/endereço em [ENDEREÇO COMPLETO]')+
+    ', neste ato representado(a) na forma de seus atos constitutivos, doravante denominado(a) simplesmente CONTRATANTE.';
+  const contratadaQual =
+    '<b>CONTRATADA:</b> '+escHtml(e.empNome||'FM SERVIÇO DE REFORMA E CONSTRUÇÃO LTDA.')+', pessoa jurídica de direito privado, inscrita no CNPJ sob o nº '+escHtml(e.empCnpj||'40.856.036/0001-96')+', com sede em '+escHtml(cidade)+', neste ato representada por seu administrador, Sr. '+escHtml(e.empResp||'Fabiano Marques')+', doravante denominada simplesmente CONTRATADA.';
+
+  // ── CLÁUSULA 3 (pagamento) ──
+  let c3;
+  if(pct>=100){
+    c3 = cl('Cláusula 3ª — Da Forma de Pagamento e da Medição',
+      p('3.1. O pagamento será integral, no valor de '+formatBRL(total)+' ('+extenso(total)+'), no ato da assinatura deste contrato.')+
+      p('3.2. A CONTRATADA emitirá nota fiscal de serviço correspondente ao pagamento recebido.')+
+      p('3.3. O atraso de pagamento não justificado por parte da CONTRATANTE sujeitará o valor em atraso a multa de '+mPagto+'% (por cento), juros de mora de '+juros+'% (por cento) ao mês pro rata die e correção monetária pelo IPCA.'));
+  } else {
+    c3 = cl('Cláusula 3ª — Da Forma de Pagamento e da Medição',
+      p('3.1. O pagamento será realizado da seguinte forma: '+pct+'% ('+formatBRL(entrada)+'), no ato da assinatura deste contrato, a título de entrada para mobilização e aquisição inicial de materiais; e o saldo de '+saldoPct+'% ('+formatBRL(saldo)+'), '+REGIMES_SALDO[regime]+'.')+
+      (regime==='semanal' ? p('3.2. Cada parcela do saldo fica condicionada à aprovação da respectiva medição física, formalizada em boletim de medição com registro fotográfico, aprovado por representante da CONTRATANTE.') : '')+
+      p((regime==='semanal'?'3.3.':'3.2.')+' A CONTRATADA emitirá nota fiscal de serviço correspondente a cada pagamento recebido.')+
+      p((regime==='semanal'?'3.4.':'3.3.')+' O atraso de pagamento não justificado por parte da CONTRATANTE sujeitará a parcela em atraso a multa de '+mPagto+'% (por cento), juros de mora de '+juros+'% (por cento) ao mês pro rata die e correção monetária pelo IPCA, ressalvados os valores legitimamente contestados, tratados na forma da Cláusula 12ª.'));
+  }
+
+  // ── CLÁUSULA 2 (preço) ──
+  let c22 = '2.2. O valor global do contrato é de '+formatBRL(total)+' ('+extenso(total)+')';
+  if((o.taxa||0)>0){
+    c22 += ', assim composto: '+formatBRL(sub)+' ('+extenso(sub)+') referentes ao custo dos serviços, acrescidos de '+formatBRL(taxa)+' ('+extenso(taxa)+') a título de taxa de administração de '+(o.taxa||0)+'% ('+(o.taxa||0)+' por cento) incidente sobre os serviços';
+    if((o.desconto||0)>0) c22 += ', e deduzido o desconto de '+formatBRL(desc)+' ('+(o.desconto||0)+'%)';
+    c22 += '. O detalhamento por etapa e quantitativos consta do Anexo I, parte integrante deste contrato.';
+  } else {
+    c22 += ', conforme detalhamento por etapa e quantitativos constante do Anexo I, parte integrante deste contrato.';
+  }
+
+  // ── CLÁUSULA 1.4 (materiais) ──
+  const c14 = mats
+    ? '1.4. Os materiais de acabamento, a serem fornecidos pela CONTRATANTE, são: '+escHtml(mats)+'. Os demais materiais necessários à execução das etapas previstas no Anexo I estão inclusos no valor de cada serviço. Qualquer item não previsto no Anexo I somente será executado mediante aditivo escrito, na forma da Cláusula 8ª.'
+    : '1.4. Os materiais necessários à execução das etapas previstas no Anexo I estão inclusos no valor de cada serviço, ressalvados eventuais materiais de acabamento de fornecimento da CONTRATANTE, quando expressamente assim ajustado. Qualquer item não previsto no Anexo I somente será executado mediante aditivo escrito, na forma da Cláusula 8ª.';
+
+  const taxaNota = (o.taxa||0)>0
+    ? '2.3.1. A taxa de administração de '+(o.taxa||0)+'% incide exclusivamente sobre os serviços contratados. Não há cobrança de taxa, percentual ou acréscimo sobre os materiais de acabamento fornecidos diretamente pela CONTRATANTE — diferentemente do regime de administração de obra, no qual a taxa incidiria sobre o custo total, inclusive sobre o material aplicado.'
+    : '';
 
   const html =
-  '<div class="pdf-doc">' +
-    '<div class="pdf-header">' +
-      '<div class="pdf-logo-box"><span>FM</span><small>Serviço de Reforma</small></div>' +
-      '<div class="pdf-header-info">' +
-        '<p>Orçamento Nº</p><strong>' + num + '/' + ano + '</strong>' +
-        '<p style="margin-top:8px">Data de emissão</p><strong>' + dataFmt + '</strong>' +
-        '<p style="margin-top:8px">Validade</p><strong>' + validade + '</strong>' +
-      '</div>' +
-    '</div>' +
-    '<div class="pdf-stripe"></div>' +
-    '<div class="pdf-body">' +
-      '<div class="pdf-titulo">Proposta Comercial</div>' +
-      '<div class="pdf-subtitulo">Orçamento de Serviços — ' + escHtml(obraDesc) + '</div>' +
-      '<div class="pdf-info-grid">' +
-        infoItem('Cliente', clienteNome) +
-        infoItem('CPF / CNPJ', v('cliente-doc')) +
-        infoItem('Telefone', v('cliente-tel')) +
-        infoItem('E-mail', v('cliente-email')) +
-        infoItem('Endereço do Serviço', obraEnd) +
-        infoItem('Endereço do Cliente', v('cliente-endereco')) +
-        infoItem('Prazo de Execução', obraPrazo) +
-        infoItem('Início Previsto', obraInicioFmt) +
-      '</div>' +
-      '<table class="pdf-table">' + tabelaHTML + '</table>' +
-      '<div class="pdf-totais">' +
-        '<div class="pdf-total-linha"><label>Custo Total dos Serviços</label><span>' + formatBRL(sub) + '</span></div>' +
-        (taxaPct > 0 ? '<div class="pdf-total-linha"><label>Taxa de Administração (' + taxaPct + '%)</label><span>' + formatBRL(adm) + '</span></div>' : '') +
-        (descPct > 0 ? '<div class="pdf-total-linha"><label>Desconto (' + descPct + '%)</label><span>- ' + formatBRL(descVal) + '</span></div>' : '') +
-        '<div class="pdf-total-linha destaque"><label>INVESTIMENTO TOTAL</label><span>' + formatBRL(total) + '</span></div>' +
-      '</div>' +
-      (obs ? '<div class="pdf-observacoes"><h4>Observações Gerais</h4><p>' + escHtml(obs).replace(/\n/g,'<br>') + '</p></div>' : '') +
-      '<div class="pdf-condicoes"><h4>Condições Comerciais</h4><div class="pdf-condicoes-grid">' +
-        condItem('Forma de Pagamento', pagamento || '—') +
-        condItem('Validade da Proposta', validade + ' a partir da emissão') +
-        condItem('Prazo de Execução', obraPrazo) +
-        condItem('Início Previsto', obraInicioFmt) +
-      '</div></div>' +
-      '<div class="pdf-assinar">' +
-        '<div class="pdf-assinar-campo">' +
-          '<p style="font-weight:700;color:#1a1a1a;font-size:11px">' + escHtml(empNome) + '</p>' +
-          (empResp ? '<p style="font-size:10px;color:#555">' + escHtml(empResp) + '</p>' : '') +
-          (empCnpj ? '<p style="font-size:10px;color:#888">CNPJ: ' + escHtml(empCnpj) + '</p>' : '') +
-          '<p style="font-size:10px;color:#888;margin-top:2px">WhatsApp: ' + escHtml(empTel) + (empEmail ? ' | ' + escHtml(empEmail) : '') + '</p>' +
-        '</div>' +
-        '<div class="pdf-assinar-campo">' +
-          '<p style="font-weight:700;color:#1a1a1a;font-size:11px">' + escHtml(clienteNome) + '</p>' +
-          '<p style="font-size:10px;color:#888">Assinatura do Contratante</p>' +
-          '<p style="font-size:10px;color:#888">Data: ____/____/________</p>' +
-        '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="pdf-footer">' +
-      '<div><strong>' + escHtml(empNome) + '</strong><p>WhatsApp: ' + escHtml(empTel) + (empEmail ? ' | ' + escHtml(empEmail) : '') + '</p></div>' +
-      '<div style="text-align:right"><p style="color:rgba(255,255,255,0.35);font-size:9px">Gerado em ' + new Date().toLocaleDateString('pt-BR') + '</p></div>' +
-    '</div>' +
+  '<div class="contrato-doc">'+
+    '<div class="pdf-header"><div class="pdf-logo-box"><span>FM.</span><small>Serviço de Reforma e Construção</small></div>'+
+    '<div class="pdf-header-info"><p>Contrato vinculado à</p><strong>Proposta Comercial nº '+o.numero+'/'+ano+'</strong></div></div>'+
+    '<div class="pdf-stripe"></div>'+
+    '<div class="contrato-body">'+
+      '<div class="contrato-titulo">Contrato de Prestação de Serviços de Reforma</div>'+
+      '<div class="contrato-sub">Regime de Empreitada a Preço Global Fechado</div>'+
+      '<div class="contrato-partes">'+
+        p('Pelo presente instrumento particular, as partes a seguir qualificadas:')+
+        p(contratadaQual)+
+        p(contratanteQual)+
+        p('Têm entre si justo e contratado o presente Contrato de Prestação de Serviços de Reforma, sob o regime de empreitada a preço global fechado, que se regerá pelas cláusulas e condições seguintes e, supletivamente, pelos artigos 610 a 626 do Código Civil (empreitada) e pelo Código de Defesa do Consumidor, quando aplicável.')+
+      '</div>'+
+
+      cl('Cláusula 1ª — Do Objeto',
+        p('1.1. O objeto do presente contrato é a execução, pela CONTRATADA, da '+escHtml(obraDesc)+' do imóvel da CONTRATANTE, situado em '+escHtml(obraEnd)+', em conformidade com a Proposta Comercial nº '+o.numero+'/'+ano+' e seus anexos, que integram este instrumento para todos os fins.')+
+        p('1.2. Os serviços compreendem as etapas descritas no Anexo I (orçamento detalhado por etapas e quantitativos)'+(etapas?': '+etapas:'')+'. Incluem-se, conforme aplicável, a mobilização, o isolamento e a proteção da área de obra e o fornecimento dos Equipamentos de Proteção Individual (EPI) e de proteção coletiva necessários.')+
+        p('1.3. A execução observará os projetos, memoriais e especificações fornecidos pela CONTRATANTE, bem como as normas técnicas da ABNT aplicáveis e as normas internas do local quanto a horários e acesso.')+
+        p(c14))+
+
+      cl('Cláusula 2ª — Do Regime de Contratação e do Preço',
+        p('2.1. A contratação é feita sob o regime de EMPREITADA A PREÇO GLOBAL FECHADO, nos termos do art. 610 do Código Civil. O preço é certo, fixo e irreajustável durante o prazo de execução, ressalvadas exclusivamente as hipóteses de aditivo previstas na Cláusula 8ª.')+
+        p(c22)+
+        p('2.3. O preço global inclui a mão de obra qualificada, os encargos sociais e trabalhistas, ferramentas, equipamentos, transporte, EPIs, os materiais necessários à execução de cada serviço previsto no Anexo I, os tributos incidentes sobre os serviços e a emissão da nota fiscal.')+
+        (taxaNota?p(taxaNota):'')+
+        p('2.4. Por se tratar de preço fechado, eventual variação no custo dos materiais ou da mão de obra fornecidos pela CONTRATADA correrá por conta exclusiva desta, não gerando direito a reequilíbrio, salvo nas hipóteses de aditivo da Cláusula 8ª.'))+
+
+      c3+
+
+      cl('Cláusula 4ª — Do Prazo de Execução',
+        p('4.1. O prazo para execução integral dos serviços é de '+escHtml(prazoTxt)+', com início previsto em '+inicioTxt+', contado a partir da assinatura do contrato e do pagamento da entrada, prevalecendo a data posterior.')+
+        p('4.2. Os trabalhos observarão horário diurno, de segunda a sexta-feira, conforme as normas do local.')+
+        p('4.3. O prazo poderá ser prorrogado, sem penalidade à CONTRATADA, exclusivamente nas seguintes hipóteses, desde que comprovadas e comunicadas por escrito em até 5 (cinco) dias do evento: (i) caso fortuito ou força maior, nos termos do art. 393 do Código Civil; (ii) atraso da CONTRATANTE na liberação do local, na entrega dos materiais de seu fornecimento, em decisões ou aprovações de sua responsabilidade; (iii) alterações de escopo formalizadas por aditivo.')+
+        p('4.4. Não constituem causa de prorrogação os atrasos de fornecedores ou subcontratados da CONTRATADA, cuja gestão é de sua exclusiva responsabilidade.'))+
+
+      cl('Cláusula 5ª — Da Multa por Atraso na Entrega',
+        p('5.1. O descumprimento do prazo de execução por culpa da CONTRATADA sujeitará esta à multa moratória de '+mEntrega+'% (por cento) do valor global do contrato por dia útil de atraso, limitada a '+mEntregaTeto+'% (por cento) do valor global, sem prejuízo da execução dos serviços remanescentes.')+
+        p('5.2. Atingido o limite da multa, a CONTRATANTE poderá, a seu critério, rescindir o contrato por inadimplemento, na forma da Cláusula 11ª, e contratar terceiro para a conclusão, respondendo a CONTRATADA pela diferença de custo, se houver.')+
+        p('5.3. As multas por atraso de pagamento (Cláusula 3ª) e por atraso na entrega (Cláusula 5.1) são recíprocas e independentes, garantindo equilíbrio entre as partes.'))+
+
+      cl('Cláusula 6ª — Das Obrigações da CONTRATADA',
+        p('6.1. Executar os serviços com técnica, qualidade e materiais adequados, observando os projetos, as especificações e as normas da ABNT.')+
+        p('6.2. Fornecer mão de obra qualificada, sendo a única e exclusiva empregadora dos trabalhadores que alocar na obra, respondendo integralmente por salários, encargos sociais, trabalhistas, previdenciários e fiscais, mantendo a CONTRATANTE a salvo de qualquer reclamação a esse título.')+
+        p('6.3. Apresentar, sempre que solicitada, comprovação de recolhimento de FGTS, INSS e pagamento de salários dos trabalhadores alocados na obra.')+
+        p('6.4. Emitir a Anotação de Responsabilidade Técnica (ART) de execução, quando exigível, e manter responsável técnico habilitado no CREA durante toda a obra.')+
+        p('6.5. Fornecer e exigir o uso de Equipamentos de Proteção Individual (EPI) e observar as normas de segurança e medicina do trabalho.')+
+        p('6.6. Manter a área de trabalho organizada, promover a retirada de entulhos e entregar a obra limpa.')+
+        p('6.7. Enviar relatórios de acompanhamento físico, com registro fotográfico, e permitir o acompanhamento da obra pela CONTRATANTE ou seu preposto.')+
+        p('6.8. Reexecutar, às suas expensas, os serviços recusados por desconformidade técnica devidamente apontada.'))+
+
+      cl('Cláusula 7ª — Das Obrigações da CONTRATANTE',
+        p('7.1. Efetuar os pagamentos nas condições e prazos da Cláusula 3ª.')+
+        p('7.2. Liberar o local da obra em condições de acesso e disponibilizar pontos de água e energia elétrica para a execução.')+
+        p('7.3. Fornecer, em tempo hábil, os projetos, especificações e os materiais de seu fornecimento.')+
+        p('7.4. Aprovar ou apontar objeções às medições em até 3 (três) dias úteis do recebimento do boletim, sob pena de presunção de aprovação.')+
+        p('7.5. Designar preposto para acompanhamento da obra, sem interferir na direção técnica da CONTRATADA nem emitir ordens diretas aos trabalhadores.')+
+        p('7.6. Receber a obra mediante termo de vistoria e entrega, apontando eventuais pendências objetivas no prazo da Cláusula 9ª.'))+
+
+      cl('Cláusula 8ª — Das Alterações de Escopo e Serviços Extras',
+        p('8.1. Qualquer alteração de projeto, acréscimo ou supressão de serviços que impacte preço ou prazo dependerá de aditivo escrito, com orçamento prévio aprovado pela CONTRATANTE antes do início do serviço extra.')+
+        p('8.2. É vedado o início de serviço extra sem aprovação escrita. Serviços executados sem aditivo prévio não serão devidos, salvo emergência comprovada para evitar dano iminente, hipótese em que serão comunicados imediatamente.')+
+        p('8.3. O conjunto de aditivos não poderá exceder '+tetoAditivos+'% (por cento) do valor global do contrato sem nova deliberação formal da CONTRATANTE.'))+
+
+      cl('Cláusula 9ª — Do Recebimento e da Garantia',
+        p('9.1. Concluída a obra, será lavrado Termo de Recebimento. A CONTRATANTE terá 10 (dez) dias para vistoria e apontamento de pendências objetivas, que a CONTRATADA corrigirá em prazo razoável, antes do recebimento definitivo.')+
+        p('9.2. A CONTRATADA garante a solidez e a segurança dos serviços executados, inclusive quanto a materiais e mão de obra, pelo prazo de '+gSolidez+' (cinco) anos, nos termos do art. 618 do Código Civil.')+
+        p('9.3. Para acabamentos, impermeabilização, revestimentos e instalações, a CONTRATADA oferece garantia de '+gAcab+' (doze) meses, contados do recebimento definitivo, contra defeitos de execução.')+
+        p('9.4. A garantia de execução abrange a mão de obra de assentamento e instalação mesmo sobre materiais fornecidos pela CONTRATANTE, respondendo a CONTRATADA por defeitos de execução; não abrange vícios próprios do material fornecido pela CONTRATANTE, mau uso, ausência de manutenção, desgaste natural ou intervenção de terceiros.'))+
+
+      cl('Cláusula 10ª — Das Responsabilidades',
+        p('10.1. Cada parte responde pelos prejuízos a que der causa por ação, omissão, negligência, imprudência, imperícia ou inadimplemento.')+
+        p('10.2. A CONTRATADA responde por danos causados a terceiros e às áreas comuns decorrentes da execução dos serviços, por culpa sua ou de seus prepostos.')+
+        p('10.3. A CONTRATADA é a única responsável pelos vínculos trabalhistas e previdenciários de seus empregados, inexistindo qualquer vínculo entre estes e a CONTRATANTE; eventual condenação imposta à CONTRATANTE será objeto de ressarcimento integral em ação regressiva.'))+
+
+      cl('Cláusula 11ª — Da Rescisão',
+        p('11.1. O contrato poderá ser rescindido: (i) por acordo entre as partes; (ii) por inadimplemento de obrigação essencial, após notificação com prazo de 10 (dez) dias para sanar a falta; (iii) por caso fortuito ou força maior que inviabilize a continuidade.')+
+        p('11.2. Na rescisão, serão apurados os serviços efetivamente executados e medidos até a data, com o respectivo pagamento proporcional, e devolvidos à CONTRATANTE, em até 15 (quinze) dias, eventuais valores recebidos sem contrapartida executada.')+
+        p('11.3. A rescisão imotivada por qualquer das partes sujeitará a parte que lhe der causa à multa de '+mRescisao+'% (por cento) sobre o saldo não executado do contrato, ressalvadas as hipóteses de rescisão por justa causa previstas em 11.1.'))+
+
+      cl('Cláusula 12ª — Das Disposições Gerais e do Foro',
+        p('12.1. Divergências quanto a medições ou valores serão tratadas primeiramente por via amigável, mediante notificação escrita, no prazo de 10 (dez) dias, antes de qualquer medida judicial.')+
+        p('12.2. A tolerância de qualquer das partes quanto ao descumprimento de obrigação não importará renúncia ou novação.')+
+        p('12.3. Integram este contrato, como anexos: a Proposta Comercial nº '+o.numero+'/'+ano+' (orçamento detalhado por etapas — Anexo I); o cronograma físico-financeiro; e os projetos e especificações fornecidos pela CONTRATANTE.')+
+        p('12.4. Fica eleito o foro da comarca de '+escHtml(cidade)+' para dirimir as controvérsias oriundas deste contrato, com renúncia a qualquer outro.'))+
+
+      p('E, por estarem assim justas e contratadas, as partes assinam o presente instrumento em 2 (duas) vias de igual teor, na presença das testemunhas abaixo.')+
+      '<div class="contrato-data">'+escHtml(cidadeNome)+', '+hojeExt+'.</div>'+
+
+      '<div class="assina-bloco">'+
+        '<div class="assina-campo"><div class="assina-linha"><p class="nome">'+escHtml(e.empNome||'CONTRATADA')+'</p><p>CONTRATADA — CNPJ '+escHtml(e.empCnpj||'')+'</p></div></div>'+
+        '<div class="assina-campo"><div class="assina-linha"><p class="nome">'+escHtml((o.cliente&&o.cliente.nome)||'CONTRATANTE')+'</p><p>CONTRATANTE'+(o.cliente&&o.cliente.doc?' — '+escHtml(o.cliente.doc):'')+'</p></div></div>'+
+      '</div>'+
+      '<div class="testemunhas"><div class="testemunha"><div class="assina-linha"><p>Testemunha 1 — Nome / CPF</p></div></div><div class="testemunha"><div class="assina-linha"><p>Testemunha 2 — Nome / CPF</p></div></div></div>'+
+
+      // ── ANEXO I ──
+      '<div class="anexo-quebra"></div>'+
+      '<div class="anexo-titulo">Anexo I — Orçamento Detalhado por Etapas e Quantitativos</div>'+
+      '<p class="anexo-nota">Quantitativos conforme projeto. Valores unitários referenciados a preços de mercado de '+escHtml(cidade)+'.'+((o.taxa||0)>0?' A taxa de administração de '+(o.taxa||0)+'% incide sobre os serviços.':'')+' Parte integrante do contrato.</p>'+
+      anexoQuantitativos(o)+
+      (mats?'<p class="anexo-nota" style="margin-top:12px"><b>Materiais por conta do contratante:</b> '+escHtml(mats)+'.</p>':'')+
+    '</div>'+
+    '<div class="pdf-footer"><div><strong>'+escHtml(e.empNome||'FM')+'</strong><p>WhatsApp: '+escHtml(e.empTel||'')+(e.empEmail?' | '+escHtml(e.empEmail):'')+'</p></div><div style="text-align:right"><p style="color:rgba(255,255,255,.35);font-size:9px">Contrato gerado em '+new Date().toLocaleDateString('pt-BR')+'</p></div></div>'+
   '</div>';
 
-  document.getElementById('pdf-preview').innerHTML = html;
-
-  const tituloOriginal = document.title;
-  document.title = 'Orcamento FM ' + num + ' - ' + clienteNome;
-  setTimeout(() => {
-    window.print();
-    document.title = tituloOriginal;
-    mostrarNotif('Na impressão, escolha "Salvar como PDF"');
-  }, 200);
+  imprimir(html, 'Contrato FM '+o.numero+' - '+((o.cliente&&o.cliente.nome)||''));
 }
 
-function infoItem(label, val) {
-  return '<div class="pdf-info-item"><label>' + escHtml(label) + '</label><span>' + escHtml(val || '—') + '</span></div>';
+/* ──────── IMPRESSÃO ──────── */
+function imprimir(html, titulo){
+  $('pdf-preview').innerHTML = html;
+  const orig=document.title; document.title=titulo;
+  setTimeout(()=>{ window.print(); document.title=orig; notif('Na impressão, escolha "Salvar como PDF"'); }, 200);
 }
-function condItem(label, val) {
-  return '<div class="pdf-condicao-item"><strong>' + escHtml(label) + '</strong><span>' + escHtml(val || '—') + '</span></div>';
-}
+
+</script>
+<script>
+/* ──────── PREFERÊNCIAS DE INTERFACE (apenas visual; não toca nas chaves fm_v3_*) ──────── */
+(function(){
+  var KEY = 'fm_v3_ui';
+  var btn = document.getElementById('hc-toggle');
+  function ler(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+  function aplicar(on){
+    document.documentElement.classList.toggle('alto-contraste', !!on);
+    if (btn) btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  var ui = ler();
+  aplicar(ui.altoContraste);
+  if (btn) btn.addEventListener('click', function(){
+    ui = ler();
+    ui.altoContraste = !ui.altoContraste;
+    try { localStorage.setItem(KEY, JSON.stringify(ui)); } catch(e){}
+    aplicar(ui.altoContraste);
+  });
+})();
 </script>
 </body>
 </html>
