@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="alto-contraste">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -66,6 +66,16 @@
   .hc-toggle svg { width: 18px; height: 18px; }
   .hc-toggle[aria-pressed="true"] { background: var(--branco); color: var(--azul-escuro); border-color: var(--branco); }
   .hc-toggle:active { transform: scale(.94); }
+  .header-meta { text-align: right; flex-shrink: 0; line-height: 1.2; }
+  .header-meta .header-data { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .4px; color: var(--branco); }
+  .header-meta .header-orcs { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 10.5px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--vermelho-texto); margin-top: 2px; }
+  .lib-cat-chips { display: flex; gap: 7px; overflow-x: auto; padding: 2px 0 12px; scrollbar-width: none; }
+  .lib-cat-chips::-webkit-scrollbar { display: none; }
+  .cat-chip { white-space: nowrap; flex-shrink: 0; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--cinza-borda); background: var(--azul-medio); color: var(--cinza-texto); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; cursor: pointer; }
+  .cat-chip.ativo { background: var(--vermelho); border-color: var(--vermelho); color: #fff; }
+  .lib-item.lib-add-feito { border-color: var(--verde); background: rgba(46,204,113,.12); }
+  .lib-item.lib-add-feito .lib-icon-btn { background: var(--verde); color: #06351d; border-color: var(--verde); }
+  .lib-add-badge { align-self: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--verde); color: #06351d; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; }
 
   /* ── MAIN / VIEWS ── */
   .app-main { padding-bottom: calc(100px + env(safe-area-inset-bottom)); }
@@ -366,10 +376,10 @@
     <h1>FM Serviço de Reforma</h1>
     <p>Sistema de Gestão</p>
   </div>
-  <div class="header-view-name" id="header-view-name">Início</div>
-  <button class="hc-toggle" id="hc-toggle" aria-pressed="false" aria-label="Alto contraste (sol forte)" title="Alto contraste (sol forte)">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-  </button>
+  <div class="header-meta">
+    <span class="header-data" id="header-data"></span>
+    <span class="header-orcs" id="header-orcs">0 orçamentos</span>
+  </div>
 </div>
 
 <div class="app-main">
@@ -606,6 +616,7 @@
     <div class="modal-header"><h3>Adicionar Serviços</h3><button class="modal-close" onclick="fecharModal('modal-lib-sel')" aria-label="Fechar">✕</button></div>
     <p class="modal-hint">Toque nos serviços para adicioná-los ao orçamento. Você pode adicionar vários seguidos e depois tocar em Concluir.</p>
     <input type="text" class="lib-search" id="lib-sel-search" placeholder="Buscar serviço..." oninput="renderLibSelecao()">
+    <div class="lib-cat-chips" id="lib-sel-cats"></div>
     <div id="lib-sel-container" style="padding-bottom: 20px;"></div>
     <button class="btn btn-primario btn-concluir-lib" id="btn-concluir-lib" onclick="fecharModal('modal-lib-sel')">Concluir</button>
   </div>
@@ -618,7 +629,7 @@
     <div class="field-group"><label for="lib-edit-cat">Categoria</label><input type="text" id="lib-edit-cat" list="cats" placeholder="Ex: Pintura"><datalist id="cats"></datalist></div>
     <div class="field-group"><label for="lib-edit-desc">Descrição do Serviço</label><textarea id="lib-edit-desc" maxlength="350" placeholder="Descreva o serviço" style="min-height: 80px;"></textarea></div>
     <div class="field-row">
-      <div class="field-group"><label for="lib-edit-un">Unidade</label><input type="text" id="lib-edit-un" placeholder="m², m, UN, VB" style="text-transform: uppercase;"></div>
+      <div class="field-group"><label for="lib-edit-un">Unidade</label><input type="text" id="lib-edit-un" placeholder="m², m, un, Verba" style="text-transform: uppercase;"></div>
       <div class="field-group"><label for="lib-edit-valor">Valor sugerido (R$)</label><input type="text" id="lib-edit-valor" inputmode="numeric" placeholder="0,00"></div>
     </div>
     <button class="btn btn-primario" onclick="salvarItemLib()" style="margin-top: 16px;"><svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>Salvar na Biblioteca</button>
@@ -631,7 +642,7 @@
     <div class="modal-header"><h3>Importar Serviços</h3><button class="modal-close" onclick="fecharModal('modal-importar')" aria-label="Fechar">✕</button></div>
     <div class="field-group"><label for="imp-cat">Categoria do lote</label><input type="text" id="imp-cat" placeholder="Ex: Importados"></div>
     <div class="field-group"><label for="imp-texto">Cole uma linha por serviço</label>
-      <textarea id="imp-texto" style="min-height: 160px;" placeholder="Formato:  Descrição | Unidade | Valor&#10;Exemplos:&#10;Pintura acrílica de parede | m² | 55&#10;Instalação de tomada | UN | 200&#10;Limpeza pós-obra | VB | 500"></textarea>
+      <textarea id="imp-texto" style="min-height: 160px;" placeholder="Formato:  Descrição | Unidade | Valor&#10;Exemplos:&#10;Pintura acrílica de parede | m² | 55&#10;Instalação de tomada | UN | 200&#10;Limpeza pós-obra | Verba | 500"></textarea>
       <div class="hint">Separe por barra ( | ). Unidade e valor são opcionais — se faltar, vira UN e 0.</div>
     </div>
     <button class="btn btn-primario" onclick="importarLote()" style="margin-top: 16px;"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>Importar</button>
@@ -663,15 +674,15 @@ let libEditId = null;               // item da biblioteca em edição
 /* ──────── BIBLIOTECA PADRÃO ──────── */
 const BIBLIOTECA_PADRAO = [
   // Pacotes prontos FM (descrições completas reutilizáveis)
-  {cat:'Pacotes Prontos FM', desc:'Demolição e construção, reparos de rebocos e gesso. Materiais inclusos: fornecimento de lona e papelão para proteção de piso e móveis, retirada de entulho gerado na obra, preparo de paredes para pintura, readequação de pontos e isolamento geral de piso para início da obra.', un:'VB', valor:4000},
-  {cat:'Pacotes Prontos FM', desc:'Elétrica e iluminação. Readequar pontos de tomadas conforme projeto, criar pontos de iluminação, readequar quadro elétrico. Materiais inclusos: fiação, caixas de passagem, eletrodutos, fitas isolantes, tomadas, interruptores, fitas de LED e drivers.', un:'VB', valor:7500},
-  {cat:'Pacotes Prontos FM', desc:'Acabamentos. Fornecimento e instalação de aparador conforme projeto, confecção e instalação de suporte de TV, limpeza geral pós-obra e retirada de resíduos de materiais.', un:'VB', valor:4100},
-  {cat:'Pacotes Prontos FM', desc:'Pintura geral do ambiente conforme projeto: selar, emassar e pintar; textura de cimento queimado conforme descrito. Materiais inclusos: tintas, massa, lixas e textura de cimento queimado.', un:'VB', valor:8000},
+  {cat:'Pacotes Prontos FM', desc:'Demolição e construção, reparos de rebocos e gesso. Materiais inclusos: fornecimento de lona e papelão para proteção de piso e móveis, retirada de entulho gerado na obra, preparo de paredes para pintura, readequação de pontos e isolamento geral de piso para início da obra.', un:'Verba', valor:4000},
+  {cat:'Pacotes Prontos FM', desc:'Elétrica e iluminação. Readequar pontos de tomadas conforme projeto, criar pontos de iluminação, readequar quadro elétrico. Materiais inclusos: fiação, caixas de passagem, eletrodutos, fitas isolantes, tomadas, interruptores, fitas de LED e drivers.', un:'Verba', valor:7500},
+  {cat:'Pacotes Prontos FM', desc:'Acabamentos. Fornecimento e instalação de aparador conforme projeto, confecção e instalação de suporte de TV, limpeza geral pós-obra e retirada de resíduos de materiais.', un:'Verba', valor:4100},
+  {cat:'Pacotes Prontos FM', desc:'Pintura geral do ambiente conforme projeto: selar, emassar e pintar; textura de cimento queimado conforme descrito. Materiais inclusos: tintas, massa, lixas e textura de cimento queimado.', un:'Verba', valor:8000},
   // Demolições e Retiradas
   {cat:'Demolições e Retiradas', desc:'Demolição de piso existente', un:'m²', valor:15},
   {cat:'Demolições e Retiradas', desc:'Demolição de mureta de alvenaria', un:'m', valor:150},
   {cat:'Demolições e Retiradas', desc:'Demolição de revestimento de parede', un:'m²', valor:25},
-  {cat:'Demolições e Retiradas', desc:'Remoção de louças, metais e acessórios', un:'VB', valor:120},
+  {cat:'Demolições e Retiradas', desc:'Remoção de louças, metais e acessórios', un:'Verba', valor:120},
   {cat:'Demolições e Retiradas', desc:'Retirada de entulho (caçamba/container)', un:'UN', valor:400},
   // Alvenaria e Estrutura
   {cat:'Alvenaria e Estrutura', desc:'Mureta de alvenaria H=98cm', un:'m²', valor:150},
@@ -681,17 +692,17 @@ const BIBLIOTECA_PADRAO = [
   // Instalações Hidráulicas
   {cat:'Instalações Hidráulicas', desc:'Ponto de esgoto', un:'UN', valor:152},
   {cat:'Instalações Hidráulicas', desc:'Ponto de água', un:'UN', valor:160},
-  {cat:'Instalações Hidráulicas', desc:'Instalação de louças, metais e acessórios', un:'VB', valor:800},
+  {cat:'Instalações Hidráulicas', desc:'Instalação de louças, metais e acessórios', un:'Verba', valor:800},
   // Instalações Elétricas
   {cat:'Instalações Elétricas', desc:'Ponto de tomada', un:'UN', valor:200},
   {cat:'Instalações Elétricas', desc:'Ponto de iluminação', un:'UN', valor:220},
   {cat:'Instalações Elétricas', desc:'Interruptor', un:'UN', valor:180},
   {cat:'Instalações Elétricas', desc:'Ponto de internet / antena de TV', un:'UN', valor:210},
   {cat:'Instalações Elétricas', desc:'Instalação de fita / perfil de LED', un:'m', valor:45},
-  {cat:'Instalações Elétricas', desc:'Adequação e balanceamento de quadro elétrico', un:'VB', valor:1500},
+  {cat:'Instalações Elétricas', desc:'Adequação e balanceamento de quadro elétrico', un:'Verba', valor:1500},
   // Forro e Gesso
   {cat:'Forro e Gesso', desc:'Forro de gesso acartonado', un:'m²', valor:90},
-  {cat:'Forro e Gesso', desc:'Regularização de paredes com gesso', un:'VB', valor:950},
+  {cat:'Forro e Gesso', desc:'Regularização de paredes com gesso', un:'Verba', valor:950},
   {cat:'Forro e Gesso', desc:'Sanca / cortineiro de gesso', un:'m', valor:120},
   // Pintura
   {cat:'Pintura', desc:'Pintura acrílica em paredes (cor única)', un:'m²', valor:55},
@@ -704,13 +715,13 @@ const BIBLIOTECA_PADRAO = [
   {cat:'Revestimentos e Pisos', desc:'Assentamento de rodapé', un:'m', valor:180},
   {cat:'Revestimentos e Pisos', desc:'Fornecimento de porcelanato (padrão médio)', un:'m²', valor:90},
   // Marcenaria e Acabamentos
-  {cat:'Marcenaria e Acabamentos', desc:'Marcenaria sob medida', un:'VB', valor:0},
-  {cat:'Marcenaria e Acabamentos', desc:'Fornecimento e instalação de pedra / bancada', un:'VB', valor:0},
+  {cat:'Marcenaria e Acabamentos', desc:'Marcenaria sob medida', un:'Verba', valor:0},
+  {cat:'Marcenaria e Acabamentos', desc:'Fornecimento e instalação de pedra / bancada', un:'Verba', valor:0},
   {cat:'Marcenaria e Acabamentos', desc:'Confecção e instalação de suporte de TV', un:'UN', valor:150},
   // Serviços Gerais
-  {cat:'Serviços Gerais', desc:'Limpeza fina de entrega de obra', un:'VB', valor:500},
-  {cat:'Serviços Gerais', desc:'Proteção de piso e móveis (lona / papelão)', un:'VB', valor:300},
-  {cat:'Serviços Gerais', desc:'Isolamento e mobilização da área da obra', un:'VB', valor:0}
+  {cat:'Serviços Gerais', desc:'Limpeza fina de entrega de obra', un:'Verba', valor:500},
+  {cat:'Serviços Gerais', desc:'Proteção de piso e móveis (lona / papelão)', un:'Verba', valor:300},
+  {cat:'Serviços Gerais', desc:'Isolamento e mobilização da área da obra', un:'Verba', valor:0}
 ];
 
 /* ──────── INIT ──────── */
@@ -731,6 +742,8 @@ function carregarDados() {
     biblioteca = BIBLIOTECA_PADRAO.map((b,i) => ({ id: 'b'+Date.now()+i, ...b }));
     salvarJSON(LS.bib, biblioteca);
   }
+  let _mig=false; biblioteca.forEach(b=>{ if(b.un==='VB'||b.un==='vb'){ b.un='Verba'; _mig=true; } });
+  if(_mig) salvarJSON(LS.bib, biblioteca);
   config = lerJSON(LS.cfg) || { empNome:'FM Serviço de Reforma e Construção Ltda', empTel:'(85) 98762-5872', empCidade:'Fortaleza/CE', garantiaSolidezAnos:5, garantiaAcabamentosMeses:12, multaEntregaDiaUtil:0.3, tetoMultaEntrega:10, multaPagamento:2, jurosMora:1, multaRescisao:10, tetoAditivos:15 };
 }
 
@@ -778,7 +791,7 @@ function irView(v, el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   $('view-'+v).classList.add('active');
   if(el) el.classList.add('active');
-  $('header-view-name').textContent = NOMES_VIEW[v] || '';
+  { const _hv=$('header-view-name'); if(_hv) _hv.textContent = NOMES_VIEW[v] || ''; }
   if(v==='inicio') renderDashboard();
   if(v==='biblioteca') renderBiblioteca();
   if(v==='config') preencherConfigCampos();
@@ -924,7 +937,12 @@ function atualizarPagamentoPreview(){ const el=$('pagamento-preview'); if(!el) r
    ════════════════════════════════════════════ */
 
 /* ──────── DASHBOARD ──────── */
+function atualizarHeaderMeta(){
+  const d=$('header-data'); if(d) d.textContent = new Date().toLocaleDateString('pt-BR');
+  const o=$('header-orcs'); if(o){ const n=(historico||[]).length; o.textContent = n+' '+(n===1?'orçamento':'orçamentos'); }
+}
 function renderDashboard(){
+  atualizarHeaderMeta();
   const total = historico.length;
   const aprovados = historico.filter(o=>o.status==='Aprovado');
   const valorAprovado = aprovados.reduce((s,o)=>s+(o.total||0),0);
@@ -1003,7 +1021,7 @@ function renderBiblioteca(){
   if(!filtrados.length){ c.innerHTML='<div class="empty-state"><p>Nenhum serviço encontrado.</p></div>'; return; }
   const cats={}; filtrados.forEach(b=>{ (cats[b.cat]=cats[b.cat]||[]).push(b); });
   let html='';
-  Object.keys(cats).forEach(cat=>{
+  ordenarCats(Object.keys(cats)).forEach(cat=>{
     html+='<div class="lib-cat-header">'+escHtml(cat)+'</div>';
     cats[cat].forEach(b=>{
       html+='<div class="lib-item">'+
@@ -1050,35 +1068,60 @@ function importarLote(){
 
 /* ──────── BIBLIOTECA: SELEÇÃO PARA O ORÇAMENTO ──────── */
 let libSelCount = 0;
-function abrirLibSelecao(gi){ libSelTargetGrupo=gi; libSelCount=0; setVal('lib-sel-search',''); renderLibSelecao(); atualizarBtnConcluir(); abrirModal('modal-lib-sel'); }
+let libSelAdded = {};
+let libSelCatFiltro = 'Todos';
+const ORDEM_CATEGORIAS = ['Pacotes Prontos FM','Serviços Gerais','Demolições e Retiradas','Alvenaria e Estrutura','Instalações Hidráulicas','Instalações Elétricas','Forro e Gesso','Revestimentos e Pisos','Marcenaria e Acabamentos','Pintura'];
+function ordenarCats(keys){ return keys.slice().sort((a,b)=>{ let ia=ORDEM_CATEGORIAS.indexOf(a), ib=ORDEM_CATEGORIAS.indexOf(b); if(ia<0)ia=999; if(ib<0)ib=999; return ia-ib || a.localeCompare(b); }); }
+function setLibCat(c){ libSelCatFiltro=c; renderLibSelecao(); }
+function abrirLibSelecao(gi){ libSelTargetGrupo=gi; libSelCount=0; libSelAdded={}; libSelCatFiltro='Todos'; setVal('lib-sel-search',''); renderLibSelecao(); atualizarBtnConcluir(); abrirModal('modal-lib-sel'); }
 function atualizarBtnConcluir(){ const b=$('btn-concluir-lib'); if(b) b.textContent = libSelCount>0 ? 'Concluir ('+libSelCount+' adicionado'+(libSelCount>1?'s':'')+')' : 'Concluir'; }
-function copiarEnderecoCliente(){ setVal('obra-cep', val('cliente-cep')); setVal('obra-endereco', val('cliente-endereco')); autosave(); if(!val('cliente-endereco')) notif('Preencha o endereço do cliente primeiro'); else notif('Endereço do cliente copiado para a obra'); }
 function renderLibSelecao(){
   const q=(val('lib-sel-search')||'').toLowerCase().trim();
-  const filtrados=biblioteca.filter(b=> !q || (b.desc+' '+b.cat).toLowerCase().includes(q));
+  const base=biblioteca.filter(b=> !q || (b.desc+' '+b.cat).toLowerCase().includes(q));
+  const chipsEl=$('lib-sel-cats');
+  if(chipsEl){
+    const catsDisp=ordenarCats([...new Set(base.map(b=>b.cat))]);
+    let ch='<button type="button" class="cat-chip'+(libSelCatFiltro==='Todos'?' ativo':'')+'" onclick="setLibCat(\'Todos\')">Todos</button>';
+    catsDisp.forEach(cat=>{ ch+='<button type="button" class="cat-chip'+(libSelCatFiltro===cat?' ativo':'')+'" onclick="setLibCat(\''+cat.replace(/'/g,"\\'")+'\')">'+escHtml(cat)+'</button>'; });
+    chipsEl.innerHTML=ch;
+  }
+  const filtrados = (libSelCatFiltro==='Todos') ? base : base.filter(b=>b.cat===libSelCatFiltro);
   const c=$('lib-sel-container');
   if(!filtrados.length){ c.innerHTML='<div class="empty-state"><p>Nada encontrado.</p></div>'; return; }
   const cats={}; filtrados.forEach(b=>{ (cats[b.cat]=cats[b.cat]||[]).push(b); });
   let html='';
-  Object.keys(cats).forEach(cat=>{
+  ordenarCats(Object.keys(cats)).forEach(cat=>{
     html+='<div class="lib-cat-header">'+escHtml(cat)+'</div>';
     cats[cat].forEach(b=>{
-      html+='<div class="lib-item selecionavel" onclick="inserirDaLib(\''+b.id+'\')">'+
+      const add=libSelAdded[b.id]||0;
+      const cls='lib-item selecionavel'+(add?' lib-add-feito':'');
+      const icone=add?'✓':'+';
+      const badge=add>1?'<span class="lib-add-badge">'+add+'</span>':'';
+      const un=(b.un==='VB'||b.un==='vb')?'Verba':(b.un||'UN');
+      html+='<div class="'+cls+'" onclick="inserirDaLib(\''+b.id+'\', this)">'+
         '<div class="lib-item-info"><div class="lib-item-desc">'+escHtml(b.desc)+'</div>'+
-        '<div class="lib-item-meta"><b>'+formatBRL(b.valor)+'</b> / '+escHtml(b.un||'UN')+'</div></div>'+
-        '<div class="lib-item-acoes"><div class="lib-icon-btn" style="color:var(--verde)">+</div></div></div>';
+        '<div class="lib-item-meta"><b>'+formatBRL(b.valor)+'</b> / '+escHtml(un)+'</div></div>'+
+        '<div class="lib-item-acoes">'+badge+'<div class="lib-icon-btn add-ico">'+icone+'</div></div></div>';
     });
   });
   c.innerHTML=html;
 }
-function inserirDaLib(id){
+function inserirDaLib(id, el){
   const b=biblioteca.find(x=>x.id===id); if(!b||libSelTargetGrupo==null)return;
   const g=grupos[libSelTargetGrupo];
-  // se o último item está vazio, substitui; senão adiciona
   const ult=g.itens[g.itens.length-1];
-  const item={desc:b.desc,qty:1,unidade:b.un||'UN',valor:b.valor||0};
+  const un=(b.un==='VB'||b.un==='vb')?'Verba':(b.un||'UN');
+  const item={desc:b.desc,qty:1,unidade:un,valor:b.valor||0};
   if(ult && !ult.desc && !ult.valor) g.itens[g.itens.length-1]=item; else g.itens.push(item);
-  renderGrupos(); autosave(); libSelCount++; atualizarBtnConcluir(); notif('Adicionado: '+(b.desc.length>32?b.desc.substring(0,32)+'…':b.desc));
+  renderGrupos(); autosave();
+  libSelCount++; libSelAdded[id]=(libSelAdded[id]||0)+1;
+  if(el){
+    el.classList.add('lib-add-feito');
+    const ic=el.querySelector('.lib-icon-btn'); if(ic) ic.textContent='✓';
+    if(libSelAdded[id]>1){ const ac=el.querySelector('.lib-item-acoes'); if(ac){ let bd=ac.querySelector('.lib-add-badge'); if(!bd){ bd=document.createElement('span'); bd.className='lib-add-badge'; ac.insertBefore(bd, ac.firstChild); } bd.textContent=libSelAdded[id]; } }
+  }
+  atualizarBtnConcluir();
+  notif('Adicionado: '+(b.desc.length>32?b.desc.substring(0,32)+'…':b.desc));
 }
 
 /* ──────── CONFIG ──────── */
@@ -1460,24 +1503,8 @@ function imprimir(html, titulo){
 
 </script>
 <script>
-/* ──────── PREFERÊNCIAS DE INTERFACE (apenas visual; não toca nas chaves fm_v3_*) ──────── */
-(function(){
-  var KEY = 'fm_v3_ui';
-  var btn = document.getElementById('hc-toggle');
-  function ler(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
-  function aplicar(on){
-    document.documentElement.classList.toggle('alto-contraste', !!on);
-    if (btn) btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-  }
-  var ui = ler();
-  aplicar(ui.altoContraste);
-  if (btn) btn.addEventListener('click', function(){
-    ui = ler();
-    ui.altoContraste = !ui.altoContraste;
-    try { localStorage.setItem(KEY, JSON.stringify(ui)); } catch(e){}
-    aplicar(ui.altoContraste);
-  });
-})();
+/* Alto contraste sempre ativo (leitura sob sol forte) */
+document.documentElement.classList.add('alto-contraste');
 </script>
 </body>
 </html>
