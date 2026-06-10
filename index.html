@@ -57,6 +57,9 @@
   /* ── HEADER ── */
   .app-header { background: var(--azul-escuro); border-bottom: 1px solid var(--cinza-borda); box-shadow: 0 1px 0 rgba(204,20,20,.55), 0 10px 24px -14px rgba(0,0,0,.8); padding: 0 16px; min-height: var(--header-h); position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 12px; }
   .logo-box { background: var(--vermelho); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 9px; flex-shrink: 0; box-shadow: 0 4px 14px -4px rgba(204,20,20,.7); }
+  .hdr-voltar { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--cinza-borda); background: var(--azul-medio); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: transform .12s, background .15s; padding: 0; }
+  .hdr-voltar svg { width: 20px; height: 20px; }
+  .hdr-voltar:active { transform: scale(.9); background: var(--azul-claro); }
   .logo-box span { font-family: 'Bebas Neue', sans-serif; font-size: 21px; color: #fff; letter-spacing: .5px; transform: translateY(1px); }
   .logo-mark { display: flex; align-items: center; flex-shrink: 0; }
   .logo-mark svg { display: block; filter: drop-shadow(0 4px 12px rgba(0,0,0,.35)); }
@@ -243,7 +246,10 @@
   .lib-item-meta b { color: var(--vermelho-texto); font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; letter-spacing: .3px; }
   .lib-item-acoes { display: flex; gap: 7px; flex-shrink: 0; }
   .lib-icon-btn { background: var(--azul-claro); border: 1px solid var(--cinza-borda); border-radius: 9px; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--cinza-texto); font-size: 14px; transition: all .15s; }
+  .lib-icon-btn svg { width: 17px; height: 17px; }
   .lib-icon-btn:active { color: #fff; transform: scale(.92); }
+  .lib-icon-del { color: var(--vermelho-texto); border-color: rgba(204,20,20,.4); background: rgba(204,20,20,.1); }
+  .lib-icon-del:active { color: #fff; background: rgba(204,20,20,.32); }
   .lib-item.selecionavel { cursor: pointer; }
   .lib-item.selecionavel:active { border-color: var(--verde); transform: scale(.985); }
   .lib-item.selecionavel .lib-icon-btn { font-size: 19px; font-weight: 700; border-color: rgba(46,204,113,.45); background: rgba(46,204,113,.12); }
@@ -270,6 +276,12 @@
   /* ── TOAST ── */
   .notif { position: fixed; bottom: calc(102px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%) translateY(8px); background: #0A1622; border: 1px solid var(--cinza-borda); border-left: 3px solid var(--vermelho); color: #fff; padding: 12px 20px; border-radius: var(--raio-m); font-size: 13.5px; font-weight: 600; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,.6); opacity: 0; transition: opacity .25s, transform .25s; pointer-events: none; max-width: min(90vw, 420px); text-align: center; }
   .notif.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  /* Toast com ação (ex.: Desfazer exclusão) */
+  .notif-acao { position: fixed; bottom: calc(102px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%) translateY(8px); display: none; align-items: center; gap: 14px; background: #0A1622; border: 1px solid var(--cinza-borda); border-left: 3px solid var(--verde); color: #fff; padding: 11px 12px 11px 18px; border-radius: var(--raio-m); font-size: 13.5px; font-weight: 600; z-index: 2001; box-shadow: 0 10px 30px rgba(0,0,0,.6); opacity: 0; transition: opacity .25s, transform .25s; max-width: min(92vw, 440px); }
+  .notif-acao.show { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); }
+  .notif-acao span { flex: 1; min-width: 0; }
+  .notif-acao button { flex-shrink: 0; background: var(--verde); color: #06371C; border: none; border-radius: var(--raio-s); padding: 8px 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: transform .12s, filter .15s; }
+  .notif-acao button:active { transform: scale(.95); filter: brightness(.92); }
 
   /* ── TABLET / DESKTOP ── */
   @media (min-width: 700px) {
@@ -323,7 +335,10 @@
   .pdf-condicao-item { padding: 11px 12px; background: #F2F3F5; border-radius: 6px; }
   .pdf-condicao-item strong { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #CC1414; margin-bottom: 3px; }
   .pdf-condicao-item span { font-size: 11px; color: #444; line-height: 1.45; }
-  .pdf-assinar { display: flex; gap: 44px; margin-top: 40px; page-break-inside: avoid; }
+  /* Bloco de fecho: mantém Condições + Assinaturas juntas para que a assinatura nunca caia sozinha numa página */
+  .pdf-fecho { page-break-inside: avoid; break-inside: avoid; }
+  .pdf-fecho .pdf-condicoes { margin-top: 16px; }
+  .pdf-assinar { display: flex; gap: 44px; margin-top: 30px; page-break-inside: avoid; break-inside: avoid; }
   .pdf-assinar-campo { flex: 1; border-top: 1.5px solid #9AA1A8; padding-top: 8px; }
   .pdf-footer { background: #0D1B2A; padding: 18px 36px; display: flex; justify-content: space-between; align-items: center; margin-top: 24px; border-radius: 0 0 8px 8px; }
   .pdf-footer p { font-size: 10px; color: rgba(255,255,255,.5); }
@@ -393,7 +408,11 @@
 
 <!-- HEADER -->
 <div class="app-header">
+  <button class="hdr-voltar" id="btn-voltar" onclick="voltar()" aria-label="Voltar" style="display:none">
+    <svg fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
   <span class="logo-mark" role="img" aria-label="FM Serviço de Reforma e Construção"><svg viewBox="0 0 128 128" width="44" height="44"><use href="#fm-mark"/></svg></span>
+  <span class="header-view-name" id="header-view-name" style="display:none">Início</span>
   <div class="header-spacer"></div>
   <div class="header-meta">
     <span class="header-data" id="header-data"></span>
@@ -418,10 +437,10 @@
   <!-- ══════ VIEW: COTAÇÃO ══════ -->
   <div class="view" id="view-cotacao" data-screen-label="Cotação (Editor)">
     <div class="subtabs">
-      <div class="subtab active" onclick="subAba('cliente', this)" role="button" tabindex="0">Cliente</div>
-      <div class="subtab" onclick="subAba('servicos', this)" role="button" tabindex="0">Serviços</div>
-      <div class="subtab" onclick="subAba('totais', this)" role="button" tabindex="0">Totais</div>
-      <div class="subtab" onclick="subAba('condicoes', this)" role="button" tabindex="0">Condições</div>
+      <div class="subtab active" data-sub="cliente" onclick="subAba('cliente', this)" role="button" tabindex="0">Cliente</div>
+      <div class="subtab" data-sub="servicos" onclick="subAba('servicos', this)" role="button" tabindex="0">Serviços</div>
+      <div class="subtab" data-sub="totais" onclick="subAba('totais', this)" role="button" tabindex="0">Totais</div>
+      <div class="subtab" data-sub="condicoes" onclick="subAba('condicoes', this)" role="button" tabindex="0">Condições</div>
     </div>
 
     <!-- SUB: CLIENTE -->
@@ -668,6 +687,25 @@
   </div>
 </div>
 
+<!-- MODAL: CONFIRMAR EXCLUSÃO DA BIBLIOTECA -->
+<div class="modal-overlay" id="modal-lib-del">
+  <div class="modal" data-screen-label="Modal — Confirmar exclusão">
+    <div class="modal-header"><h3>Remover serviço?</h3><button class="modal-close" onclick="fecharModal('modal-lib-del')" aria-label="Fechar">✕</button></div>
+    <div class="modal-orc-resumo" id="lib-del-resumo"></div>
+    <p class="modal-hint">O serviço sairá da biblioteca. Você poderá desfazer logo após a remoção.</p>
+    <div class="modal-acoes">
+      <button class="btn btn-sec" onclick="fecharModal('modal-lib-del')"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>Cancelar</button>
+      <button class="btn btn-perigo" onclick="confirmarExcluirItemLib()"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg>Remover</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST COM AÇÃO (desfazer exclusão) -->
+<div class="notif-acao" id="notif-acao" role="status">
+  <span id="notif-acao-msg">Serviço removido</span>
+  <button type="button" onclick="desfazerExclusaoLib()">Desfazer</button>
+</div>
+
 <div id="pdf-preview"></div>
 <div class="notif" id="notif"></div>
 
@@ -752,6 +790,9 @@ document.addEventListener('DOMContentLoaded', () => {
   attachMasks();
   renderDashboard();
   preencherConfigCampos();
+  // Estado de navegação inicial: começa no Painel, sem histórico e com o botão Voltar oculto
+  viewAtual = 'inicio'; subAbaAtual = 'cliente'; navStack = [];
+  atualizarBotaoVoltar();
 });
 
 function carregarDados() {
@@ -763,7 +804,14 @@ function carregarDados() {
   }
   let _mig=false; biblioteca.forEach(b=>{ if(b.un==='VB'||b.un==='vb'){ b.un='Verba'; _mig=true; } });
   if(_mig) salvarJSON(LS.bib, biblioteca);
-  config = lerJSON(LS.cfg) || { empNome:'FM Serviço de Reforma e Construção Ltda', empTel:'(85) 98762-5872', empCidade:'Fortaleza/CE', garantiaSolidezAnos:5, garantiaAcabamentosMeses:12, multaEntregaDiaUtil:0.3, tetoMultaEntrega:10, multaPagamento:2, jurosMora:1, multaRescisao:10, tetoAditivos:15 };
+  config = lerJSON(LS.cfg) || {};
+  // Dados institucionais fixos da FM — aplicados como padrão e preenchidos em configs antigas que estejam sem eles
+  const _fm = { empNome:'FM Serviço de Reforma e Construção Ltda', empCnpj:'40.856.036/0001-96', empResp:'Fabiano Marques', empTel:'(85) 98762-5872', empCidade:'Fortaleza/CE' };
+  const _padraoNum = { garantiaSolidezAnos:5, garantiaAcabamentosMeses:12, multaEntregaDiaUtil:0.3, tetoMultaEntrega:10, multaPagamento:2, jurosMora:1, multaRescisao:10, tetoAditivos:15 };
+  let _migCfg=false;
+  Object.keys(_fm).forEach(k=>{ if(config[k]===undefined || config[k]===null || config[k]===''){ config[k]=_fm[k]; _migCfg=true; } });
+  Object.keys(_padraoNum).forEach(k=>{ if(config[k]===undefined || config[k]===null){ config[k]=_padraoNum[k]; _migCfg=true; } });
+  if(_migCfg) salvarJSON(LS.cfg, config);
 }
 
 /* ──────── HELPERS BÁSICOS ──────── */
@@ -805,24 +853,71 @@ async function buscarCep(cep,idEnd){ try{ notif('Buscando endereço...'); const 
 
 /* ──────── NAVEGAÇÃO ──────── */
 const NOMES_VIEW = { inicio:'Início', cotacao:'Cotação', biblioteca:'Biblioteca', config:'Ajustes' };
-function irView(v, el){
+const NOMES_SUBABA = { cliente:'Cliente', servicos:'Serviços', totais:'Totais', condicoes:'Condições' };
+let viewAtual = 'inicio';
+let subAbaAtual = 'cliente';
+/* Pilha de navegação para o botão Voltar. Cada item: {view, sub} */
+let navStack = [];
+
+function irView(v, el, _semHistorico){
+  // Empilha o estado anterior (exceto quando for navegação de "voltar")
+  if(!_semHistorico && v !== viewAtual){
+    navStack.push({ view: viewAtual, sub: subAbaAtual });
+    if(navStack.length > 50) navStack.shift();
+  }
   document.querySelectorAll('.view').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   $('view-'+v).classList.add('active');
   if(el) el.classList.add('active');
+  else { const ni=document.querySelector('.nav-item[data-view="'+v+'"]'); if(ni) ni.classList.add('active'); }
+  viewAtual = v;
   { const _hv=$('header-view-name'); if(_hv) _hv.textContent = NOMES_VIEW[v] || ''; }
   if(v==='inicio') renderDashboard();
   if(v==='biblioteca') renderBiblioteca();
   if(v==='config') preencherConfigCampos();
+  atualizarBotaoVoltar();
   window.scrollTo(0,0);
 }
-function subAba(id, el){
+function subAba(id, el, _semHistorico){
+  // Empilha o estado anterior dentro do editor (exceto navegação de "voltar")
+  if(!_semHistorico && viewAtual==='cotacao' && id !== subAbaAtual){
+    navStack.push({ view: 'cotacao', sub: subAbaAtual });
+    if(navStack.length > 50) navStack.shift();
+  }
   document.querySelectorAll('.subview').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.subtab').forEach(t=>t.classList.remove('active'));
   $('sv-'+id).classList.add('active');
   if(el) el.classList.add('active');
+  else { const st=document.querySelector('.subtab[data-sub="'+id+'"]'); if(st) st.classList.add('active'); }
+  subAbaAtual = id;
   if(id==='totais'){ recalcular(); renderResumoGrupos(); }
+  atualizarBotaoVoltar();
   window.scrollTo(0,0);
+}
+/* Mostra/oculta e rotula o botão Voltar conforme a tela atual */
+function atualizarBotaoVoltar(){
+  const btn = $('btn-voltar'); const hv = $('header-view-name');
+  if(!btn) return;
+  const naHome = (viewAtual==='inicio');
+  btn.style.display = naHome ? 'none' : 'flex';
+  if(hv) hv.style.display = naHome ? 'none' : 'inline-block';
+}
+/* Desfaz o último passo de navegação; recupera o usuário de cliques errados */
+function voltar(){
+  // Se há um modal aberto, fecha-o primeiro (recuperação imediata)
+  const modalAberto = document.querySelector('.modal-overlay.show');
+  if(modalAberto){ fecharModal(modalAberto.id); return; }
+  if(navStack.length){
+    const destino = navStack.pop();
+    if(destino.view==='cotacao'){
+      irView('cotacao', null, true);
+      subAba(destino.sub || 'cliente', null, true);
+    } else {
+      irView(destino.view || 'inicio', null, true);
+    }
+  } else {
+    irView('inicio', null, true);
+  }
 }
 
 /* ──────── COTAÇÃO: NOVA / CARREGAR ──────── */
@@ -833,7 +928,7 @@ function proximoNumero(){
 function novaCotacao(){
   novaCotacaoSilenciosa();
   irView('cotacao', document.querySelector('.nav-item[data-view="cotacao"]'));
-  subAba('cliente', document.querySelectorAll('.subtab')[0]);
+  subAba('cliente', document.querySelectorAll('.subtab')[0], true);
   notif('Nova cotação iniciada');
 }
 function novaCotacaoSilenciosa(){
@@ -994,7 +1089,7 @@ function renderDashboard(){
 /* ──────── SALVAR / HISTÓRICO ──────── */
 function salvarOrcamento(avisar){
   const o = lerOrcamentoDosCampos();
-  if(!o.cliente.nome){ notif('Informe o nome do cliente antes de salvar'); subAba('cliente', document.querySelectorAll('.subtab')[0]); return; }
+  if(!o.cliente.nome){ notif('Informe o nome do cliente antes de salvar'); subAba('cliente', document.querySelectorAll('.subtab')[0], true); return; }
   o.ano = new Date().getFullYear();
   if(orcamentoEditandoId){
     const idx=historico.findIndex(x=>x.id===orcamentoEditandoId);
@@ -1021,7 +1116,7 @@ function abrirModalOrc(id){
   $('btn-aprovar').style.display = o.status==='Aprovado' ? 'none' : 'flex';
   abrirModal('modal-orc');
 }
-function acaoEditar(){ const o=historico.find(x=>x.id===modalOrcId); if(!o)return; aplicarOrcamento(o); salvarRascunho(); fecharModal('modal-orc'); irView('cotacao', document.querySelector('.nav-item[data-view="cotacao"]')); subAba('cliente', document.querySelectorAll('.subtab')[0]); notif('Orçamento carregado no editor'); }
+function acaoEditar(){ const o=historico.find(x=>x.id===modalOrcId); if(!o)return; aplicarOrcamento(o); salvarRascunho(); fecharModal('modal-orc'); irView('cotacao', document.querySelector('.nav-item[data-view="cotacao"]')); subAba('cliente', document.querySelectorAll('.subtab')[0], true); notif('Orçamento carregado no editor'); }
 function acaoAprovar(){ const idx=historico.findIndex(x=>x.id===modalOrcId); if(idx<0)return; historico[idx].status='Aprovado'; historico[idx].aprovadoEm=Date.now(); salvarJSON(LS.hist,historico); fecharModal('modal-orc'); renderDashboard(); notif('Orçamento aprovado'); }
 function acaoExcluir(){ if(!confirm('Excluir este orçamento permanentemente?'))return; historico=historico.filter(x=>x.id!==modalOrcId); salvarJSON(LS.hist,historico); fecharModal('modal-orc'); renderDashboard(); notif('Orçamento excluído'); }
 function acaoPDF(){ const o=historico.find(x=>x.id===modalOrcId); if(!o)return; fecharModal('modal-orc'); gerarPDFde(o); }
@@ -1047,8 +1142,8 @@ function renderBiblioteca(){
         '<div class="lib-item-info"><div class="lib-item-desc">'+escHtml(b.desc)+'</div>'+
         '<div class="lib-item-meta"><b>'+formatBRL(b.valor)+'</b> / '+escHtml(b.un||'UN')+'</div></div>'+
         '<div class="lib-item-acoes">'+
-          '<button class="lib-icon-btn" onclick="abrirEdicaoLib(\''+b.id+'\')">✎</button>'+
-          '<button class="lib-icon-btn" onclick="excluirItemLib(\''+b.id+'\')">&#10005;</button>'+
+          '<button class="lib-icon-btn" onclick="abrirEdicaoLib(\''+b.id+'\')" aria-label="Editar serviço" title="Editar"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>'+
+          '<button class="lib-icon-btn lib-icon-del" onclick="excluirItemLib(\''+b.id+'\')" aria-label="Remover serviço" title="Remover"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg></button>'+
         '</div></div>';
     });
   });
@@ -1072,7 +1167,62 @@ function salvarItemLib(){
   else { biblioteca.push({id:'b'+Date.now(),cat,desc,un,valor}); }
   salvarJSON(LS.bib,biblioteca); fecharModal('modal-lib-edit'); renderBiblioteca(); notif('Salvo na biblioteca');
 }
-function excluirItemLib(id){ if(!confirm('Remover este serviço da biblioteca?'))return; biblioteca=biblioteca.filter(x=>x.id!==id); salvarJSON(LS.bib,biblioteca); renderBiblioteca(); notif('Removido'); }
+/* Exclusão segura da biblioteca: confirmação em modal + opção de desfazer */
+let libDelId = null;                 // item aguardando confirmação de exclusão
+let libUltimoRemovido = null;        // { item, indice } para permitir desfazer
+let libUndoTimer = null;
+
+function excluirItemLib(id){
+  const b = biblioteca.find(x=>x.id===id);
+  if(!b){ return; }
+  libDelId = id;
+  const resumo = $('lib-del-resumo');
+  if(resumo){
+    resumo.innerHTML =
+      '<div class="linha"><span>Serviço</span><b>'+escHtml(b.desc)+'</b></div>'+
+      '<div class="linha"><span>Categoria</span><b>'+escHtml(b.cat||'Outros')+'</b></div>'+
+      '<div class="linha"><span>Valor</span><b>'+formatBRL(b.valor)+' / '+escHtml(b.un||'UN')+'</b></div>';
+  }
+  abrirModal('modal-lib-del');
+}
+function confirmarExcluirItemLib(){
+  const id = libDelId; if(!id){ fecharModal('modal-lib-del'); return; }
+  const idx = biblioteca.findIndex(x=>x.id===id);
+  if(idx<0){ fecharModal('modal-lib-del'); return; }
+  libUltimoRemovido = { item: biblioteca[idx], indice: idx };
+  biblioteca.splice(idx,1);
+  salvarJSON(LS.bib, biblioteca);
+  libDelId = null;
+  fecharModal('modal-lib-del');
+  renderBiblioteca();
+  toastAcao('Serviço removido', 'desfazerExclusaoLib');
+}
+function desfazerExclusaoLib(){
+  if(!libUltimoRemovido){ esconderToastAcao(); return; }
+  const { item, indice } = libUltimoRemovido;
+  // Evita duplicar caso o mesmo id já exista
+  if(!biblioteca.some(x=>x.id===item.id)){
+    const pos = Math.min(Math.max(indice,0), biblioteca.length);
+    biblioteca.splice(pos, 0, item);
+    salvarJSON(LS.bib, biblioteca);
+  }
+  libUltimoRemovido = null;
+  esconderToastAcao();
+  renderBiblioteca();
+  notif('Exclusão desfeita');
+}
+/* Toast com botão de ação; expira em 6s e então confirma a remoção definitivamente */
+function toastAcao(msg){
+  const t = $('notif-acao'); if(!t){ notif(msg); return; }
+  const m = $('notif-acao-msg'); if(m) m.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(libUndoTimer);
+  libUndoTimer = setTimeout(()=>{ libUltimoRemovido = null; esconderToastAcao(); }, 6000);
+}
+function esconderToastAcao(){
+  const t = $('notif-acao'); if(t) t.classList.remove('show');
+  clearTimeout(libUndoTimer);
+}
 
 /* ──────── IMPORTAR EM MASSA ──────── */
 function abrirImportar(){ setVal('imp-cat',''); setVal('imp-texto',''); abrirModal('modal-importar'); }
@@ -1155,8 +1305,8 @@ function preencherConfigCampos(){
 }
 function salvarConfig(){
   config = {
-    empNome:val('cfg-emp-nome')||'FM Serviço de Reforma', empResp:val('cfg-emp-resp'),
-    empCnpj:val('cfg-emp-cnpj'), empTel:val('cfg-emp-tel')||'(85) 98762-5872',
+    empNome:val('cfg-emp-nome')||'FM Serviço de Reforma e Construção Ltda', empResp:val('cfg-emp-resp')||'Fabiano Marques',
+    empCnpj:val('cfg-emp-cnpj')||'40.856.036/0001-96', empTel:val('cfg-emp-tel')||'(85) 98762-5872',
     empEmail:val('cfg-emp-email'), empCidade:val('cfg-emp-cidade')||'Fortaleza/CE',
     garantiaSolidezAnos:parseInt(val('cfg-garantia-solidez'))||5, garantiaAcabamentosMeses:parseInt(val('cfg-garantia-acab'))||12,
     multaEntregaDiaUtil:parseFloat(val('cfg-multa-entrega'))||0.3, tetoMultaEntrega:parseInt(val('cfg-multa-max'))||10,
@@ -1201,12 +1351,14 @@ function gerarPDFde(o){
   ((o.desconto||0)>0?'<div class="pdf-total-linha"><label>Desconto ('+o.desconto+'%)</label><span>- '+formatBRL(descV)+'</span></div>':'')+
   '<div class="pdf-total-linha destaque"><label>Investimento Total</label><span>'+formatBRL(total)+'</span></div></div>'+
   (o.obs?'<div class="pdf-observacoes"><h4>Observações Gerais</h4><p>'+escHtml(o.obs).replace(/\n/g,'<br>')+'</p></div>':'')+
+  '<div class="pdf-fecho">'+
   '<div class="pdf-condicoes"><h4>Condições Comerciais</h4><div class="pdf-condicoes-grid">'+
     condItem('Forma de Pagamento',pagamentoDoOrc(o))+condItem('Validade',(o.validade||'5 dias')+' a partir da emissão')+
     condItem('Prazo de Execução',(o.obra&&o.obra.prazo)||'A definir')+condItem('Início Previsto',obraInicio)+
   '</div></div>'+
-  '<div class="pdf-assinar"><div class="pdf-assinar-campo"><p style="font-weight:700;font-size:11px">'+escHtml(e.empNome||'FM')+'</p>'+(e.empResp?'<p style="font-size:10px;color:#555">'+escHtml(e.empResp)+'</p>':'')+(e.empCnpj?'<p style="font-size:10px;color:#888">CNPJ: '+escHtml(e.empCnpj)+'</p>':'')+'<p style="font-size:10px;color:#888;margin-top:2px">WhatsApp: '+escHtml(e.empTel||'')+(e.empEmail?' | '+escHtml(e.empEmail):'')+'</p></div>'+
+  '<div class="pdf-assinar"><div class="pdf-assinar-campo"><p style="font-weight:700;font-size:11px">'+escHtml(e.empNome||'FM')+'</p>'+(e.empResp?'<p style="font-size:10px;color:#555">'+escHtml(e.empResp)+'</p>':'')+'<p style="font-size:10px;color:#888">CNPJ: '+escHtml(e.empCnpj||'40.856.036/0001-96')+'</p>'+'<p style="font-size:10px;color:#888;margin-top:2px">WhatsApp: '+escHtml(e.empTel||'')+(e.empEmail?' | '+escHtml(e.empEmail):'')+'</p></div>'+
   '<div class="pdf-assinar-campo"><p style="font-weight:700;font-size:11px">'+escHtml((o.cliente&&o.cliente.nome)||'')+'</p><p style="font-size:10px;color:#888">Assinatura do Contratante</p><p style="font-size:10px;color:#888">Data: ____/____/________</p></div></div>'+
+  '</div>'+
   '</div>'+
   '<div class="pdf-footer"><div><strong>'+escHtml(e.empNome||'FM')+'</strong><p>WhatsApp: '+escHtml(e.empTel||'')+(e.empEmail?' | '+escHtml(e.empEmail):'')+'</p></div><div style="text-align:right"><p style="color:rgba(255,255,255,.35);font-size:9px">Gerado em '+new Date().toLocaleDateString('pt-BR')+'</p></div></div></div>';
   imprimir(html, 'Orcamento FM '+o.numero+' - '+((o.cliente&&o.cliente.nome)||''));
@@ -1216,7 +1368,7 @@ function infoItem(l,v){ return '<div class="pdf-info-item"><label>'+escHtml(l)+'
 function condItem(l,v){ return '<div class="pdf-condicao-item"><strong>'+escHtml(l)+'</strong><span>'+escHtml(v||'—')+'</span></div>'; }
 
 /* ════════════════ GERAÇÃO DE CONTRATO ════════════════ */
-function gerarContrato(){ const o=lerOrcamentoDosCampos(); if(!o.cliente.nome){ notif('Preencha o cliente para gerar o contrato'); subAba('cliente',document.querySelectorAll('.subtab')[0]); return; } gerarContratoDe(o); }
+function gerarContrato(){ const o=lerOrcamentoDosCampos(); if(!o.cliente.nome){ notif('Preencha o cliente para gerar o contrato'); subAba('cliente',document.querySelectorAll('.subtab')[0], true); return; } gerarContratoDe(o); }
 /* ════════════ VALORES POR EXTENSO ════════════ */
 function extenso(valor){
   valor = Math.round((valor||0)*100)/100;
@@ -1495,7 +1647,7 @@ function gerarContratoDe(o){
       '<div class="contrato-data">'+escHtml(cidadeNome)+', '+hojeExt+'.</div>'+
 
       '<div class="assina-bloco">'+
-        '<div class="assina-campo"><div class="assina-linha"><p class="nome">'+escHtml(e.empNome||'CONTRATADA')+'</p><p>CONTRATADA — CNPJ '+escHtml(e.empCnpj||'')+'</p></div></div>'+
+        '<div class="assina-campo"><div class="assina-linha"><p class="nome">'+escHtml(e.empNome||'CONTRATADA')+'</p><p>CONTRATADA — CNPJ '+escHtml(e.empCnpj||'40.856.036/0001-96')+'</p></div></div>'+
         '<div class="assina-campo"><div class="assina-linha"><p class="nome">'+escHtml((o.cliente&&o.cliente.nome)||'CONTRATANTE')+'</p><p>CONTRATANTE'+(o.cliente&&o.cliente.doc?' — '+escHtml(o.cliente.doc):'')+'</p></div></div>'+
       '</div>'+
       '<div class="testemunhas"><div class="testemunha"><div class="assina-linha"><p>Testemunha 1 — Nome / CPF</p></div></div><div class="testemunha"><div class="assina-linha"><p>Testemunha 2 — Nome / CPF</p></div></div></div>'+
