@@ -181,6 +181,7 @@
   .btn-copiar-end { background: rgba(74,144,217,.12); border: 1px solid rgba(74,144,217,.42); color: #7FB3E8; padding: 0 12px; min-height: 44px; border-radius: var(--raio-s); font-family: 'Barlow', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 12px; width: 100%; justify-content: center; transition: transform .12s, background .15s; }
   .btn-copiar-end svg { width: 16px; height: 16px; }
   .btn-copiar-end:active { transform: scale(.98); background: rgba(74,144,217,.22); }
+  .btn-copiar-end.copiou { background: rgba(46,204,113,.18); border-color: var(--verde); color: #BFEFD0; }
 
   /* ── TOTALIZADOR ── */
   .totalizador { background: var(--superficie); border: 1px solid var(--cinza-borda); border-radius: var(--raio-g); overflow: hidden; margin-bottom: 14px; box-shadow: var(--sombra-card); }
@@ -1522,6 +1523,8 @@ function copiarEnderecoCliente(){
   setVal('obra-endereco', end);
   autosave();
   notif('Endereço do cliente copiado para a obra');
+  const btn = document.querySelector('.btn-copiar-end');
+  if(btn){ const h0=btn.innerHTML; btn.classList.add('copiou'); btn.innerHTML='\u2713 Endereço copiado'; setTimeout(()=>{ btn.classList.remove('copiou'); btn.innerHTML=h0; }, 1600); }
 }
 
 function nomeArquivoPDF(t){
